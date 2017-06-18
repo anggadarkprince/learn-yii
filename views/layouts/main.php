@@ -24,7 +24,6 @@ AppAsset::register($this);
 </head>
 <body>
 <?php $this->beginBody() ?>
-
 <div class="wrap">
     <nav id="w0" class="navbar-inverse navbar-fixed-top navbar" role="navigation">
         <div class="container">
@@ -38,33 +37,28 @@ AppAsset::register($this);
             </div>
             <div id="w0-collapse" class="collapse navbar-collapse">
                 <ul id="w1" class="navbar-nav navbar-right nav">
-                    <li><a href="/basic/web/index.php?r=site%2Findex">Home</a></li>
-                    <li><a href="/basic/web/index.php?r=site%2Findex">Discover</a></li>
+                    <li><a href="/basic/web/index.php?r=site/index">Home</a></li>
+                    <li><a href="/basic/web/index.php?r=site/discover">Discover</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Categories <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#">Separated link</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#">One more separated link</a></li>
-                        </ul>
+                        <?= \app\widgets\CategoryMenuWidget::widget() ?>
                     </li>
-                    <li class="active"><a href="/basic/web/index.php?r=site%2Fabout">About</a></li>
-                    <li><a href="/basic/web/index.php?r=site%2Fcontact">Contact</a></li>
-                    <li>
-                        <?php if(Yii::$app->user->isGuest): ?>
-                            <a href="/basic/site/login">Login</a>
-                        <?php else: ?>
-                            <form action="/basic/web/index.php?r=site%2Flogout" method="post">
-                                <input type="hidden" name="_csrf"
-                                       value="dpuZedX2xYZs0w403NgaztTphKv73ueCln0DNLjgMPkVQE9bc7wq22ID2Cw6ceByDsi1xkMke6Lfd1fDYURRrg==">
-                                <button type="submit" class="btn btn-link logout">Logout (<?= Yii::$app->user->identity->username ?>)</button>
-                            </form>
-                        <?php endif; ?>
-                    </li>
+                    <li><a href="/basic/web/index.php?r=site/about">About</a></li>
+                    <?php if(Yii::$app->user->isGuest): ?>
+                        <li><a href="/basic/site/login">Login</a></li>
+                    <?php else: ?>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                Account <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/basic/web/index.php?r=account/dashboard"><?= Yii::$app->user->identity->name ?></a></li>
+                                <li><a href="/basic/web/index.php?r=account/recipes">Recipes</a></li>
+                                <li><a href="/basic/web/index.php?r=account/setting">Account</a></li>
+                                <li><a href="/basic/web/index.php?r=site/logout">Logout</a></li>
+                            </ul>
+                        </li>
+                    <?php endif; ?>
                 </ul>
             </div>
         </div>
