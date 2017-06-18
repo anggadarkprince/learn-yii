@@ -5,6 +5,7 @@ namespace app\widgets;
 use app\models\Category;
 use yii\base\Widget;
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 class CategoryMenuWidget extends Widget
 {
@@ -19,7 +20,7 @@ class CategoryMenuWidget extends Widget
         $menu = '<ul class="dropdown-menu">';
         foreach ($categories as $data) {
             $menu .= '<li>';
-            $menu .= '<a href="/basic/web/index.php?r=category/' . $data->slug . '">';
+            $menu .= '<a href="' . Url::to(['category/'.$data->slug]) . '">';
             $menu .= $data->category;
             $menu .= '</a>';
             $menu .= '</li>';

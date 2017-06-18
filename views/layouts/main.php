@@ -4,8 +4,7 @@
 /* @var $content string */
 
 use yii\helpers\Html;
-use yii\bootstrap\Nav;
-use yii\bootstrap\NavBar;
+use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
@@ -37,15 +36,15 @@ AppAsset::register($this);
             </div>
             <div id="w0-collapse" class="collapse navbar-collapse">
                 <ul id="w1" class="navbar-nav navbar-right nav">
-                    <li><a href="/basic/web/index.php?r=site/index">Home</a></li>
-                    <li><a href="/basic/web/index.php?r=site/discover">Discover</a></li>
+                    <li><a href="<?= Url::home() ?>">Home</a></li>
+                    <li><a href="<?= Url::to(['/discovery']) ?>">Discovery</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Categories <b class="caret"></b></a>
                         <?= \app\widgets\CategoryMenuWidget::widget() ?>
                     </li>
-                    <li><a href="/basic/web/index.php?r=site/about">About</a></li>
+                    <li><a href="<?= Url::to(['/about']) ?>">About</a></li>
                     <?php if(Yii::$app->user->isGuest): ?>
-                        <li><a href="/basic/site/login">Login</a></li>
+                        <li><a href="<?= Url::to(['login']) ?>">Login</a></li>
                     <?php else: ?>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">

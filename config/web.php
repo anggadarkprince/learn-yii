@@ -39,14 +39,14 @@ $config = [
             ],
         ],
         'db' => $db,
-        /*
+        'defaultRoute' => 'site/index',
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'about' => 'site/about',
             ],
         ],
-        */
     ],
     'params' => $params,
 ];
