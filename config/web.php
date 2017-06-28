@@ -45,6 +45,7 @@ $config = [
             'showScriptName' => false,
             'rules' => [
                 'about' => 'site/about',
+                'logout' => 'site/logout',
             ],
         ],
     ],

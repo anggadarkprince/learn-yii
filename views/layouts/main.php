@@ -24,7 +24,7 @@ AppAsset::register($this);
 <body>
 <?php $this->beginBody() ?>
 <div class="wrap">
-    <nav id="w0" class="navbar-inverse navbar-fixed-top navbar" role="navigation">
+    <nav id="w0" class="navbar-default navbar-fixed-top navbar" role="navigation">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#w0-collapse">
@@ -32,18 +32,25 @@ AppAsset::register($this);
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span></button>
-                <a class="navbar-brand" href="/basic/web/index.php">Yummy</a>
+                <a class="navbar-brand" href="<?= Url::home() ?>">Yummy</a>
             </div>
             <div id="w0-collapse" class="collapse navbar-collapse">
+                <p class="navbar-text">Recipes around the world</p>
                 <ul id="w1" class="navbar-nav navbar-right nav">
-                    <li><a href="<?= Url::home() ?>">Home</a></li>
-                    <li><a href="<?= Url::to(['/discovery']) ?>">Discovery</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Categories <b class="caret"></b></a>
-                        <?= \app\widgets\CategoryMenuWidget::widget() ?>
-                    </li>
-                    <li><a href="<?= Url::to(['/about']) ?>">About</a></li>
-                    <?php if(Yii::$app->user->isGuest): ?>
+                    <form class="navbar-form navbar-left" method="get">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Search" name="q">
+                        </div>
+                    </form>
+                    <li><a href="<?= Url::to(['discovery']) ?>">Discovery</a></li>
+                    <ul id="w1" class="navbar-nav nav">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Browse <b class="caret"></b></a>
+                            <?= \app\widgets\CategoryMenuWidget::widget() ?>
+                        </li>
+                    </ul>
+
+                    <?php if (Yii::$app->user->isGuest): ?>
                         <li><a href="<?= Url::to(['login']) ?>">Login</a></li>
                     <?php else: ?>
                         <li class="dropdown">
@@ -51,10 +58,12 @@ AppAsset::register($this);
                                 Account <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="/basic/web/index.php?r=account/dashboard"><?= Yii::$app->user->identity->name ?></a></li>
-                                <li><a href="/basic/web/index.php?r=account/recipes">Recipes</a></li>
-                                <li><a href="/basic/web/index.php?r=account/setting">Account</a></li>
-                                <li><a href="/basic/web/index.php?r=site/logout">Logout</a></li>
+                                <li>
+                                    <a href="<?= Url::to(['account/dashboard']) ?>"><?= Yii::$app->user->identity->name ?></a>
+                                </li>
+                                <li><a href="<?= Url::to(['account/recipes']) ?>">Recipes</a></li>
+                                <li><a href="<?= Url::to(['account/setting']) ?>">Account</a></li>
+                                <li><a href="<?= Url::to(['account/logout']) ?>">Logout</a></li>
                             </ul>
                         </li>
                     <?php endif; ?>
@@ -73,8 +82,7 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; Yummy - Recipes in web <?= date('Y') ?></p>
-
+        <p class="pull-left">&copy; <a href="<?= Url::to(['about']) ?>">Yummy</a> - Recipes around the world <?= date('Y') ?></p>
         <p class="pull-right"><?= Yii::powered() ?></p>
     </div>
 </footer>

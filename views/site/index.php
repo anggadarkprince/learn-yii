@@ -2,17 +2,25 @@
 
 /* @var $this yii\web\View */
 
-$this->title = 'Yummy number one recipes in the world';
+use yii\helpers\Url;
+
+$this->title = 'Yummy - Number one recipes in the world';
 ?>
 <div class="site-index">
 
     <div class="jumbotron">
         <h1>Let's get yummy!</h1>
 
-        <p class="lead">Find great cooking tips and recipe around the world.</p>
+        <p class="lead">
+            Find great cooking tips and recipe around the world.<br>
+            <small>
+                Find and share everyday cooking inspiration on Yummy. Discover recipes, cooks, videos, and how-tos based
+                on the food you love and the friends you follow.
+            </small>
+        </p>
 
         <p>
-            <a class="btn btn-lg btn-success" href="/basic/web/index.php?r=site/discover">
+            <a class="btn btn-lg btn-primary" href="<?= Url::to(['discovery']) ?>">
                 Discover Delicious Recipes
             </a>
         </p>
@@ -22,34 +30,42 @@ $this->title = 'Yummy number one recipes in the world';
 
         <div class="row">
             <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
+                <h3>Trends and Insights</h3>
+                <p>
+                    At Yummy, we have the amazing privilege of being a part of the world’s biggest food community. The
+                    staff at Yummy created this blog so we can share with you the trends, insights, and ideas we
+                    come across every day.
+                </p>
+                <p>
+                    <a class="btn btn-default" href="<?= Url::to(['blog']) ?>">
+                        Read Articles
+                    </a>
+                </p>
             </div>
             <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
+                <h3>Forum Support 24/7</h3>
+                <p>
+                    Yummy’ staff has written and compiled hundreds of helpful articles to inspire you and help you
+                    become a confident and successful home cook. You can find this information in many easy ways.
+                </p>
+                <p>
+                    <a class="btn btn-default" href="<?= Url::to(['forum']) ?>">
+                        Ask Forum
+                    </a>
+                </p>
             </div>
             <div class="col-lg-4">
-                <h2>Heading</h2>
+                <h3>Material Support</h3>
+                <p>
+                    Create a Shopping List in one place with everything you’ll need for all of the tasty recipes you’ll
+                    be making! Yummy is here to help! Now you’ll never be caught without soy sauce again.
+                </p>
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
+                <p>
+                    <a class="btn btn-default" href="<?= Url::to(['forum']) ?>">
+                        Shopping Now
+                    </a>
+                </p>
             </div>
         </div>
 
