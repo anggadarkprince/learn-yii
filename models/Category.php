@@ -74,20 +74,21 @@ class Category extends ActiveRecord
     }
 
     /**
-     * @inheritdoc
-     * @return CategoryQuery the active query used by this AR class.
-     */
-    public static function find()
-    {
-        return new CategoryQuery(get_called_class());
-    }
-
-    /**
      * Get category list.
      * @return Category[]|array
      */
-    public static function findsCategor()
+    public static function findsCategory()
     {
-        return Category::find()->select(['id', 'category', 'description', 'featured'])->all();
+        return Category::find()->select(['id', 'category', 'description', 'feature'])->all();
+    }
+
+    public function findCategoryList()
+    {
+        $categories = self::findsCategory();
+        $categoryList = [];
+        foreach ($categories as $category) {
+            $categoryList[$category->id] = $category->category;
+        }
+        return $categoryList;
     }
 }

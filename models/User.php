@@ -2,12 +2,13 @@
 
 namespace app\models;
 
-class User extends \yii\base\Object implements \yii\web\IdentityInterface
+use yii\base\Object;
+use yii\db\ActiveRecord;
+use yii\web\IdentityInterface;
+
+class User extends ActiveRecord implements IdentityInterface
 {
     public $id;
-    public $name;
-    public $username;
-    public $password;
     public $authKey;
     public $accessToken;
 
@@ -30,6 +31,13 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
         ],
     ];
 
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return 'users';
+    }
 
     /**
      * @inheritdoc
@@ -103,5 +111,13 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
     public function validatePassword($password)
     {
         return $this->password === $password;
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRecipes()
+    {
+        return $this->hasMany(Recipe::className(), ['user_id' => 'id']);
     }
 }

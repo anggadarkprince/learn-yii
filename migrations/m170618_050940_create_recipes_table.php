@@ -25,6 +25,7 @@ class m170618_050940_create_recipes_table extends Migration
             'servings' => $this->smallInteger()->notNull()->defaultValue(1),
             'calories' => $this->smallInteger()->notNull()->defaultValue(0),
             'privacy' => "ENUM('public', 'private', 'follower')",
+            'feature' => $this->string('300')->notNull()->defaultValue('nofeature.jpg'),
             "created_at" => $this->timestamp()->notNull()->defaultExpression('CURRENT_TIMESTAMP'),
             "updated_at" => $this->timestamp()->notNull()->defaultExpression('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')
         ]);

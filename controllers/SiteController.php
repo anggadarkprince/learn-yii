@@ -68,6 +68,11 @@ class SiteController extends Controller
         return $this->render('index', ['categories' => $category]);
     }
 
+    public function actionSay($message = 'Hi people')
+    {
+        return $this->render('say', ['message' => $message]);
+    }
+
     /**
      * Login action.
      *

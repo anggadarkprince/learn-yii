@@ -46,6 +46,8 @@ $config = [
             'rules' => [
                 'about' => 'site/about',
                 'logout' => 'site/logout',
+                'discovery' => 'site/discovery',
+                'account/logout' => 'site/logout',
             ],
         ],
     ],

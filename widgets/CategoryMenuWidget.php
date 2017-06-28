@@ -18,9 +18,10 @@ class CategoryMenuWidget extends Widget
     {
         $categories = Category::find()->all();
         $menu = '<ul class="dropdown-menu">';
+        $menu .= '<li><a href="' . Url::to('/recipe') . '">All Recipes</a></li>';
         foreach ($categories as $data) {
             $menu .= '<li>';
-            $menu .= '<a href="' . Url::to(['category/'.$data->slug]) . '">';
+            $menu .= '<a href="' . Url::to(['category/' . $data->slug]) . '">';
             $menu .= $data->category;
             $menu .= '</a>';
             $menu .= '</li>';

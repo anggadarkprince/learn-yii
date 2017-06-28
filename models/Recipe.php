@@ -55,8 +55,8 @@ class Recipe extends ActiveRecord
             [['slug'], 'string', 'max' => 200],
             [['description'], 'string', 'max' => 500],
             [['tips'], 'string', 'max' => 300],
-            [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Categories::className(), 'targetAttribute' => ['category_id' => 'id']],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['user_id' => 'id']],
+            [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'id']],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
 
@@ -67,8 +67,8 @@ class Recipe extends ActiveRecord
     {
         return [
             'id' => 'ID',
-            'user_id' => 'User ID',
-            'category_id' => 'Category ID',
+            'user_id' => 'User',
+            'category_id' => 'Category',
             'title' => 'Title',
             'slug' => 'Slug',
             'description' => 'Description',
