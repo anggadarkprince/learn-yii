@@ -82,6 +82,10 @@ class Category extends ActiveRecord
         return Category::find()->select(['id', 'category', 'description', 'feature'])->all();
     }
 
+    /**
+     * Get category list key-value.
+     * @return array
+     */
     public function findCategoryList()
     {
         $categories = self::findsCategory();
