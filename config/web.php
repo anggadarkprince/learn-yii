@@ -44,6 +44,7 @@ $config = [
             'showScriptName' => false,
             'rules' => [
                 'about' => 'site/about',
+                'contact' => 'site/contact',
                 'logout' => 'site/logout',
                 'discovery' => 'site/discovery',
                 'account/logout' => 'site/logout',
@@ -51,6 +52,7 @@ $config = [
         ],
         'assetManager' => [
             'appendTimestamp' => true,
+            'linkAssets' => true,
             'converter' => [
                 'class' => 'yii\web\AssetConverter',
                 'commands' => [

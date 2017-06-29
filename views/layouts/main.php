@@ -7,8 +7,11 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
+use app\assets\FontAwesomeAsset;
+use app\widgets\CategoryMenuWidget;
 
 AppAsset::register($this);
+FontAwesomeAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -23,8 +26,8 @@ AppAsset::register($this);
 </head>
 <body>
 <?php $this->beginBody() ?>
-<div class="wrap">
-    <nav id="navigation" class="navbar-default navbar-fixed-top navbar" role="navigation">
+<div class="wrap <?= isset($this->params['banner-class']) ? $this->params['banner-class'] : '' ?>">
+    <nav id="navigation" class="navbar-inverse navbar-fixed-top navbar" role="navigation">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-collapse">
@@ -42,21 +45,23 @@ AppAsset::register($this);
                     <ul class="navbar-nav nav">
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Recipes <b class="caret"></b></a>
-                            <?= \app\widgets\CategoryMenuWidget::widget() ?>
+                            <?= CategoryMenuWidget::widget() ?>
                         </li>
                     </ul>
                 </ul>
                 <form class="navbar-form navbar-left" method="get">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Find a recipe" name="q" style="width: 300px; box-shadow: none; border-radius: 2px;">
+                        <input type="text" class="form-control" placeholder="Find a recipe" name="q"
+                               style="width: 300px; box-shadow: none; border-radius: 2px;">
                         <span class="input-group-btn">
-                            <button class="btn btn-default" type="button">Search</button>
+                            <button class="btn btn-primary" type="button">Search</button>
                         </span>
                     </div>
                 </form>
 
                 <?php if (!Yii::$app->user->isGuest): ?>
-                    <a href="<?= Url::to(['recipe/create']) ?>" class="navbar-right btn btn-primary navbar-btn" style="margin: 8px 0 8px 15px">
+                    <a href="<?= Url::to(['recipe/create']) ?>" class="navbar-right btn btn-primary navbar-btn"
+                       style="margin: 8px 0 8px 15px">
                         Make Recipe
                     </a>
                 <?php endif; ?>
@@ -108,9 +113,10 @@ AppAsset::register($this);
     </div>
 </div>
 
-<footer class="footer">
+<footer class="footer <?= isset($this->params['banner-class']) ? 'transparent' : '' ?>">
     <div class="container">
-        <p class="pull-left">&copy; <a href="<?= Url::to(['about']) ?>">Yummy</a> - Recipes around the world <?= date('Y') ?></p>
+        <p class="pull-left">&copy; <a href="<?= Url::to(['about']) ?>">Yummy</a> - Recipes around the
+            world <?= date('Y') ?></p>
         <p class="pull-right"><?= Yii::powered() ?></p>
     </div>
 </footer>

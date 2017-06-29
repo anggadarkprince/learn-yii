@@ -25,14 +25,57 @@ a:hover {
     padding-top: 20px;
 }
 
+.footer.transparent {
+    border: none;
+    position: relative;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #ffffff;
+}
+
 .jumbotron {
     text-align: center;
     background-color: transparent;
 }
 
+.jumbotron h1 {
+    font-size: 50px;
+}
+
 .jumbotron .btn {
-    font-size: 21px;
+    font-size: 18px;
     padding: 14px 24px;
+}
+
+.jumbotron small {
+    opacity: 0.75;
+    font-size: 75%;
+    max-width: 800px;
+    display: block;
+    margin: 15px auto 30px;
+}
+
+.site-index,
+.body-content {
+    position: relative;
+    color: #ffffff;
+}
+
+.body-content .feature-section {
+    margin-bottom: 30px;
+}
+
+.body-content .feature-section p {
+    margin-bottom: 20px;
+    opacity: 0.85;
+}
+
+.body-content .feature-section .btn {
+    min-width: 140px;
+    text-align: center;
+}
+
+.body-content .feature-section i {
+    margin-left: 10px;
 }
 
 .not-set {
@@ -100,9 +143,9 @@ a.desc:after {
     border: none;
 }
 
-@media(max-width:767px) {
+@media (max-width: 767px) {
     .nav li > form > button.logout {
-        display:block;
+        display: block;
         text-align: left;
         width: 100%;
         padding: 10px 15px;
@@ -116,6 +159,21 @@ a.desc:after {
 
 .nav > li > form > button.logout:focus {
     outline: none;
+}
+
+.banner-featured {
+    position: relative;
+    background: url("../img/layout/main-featured.jpg") center center / cover;
+}
+
+.banner-featured:before {
+    content: "";
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .75);
+    position: absolute;
+    left: 0;
+    top: 0;
 }
 
 .thumbnail-recipe {
