@@ -23,6 +23,10 @@ class CategoryController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
+                    'index'  => ['get'],
+                    'view'   => ['get'],
+                    'create' => ['get', 'post'],
+                    'update' => ['get', 'put', 'post'],
                     'delete' => ['POST'],
                 ],
             ],

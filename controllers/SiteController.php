@@ -13,6 +13,8 @@ use app\models\ContactForm;
 
 class SiteController extends Controller
 {
+    public $defaultAction = 'index';
+
     /**
      * @inheritdoc
      */
@@ -33,7 +35,7 @@ class SiteController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'logout' => ['post'],
+                    'logout' => ['get'],
                 ],
             ],
         ];

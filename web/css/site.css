@@ -3,6 +3,10 @@ body {
     height: 100%;
 }
 
+a:hover {
+    text-decoration: none;
+}
+
 .wrap {
     min-height: 100%;
     height: auto;
@@ -112,4 +116,26 @@ a.desc:after {
 
 .nav > li > form > button.logout:focus {
     outline: none;
+}
+
+.thumbnail-recipe {
+    min-height: 470px;
+}
+
+.thumbnail-recipe .recipe-feature {
+    height: 200px;
+}
+
+.thumbnail-recipe .recipe-title {
+    min-height: 30px
+}
+
+.thumbnail-recipe .recipe-category {
+    font-size: 13px;
+    color: #888888;
+    text-decoration: none;
+}
+
+.thumbnail-recipe .recipe-category:hover {
+    color: inherit;
 }

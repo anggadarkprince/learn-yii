@@ -1,10 +1,19 @@
 <?php
 /* @var $this yii\web\View */
 
+use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\LinkPager;
 
 $this->title = 'Explore Recipe - Yummy';
+$this->registerMetaTag(['name' => 'keywords', 'content' => 'recipe, delicious, yummy, food, beverage, coffee']);
+$this->registerMetaTag(['name' => 'description', 'content' => 'This website is about recipe around the world.'], 'description');
+$this->registerLinkTag([
+    'title' => 'Recipe Explore',
+    'rel' => 'alternate',
+    'type' => 'application/rss+xml',
+    'href' => 'http://www.yummy.com/rss.xml/',
+]);
 $this->params['breadcrumbs'][] = 'Explore Recipes';
 ?>
     <h1 class="lead">
@@ -19,18 +28,24 @@ $this->params['breadcrumbs'][] = 'Explore Recipes';
         <?php foreach ($recipes as $recipe): ?>
 
             <div class="col-md-3">
-                <div class="thumbnail" style="min-height: 470px">
-                    <div style="height: 200px; background: url('<?= Url::to('/img/recipes/' . $recipe->feature) ?>') center center / cover"></div>
+                <div class="thumbnail thumbnail-recipe">
+                    <div class="recipe-feature" style="background: url('<?= Url::to('/img/recipes/' . $recipe->feature) ?>') center center / cover"></div>
                     <div class="caption">
-                        <small class="text-muted">
-                            <a href="<?= Url::to(['category/'.$recipe->category->slug]) ?>">
-                                <?= $recipe->category->category ?>
+                        <a class="recipe-category" href="<?= Url::to(['category/' . Html::encode($recipe->category->slug)]) ?>">
+                            <?= Html::encode($recipe->category->category) ?>
+                        </a>
+                        <h4 class="recipe-title">
+                            <a href="<?= Url::to(['recipe/' . Html::encode($recipe->slug)]) ?>">
+                                <?= Html::encode($recipe->title) ?>
                             </a>
-                        </small>
-                        <h4 style="min-height: 30px">
-                            <a href="<?= Url::to(['recipe/' . $recipe->slug]) ?>"><?= $recipe->title ?></a>
                         </h4>
-                        <p><?= substr($recipe->description, 0, 90) ?>...</p>
+                        <p>
+                            <?php if (strlen($recipe->description) > 90): ?>
+                                <?= Html::encode(substr($recipe->description, 0, 90)) ?>...
+                            <?php else: ?>
+                                <?= Html::encode($recipe->description) ?>
+                            <?php endif; ?>
+                        </p>
                         <div class="star-wrapper text-danger">
                             <i class="glyphicon glyphicon-star"></i>
                             <i class="glyphicon glyphicon-star"></i>
@@ -41,8 +56,8 @@ $this->params['breadcrumbs'][] = 'Explore Recipes';
                         <hr>
                         <p>
                             <span class="text-muted">Recipe by</span>
-                            <a href="<?= Url::to(['/' . $recipe->user->username]) ?>">
-                                <?= $recipe->user->name ?>
+                            <a href="<?= Url::to(['/' . Html::encode($recipe->user->username)]) ?>">
+                                <?= Html::encode($recipe->user->name) ?>
                             </a>
                         </p>
                     </div>

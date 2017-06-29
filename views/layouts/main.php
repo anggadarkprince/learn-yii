@@ -55,9 +55,11 @@ AppAsset::register($this);
                     </div>
                 </form>
 
-                <a href="<?= Url::to(['recipe/create']) ?>" class="navbar-right btn btn-primary navbar-btn" style="margin: 8px 0 8px 15px">
-                    Make Recipe
-                </a>
+                <?php if (!Yii::$app->user->isGuest): ?>
+                    <a href="<?= Url::to(['recipe/create']) ?>" class="navbar-right btn btn-primary navbar-btn" style="margin: 8px 0 8px 15px">
+                        Make Recipe
+                    </a>
+                <?php endif; ?>
                 <ul class="navbar-nav navbar-right nav">
                     <?php if (Yii::$app->user->isGuest): ?>
                         <li><a href="<?= Url::to(['account/login']) ?>">Login</a></li>

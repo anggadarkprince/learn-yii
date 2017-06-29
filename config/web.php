@@ -4,7 +4,7 @@ $params = require(__DIR__ . '/params.php');
 $db = require(__DIR__ . '/db.php');
 
 $config = [
-    'id' => 'basic',
+    'id' => 'yummy',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'components' => [
@@ -39,7 +39,6 @@ $config = [
             ],
         ],
         'db' => $db,
-        'defaultRoute' => 'site/index',
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
@@ -50,8 +49,32 @@ $config = [
                 'account/logout' => 'site/logout',
             ],
         ],
+        'assetManager' => [
+            'appendTimestamp' => true,
+            'converter' => [
+                'class' => 'yii\web\AssetConverter',
+                'commands' => [
+                    'sass' => ['css', 'sassc {from} {to} --no-color'],
+                    'ts' => ['js', 'tsc --out {to} {from}'],
+                ],
+            ],
+        ],
+    ],
+    'defaultRoute' => 'site',
+    'controllerMap' => [
+        // declares "account" controller using a class name
+        'account' => 'app\controllers\UserController',
+
+        // declares "magazine" controller using a configuration array
+        'magazine' => [
+            'class' => 'app\controllers\PostController',
+            'enableCsrfValidation' => false,
+        ],
     ],
     'params' => $params,
+    'timeZone' => 'Asia/Jakarta',
+    'version' => '1.0',
+    'layout' => 'main'
 ];
 
 if (YII_ENV_DEV) {
