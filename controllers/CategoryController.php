@@ -2,9 +2,11 @@
 
 namespace app\controllers;
 
+use app\models\Recipe;
 use Yii;
 use app\models\Category;
 use app\models\CategorySearch;
+use yii\data\Pagination;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -57,6 +59,33 @@ class CategoryController extends Controller
     {
         return $this->render('view', [
             'model' => $this->findModel($id),
+        ]);
+    }
+
+    /**
+     * @param $slug
+     * @return string
+     */
+    public function actionRecipe($slug)
+    {
+        $category = Category::find()->where(['slug' => $slug])->one();
+        $recipeQuery = Recipe::find()->where(['category_id' => $category->id]);
+
+        $pagination = new Pagination([
+            'defaultPageSize' => 12,
+            'totalCount' => $recipeQuery->count(),
+        ]);
+
+        $recipes = $recipeQuery->orderBy(['created_at' => SORT_DESC])
+            ->offset($pagination->offset)
+            ->limit($pagination->limit)
+            ->all();
+
+
+        return $this->render('recipe', [
+            'category' => $category,
+            'recipes' => $recipes,
+            'pagination' => $pagination,
         ]);
     }
 

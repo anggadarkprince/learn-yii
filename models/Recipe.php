@@ -118,6 +118,22 @@ class Recipe extends ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getFavoriters()
+    {
+        return $this->hasMany(User::className(), ['id' => 'user_id'])->viaTable('favorites', ['recipe_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCookers()
+    {
+        return $this->hasMany(User::className(), ['id' => 'user_id'])->viaTable('cookers', ['recipe_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getCategory()
     {
         return $this->hasOne(Category::className(), ['id' => 'category_id']);
@@ -129,14 +145,5 @@ class Recipe extends ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
-    }
-
-    /**
-     * @inheritdoc
-     * @return RecipesQuery the active query used by this AR class.
-     */
-    public static function find()
-    {
-        return new RecipesQuery(get_called_class());
     }
 }

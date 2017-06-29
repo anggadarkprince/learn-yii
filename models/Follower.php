@@ -47,8 +47,8 @@ class Follower extends ActiveRecord
     {
         return [
             'id' => 'ID',
-            'user_id' => 'User ID',
-            'following_id' => 'Following ID',
+            'user_id' => 'User',
+            'following_id' => 'Following',
             'created_at' => 'Created At',
         ];
     }

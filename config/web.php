@@ -48,6 +48,7 @@ $config = [
                 'logout' => 'site/logout',
                 'discovery' => 'site/discovery',
                 'account/logout' => 'site/logout',
+                'category/<slug:[0-9a-zA-Z\-]+>/?' => 'category/recipe',
             ],
         ],
         'assetManager' => [

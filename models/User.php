@@ -8,7 +8,6 @@ use yii\web\IdentityInterface;
 
 class User extends ActiveRecord implements IdentityInterface
 {
-    public $id;
     public $authKey;
     public $accessToken;
 
@@ -129,5 +128,37 @@ class User extends ActiveRecord implements IdentityInterface
     public function getRecipes()
     {
         return $this->hasMany(Recipe::className(), ['user_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getFollowers()
+    {
+        return $this->hasMany(Follower::className(), ['following_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getFollowings()
+    {
+        return $this->hasMany(Follower::className(), ['user_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getFavorites()
+    {
+        return $this->hasMany(Recipe::className(), ['id' => 'recipe_id'])->viaTable('favorites', ['user_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCookeds()
+    {
+        return $this->hasMany(Recipe::className(), ['id' => 'recipe_id'])->viaTable('cookers', ['user_id' => 'id']);
     }
 }

@@ -70,7 +70,7 @@ class Category extends ActiveRecord
      */
     public function getRecipes()
     {
-        return $this->hasMany(Recipes::className(), ['category_id' => 'id']);
+        return $this->hasMany(Recipe::className(), ['category_id' => 'id']);
     }
 
     /**
