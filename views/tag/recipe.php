@@ -4,7 +4,6 @@
 /* @var $pagination yii\data\Pagination */
 /* @var $category app\models\Category */
 
-use yii\helpers\Url;
 use yii\widgets\LinkPager;
 
 $this->title = $tag->tag . ' - Yummy';

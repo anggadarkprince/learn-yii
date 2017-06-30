@@ -50,8 +50,9 @@ $config = [
                 'account/logout' => 'site/logout',
                 'tag/<slug:[0-9a-zA-Z\-]+>' => 'tag/recipe',
                 'category/<slug:[0-9a-zA-Z\-]+>' => 'category/recipe',
-                'recipe/index' => 'recipe/index',
+                'recipe' => 'recipe/index',
                 'recipe/<slug:[0-9a-zA-Z\-]+>' => 'recipe/view',
+                '<username:[0-9a-zA-Z\-]+>' => 'user/view',
             ],
         ],
         'assetManager' => [

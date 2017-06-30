@@ -16,8 +16,11 @@ class m170618_045023_create_users_table extends Migration
             "email" => $this->string(50)->notNull()->unique(),
             "password" => $this->string(150)->notNull(),
             "avatar" => $this->string(300)->notNull()->defaultValue('noavatar.jpg'),
+            "about" => $this->string(300),
             "location" => $this->string(300),
             "contact" => $this->string(50),
+            "auth_key" => $this->string(100),
+            "access_token" => $this->string(100),
             "created_at" => $this->timestamp()->notNull()->defaultExpression('CURRENT_TIMESTAMP'),
             "updated_at" => $this->timestamp()->notNull()->defaultExpression('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
         ]);

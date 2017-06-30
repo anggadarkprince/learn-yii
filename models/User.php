@@ -10,14 +10,20 @@ use yii\web\IdentityInterface;
  * This is the model class for table "recipes".
  *
  * @property integer $id
- * @property integer $name
- * @property integer $username
- * @property integer $email
- * @property integer $password
- * @property integer $avatar
+ * @property string $name
+ * @property string $username
+ * @property string $email
+ * @property string $password
+ * @property string $avatar
+ * @property string $location
+ * @property string $about
+ * @property string $contact
+ * @property string $created_at
  *
  * @property Recipe[] $recipes
  * @property Rating[] $ratings
+ * @property User[] $followers
+ * @property User[] $followings
  */
 class User extends ActiveRecord implements IdentityInterface
 {
@@ -91,13 +97,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findByUsername($username)
     {
-        foreach (self::$users as $user) {
-            if (strcasecmp($user['username'], $username) === 0) {
-                return new static($user);
-            }
-        }
-
-        return null;
+        return self::find()->where(['username' => $username])->one();
     }
 
     /**
@@ -140,23 +140,41 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function getRecipes()
     {
-        return $this->hasMany(Recipe::className(), ['user_id' => 'id']);
+        return $this->hasMany(Recipe::className(), ['user_id' => 'id'])->orderBy(['created_at' => SORT_DESC]);
     }
 
     /**
+     * Get user followers.
+     * @param null $max
      * @return \yii\db\ActiveQuery
      */
-    public function getFollowers()
+    public function getFollowers($max = null)
     {
-        return $this->hasMany(Follower::className(), ['following_id' => 'id']);
+        $followers = $this->hasMany(User::className(), ['id' => 'following_id'])
+            ->viaTable('followers', ['user_id' => 'id'])
+            ->orderBy(['created_at' => SORT_DESC]);
+
+        if(!is_null($max)){
+            return $followers->limit($max)->all();
+        }
+        return $followers;
     }
 
     /**
+     * Get user that following us.
+     * @param null $max
      * @return \yii\db\ActiveQuery
      */
-    public function getFollowings()
+    public function getFollowings($max = null)
     {
-        return $this->hasMany(Follower::className(), ['user_id' => 'id']);
+        $followings = $this->hasMany(User::className(), ['id' => 'user_id'])
+            ->viaTable('followers', ['following_id' => 'id'])
+            ->orderBy(['created_at' => SORT_DESC]);
+
+        if(!is_null($max)){
+            return $followings->limit($max)->all();
+        }
+        return $followings;
     }
 
     /**
@@ -164,7 +182,9 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function getFavorites()
     {
-        return $this->hasMany(Recipe::className(), ['id' => 'recipe_id'])->viaTable('favorites', ['user_id' => 'id']);
+        return $this->hasMany(Recipe::className(), ['id' => 'recipe_id'])
+            ->viaTable('favorites', ['user_id' => 'id'])
+            ->orderBy(['created_at' => SORT_DESC]);
     }
 
     /**
@@ -172,6 +192,8 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function getCookeds()
     {
-        return $this->hasMany(Recipe::className(), ['id' => 'recipe_id'])->viaTable('cookers', ['user_id' => 'id']);
+        return $this->hasMany(Recipe::className(), ['id' => 'recipe_id'])
+            ->viaTable('cookers', ['user_id' => 'id'])
+            ->orderBy(['created_at' => SORT_DESC]);
     }
 }

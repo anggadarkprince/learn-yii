@@ -28,6 +28,31 @@ p {
     border-radius: 2px;
 }
 
+.btn-primary {
+    background: rgb(21, 140, 186);
+}
+
+.btn-warning {
+    background: rgb(255, 133, 27);
+}
+
+.btn-danger {
+    background: rgb(255, 65, 54);
+}
+
+.btn-success {
+    background: rgb(40, 182, 44);
+}
+
+.btn-info {
+    background: rgb(117, 202, 235);
+}
+
+.btn-round {
+    border-radius: 25px;
+    min-width: 100px;
+}
+
 .wrap {
     min-height: 100%;
     height: auto;
@@ -77,6 +102,11 @@ p {
 
 .jumbotron p {
     color: #ffffff;
+}
+
+.panel {
+    box-shadow: 0 0 2px 1px #f2f2f2;
+    border: solid 1px #e6e6e6;
 }
 
 .site-index,
@@ -633,4 +663,151 @@ a.desc:after {
     line-height: 25px;
     vertical-align: middle;
     margin-bottom: 0;
+}
+
+/* ACCOUNT PROFILE */
+
+.account-wrapper {
+    margin-bottom: 20px;
+}
+
+.account-banner {
+    height: 250px;
+    position: relative;
+}
+
+.account-banner:after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0);
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.9) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#000000', endColorstr='#000000', GradientType=0);
+}
+
+.navbar-fixed-top + .account-banner {
+    margin-top: 50px;
+}
+
+.account-navigation + .container {
+    padding-top: 0;
+}
+
+.account-sidebar {
+    position: relative;
+}
+
+.account-sidebar .account-header {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.account-sidebar .account-avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 5px solid rgba(255, 255, 255, 0.5);
+    position: absolute;
+    top: -185px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.account-sidebar .account-name {
+    margin: 0 0 5px;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.account-sidebar .account-username {
+    color: #7f7f7f;
+}
+
+.account-sidebar .account-button-follow {
+    margin-bottom: 20px;
+    padding: 9px 10px;
+    border: none;
+    letter-spacing: 1px;
+}
+
+.account-sidebar .account-info {
+    padding-left: 0;
+    margin-bottom: 25px;
+}
+
+.account-sidebar .account-info li {
+    margin-bottom: 15px;
+    list-style: none;
+}
+
+.account-sidebar .account-info li i {
+    margin-right: 10px;
+    width: 15px;
+    text-align: center;
+}
+
+.account-sidebar .account-follower-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 5px;
+}
+
+.account-sidebar .account-section{
+    margin-bottom: 25px;
+}
+
+/* ACCOUNT NAVIGATION */
+
+.account-navigation {
+    margin-bottom: 20px;
+    font-weight: 400;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.25);
+    height: 64px;
+}
+
+.account-navigation .navigation {
+    padding-left: 0;
+    margin-bottom: 0;
+}
+
+.account-navigation .navigation li {
+    display: inline-block;
+    text-align: center;
+    padding: 8px 20px;
+}
+
+.account-navigation .navigation li a {
+    color: #7d7d7d;
+}
+
+.account-navigation .navigation li.active,
+.account-navigation .navigation li:hover {
+    border-bottom: 3px solid #337ab7;
+}
+
+.account-navigation .navigation li.active,
+.account-navigation .navigation li.active a {
+    color: #337ab7;
+    background: #f7f7f7;
+}
+
+.account-navigation .navigation li.active span,
+.account-navigation .navigation li:hover span {
+    color: #337ab7;
+}
+
+.account-navigation .navigation-counter {
+    display: block;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.account-navigation .navigation-button-follow {
+    margin-top: 15px;
+    border: none;
 }

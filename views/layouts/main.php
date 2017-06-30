@@ -105,6 +105,10 @@ FontAwesomeAsset::register($this);
         </div>
     </nav>
 
+    <?php if (isset($this->blocks['account-banner'])): ?>
+        <?= $this->blocks['account-banner'] ?>
+    <?php endif; ?>
+
     <div class="container">
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
