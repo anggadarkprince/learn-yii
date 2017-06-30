@@ -48,9 +48,10 @@ $config = [
                 'logout' => 'site/logout',
                 'discovery' => 'site/discovery',
                 'account/logout' => 'site/logout',
-                'category/<slug:[0-9a-zA-Z\-]+>/?' => 'category/recipe',
+                'tag/<slug:[0-9a-zA-Z\-]+>' => 'tag/recipe',
+                'category/<slug:[0-9a-zA-Z\-]+>' => 'category/recipe',
                 'recipe/index' => 'recipe/index',
-                'recipe/<slug:[0-9a-zA-Z\-]+>/?' => 'recipe/view',
+                'recipe/<slug:[0-9a-zA-Z\-]+>' => 'recipe/view',
             ],
         ],
         'assetManager' => [

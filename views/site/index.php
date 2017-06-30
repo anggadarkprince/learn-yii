@@ -32,7 +32,7 @@ $this->params['banner-class'] = 'banner-featured';
             <div class="col-lg-4 feature-section">
                 <h3>Trends and Insights</h3>
                 <p>
-                    At Yummy, we have the amazing privilege of being a part of the world’s biggest food community. The
+                    At Yummy, we have the amazing thing of being a part of the world’s food community. The
                     staff at Yummy created this blog so we can share with you the trends, insights, and ideas we
                     come across every day.
                 </p>

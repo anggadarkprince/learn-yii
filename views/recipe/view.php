@@ -171,7 +171,7 @@ $this->params['breadcrumbs'][] = Html::encode($recipe->title);
                     <?php foreach ($tags as $tag): ?>
 
                         <li>
-                            <a href="<?= Url::to('tag/' . $tag->slug) ?>">
+                            <a href="<?= Url::to('/tag/' . $tag->slug) ?>">
                                 <h4>
                                     <span class="label label-primary label-lg">
                                         # <?= $tag->tag ?>
