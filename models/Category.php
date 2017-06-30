@@ -74,6 +74,73 @@ class Category extends ActiveRecord
     }
 
     /**
+     * Get total recipe by specific or all categories.
+     * @param null $categoryId
+     * @return int|string
+     */
+    public function getTotalRecipe($categoryId = null)
+    {
+        $totalReview = Category::find()
+            ->innerJoin('recipes', 'categories.id = recipes.category_id');
+
+        if(is_null($categoryId)){
+            $totalReview->where(['categories.id' => $this->id]);
+        }
+        return $totalReview->count();
+    }
+
+    /**
+     * Get total cooker by specific or all categories.
+     * @param null $categoryId
+     * @return int|string
+     */
+    public function getTotalCooked($categoryId = null)
+    {
+        $totalReview = Category::find()
+            ->innerJoin('recipes', 'categories.id = recipes.category_id')
+            ->innerJoin('cookers', 'recipes.id = cookers.recipe_id');
+
+        if(is_null($categoryId)){
+            $totalReview->where(['categories.id' => $this->id]);
+        }
+        return $totalReview->count();
+    }
+
+    /**
+     * Get total like by specific or all categories.
+     * @param null $categoryId
+     * @return int|string
+     */
+    public function getTotalLike($categoryId = null)
+    {
+        $totalReview = Category::find()
+            ->innerJoin('recipes', 'categories.id = recipes.category_id')
+            ->innerJoin('favorites', 'recipes.id = favorites.recipe_id');
+
+        if(is_null($categoryId)){
+            $totalReview->where(['categories.id' => $this->id]);
+        }
+        return $totalReview->count();
+    }
+
+    /**
+     * Get total recipe review by specific or all category.
+     * @param $categoryId
+     * @return int|string
+     */
+    public function getTotalReview($categoryId = null)
+    {
+        $totalReview = Category::find()
+            ->innerJoin('recipes', 'categories.id = recipes.category_id')
+            ->innerJoin('ratings', 'recipes.id = ratings.recipe_id');
+
+        if(is_null($categoryId)){
+            $totalReview->where(['categories.id' => $this->id]);
+        }
+        return $totalReview->count();
+    }
+
+    /**
      * Get category list.
      * @return Category[]|array
      */

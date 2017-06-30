@@ -6,6 +6,19 @@ use yii\base\Object;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 
+/**
+ * This is the model class for table "recipes".
+ *
+ * @property integer $id
+ * @property integer $name
+ * @property integer $username
+ * @property integer $email
+ * @property integer $password
+ * @property integer $avatar
+ *
+ * @property Recipe[] $recipes
+ * @property Rating[] $ratings
+ */
 class User extends ActiveRecord implements IdentityInterface
 {
     public $authKey;

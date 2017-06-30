@@ -5,10 +5,13 @@ use yii\helpers\Url;
 ?>
 <ul class="dropdown-menu">
     <li class="dropdown-header">Categories</li>
-    <li><a href="<?= Url::to('/recipe') ?>"><strong>All Recipes</strong></a></li>
+    <li class="<?= Yii::$app->controller->id == 'recipe' && Yii::$app->controller->action->id == 'index' ? 'active' : '' ?>">
+        <a href="<?= Url::to('/recipe') ?>"><strong>All Recipes</strong></a>
+    </li>
     <li class="divider"></li>
     <?php foreach ($categories as $category): ?>
-        <li>
+        <?php $active = Yii::$app->request->get('slug', '') == $category->slug; ?>
+        <li class="<?= $active ? 'active' : '' ?>">
             <a href="<?= Url::to(['category/' . $category->slug]) ?>">
                 <?= $category->category ?>
             </a>

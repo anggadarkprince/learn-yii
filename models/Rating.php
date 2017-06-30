@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "ratings".
@@ -16,10 +17,10 @@ use Yii;
  * @property string $created_at
  * @property string $updated_at
  *
- * @property Recipes $recipe
- * @property Users $user
+ * @property Recipe $recipe
+ * @property User $user
  */
-class Rating extends \yii\db\ActiveRecord
+class Rating extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -66,7 +67,7 @@ class Rating extends \yii\db\ActiveRecord
      */
     public function getRecipe()
     {
-        return $this->hasOne(Recipes::className(), ['id' => 'recipe_id']);
+        return $this->hasOne(Recipe::className(), ['id' => 'recipe_id']);
     }
 
     /**
@@ -74,6 +75,6 @@ class Rating extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(Users::className(), ['id' => 'user_id']);
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 }

@@ -36,6 +36,24 @@ class RecipeController extends Controller
     }
 
     /**
+     * Displays a single Recipe model.
+     * @param string $slug
+     * @return mixed
+     */
+    public function actionView($slug)
+    {
+        $recipe = $this->findModelBySlug($slug);
+        return $this->render('view', [
+            'recipe' => $recipe,
+            'ingredients' => $recipe->ingredients,
+            'directions' => $recipe->directions,
+            'tags' => $recipe->tags,
+            'ratings' => $recipe->ratings,
+            'recommendations' => $recipe->relatedRecipes,
+        ]);
+    }
+
+    /**
      * Action to show create new recipe form.
      * @return string form create view
      */
@@ -103,6 +121,38 @@ class RecipeController extends Controller
     public function actionDelete($slug)
     {
 
+    }
+
+    /**
+     * Finds the Category model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param integer $id
+     * @return Recipe the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findModelById($id)
+    {
+        if (($model = Recipe::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+
+    /**
+     * Finds the Category model based on its slug key.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param string $slug
+     * @return Recipe the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findModelBySlug($slug)
+    {
+        if (($model = Recipe::find()->where(['slug' => $slug])->one()) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
     }
 
 }
