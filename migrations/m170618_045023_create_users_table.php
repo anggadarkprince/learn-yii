@@ -16,6 +16,7 @@ class m170618_045023_create_users_table extends Migration
             "email" => $this->string(50)->notNull()->unique(),
             "password" => $this->string(150)->notNull(),
             "avatar" => $this->string(300)->notNull()->defaultValue('noavatar.jpg'),
+            "cover" => $this->string(300)->notNull()->defaultValue('nocover.jpg'),
             "about" => $this->string(300),
             "location" => $this->string(300),
             "contact" => $this->string(50),

@@ -37,7 +37,7 @@ $columnSmall = $column < 6 ? $column : 12;
                             </li>
                             <li class="stats-cooked">
                                 <i class="fa fa-cutlery"></i>
-                                <?= $review->user->getCookeds()->count() ?>
+                                <?= $review->user->getCooks()->count() ?>
                             </li>
                         </ul>
                     </div>

@@ -53,7 +53,7 @@ $columnSmall = $column < 6 ? $column : 12;
                             </li>
                             <li class="stats-cooked">
                                 <i class="fa fa-cutlery text-success"></i>&nbsp;
-                                <?= $recipe->user->getCookeds()->count() ?>
+                                <?= $recipe->user->getCooks()->count() ?>
                             </li>
                         </ul>
                     </div>

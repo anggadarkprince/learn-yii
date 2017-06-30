@@ -757,7 +757,7 @@ a.desc:after {
     margin: 5px;
 }
 
-.account-sidebar .account-section{
+.account-sidebar .account-section {
     margin-bottom: 25px;
 }
 
@@ -783,6 +783,7 @@ a.desc:after {
 
 .account-navigation .navigation li a {
     color: #7d7d7d;
+    font-weight: 700;
 }
 
 .account-navigation .navigation li.active,
@@ -809,5 +810,49 @@ a.desc:after {
 
 .account-navigation .navigation-button-follow {
     margin-top: 15px;
+    border: none;
+}
+
+/* CARD USER */
+.card-user {
+    box-shadow: 0 0 2px 1px #f2f2f2;
+    border: solid 1px #e6e6e6;
+    border-radius: 2px;
+    margin-bottom: 20px;
+}
+
+.card-user .user-feature {
+    height: 80px;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+}
+
+.card-user .user-content {
+    position: relative;
+    padding: 15px;
+}
+
+.card-user .user-avatar {
+    width: 70px;
+    height: 70px;
+    position: absolute;
+    transform: translateY(-60%);
+    left: 15px;
+    border: 3px solid #ffffff;
+    border-radius: 50%;
+}
+
+.card-user .user-name {
+    margin: 0 0 5px;
+    font-size: 16px;
+    font-weight: 700;
+    padding-top: 45px;
+}
+
+.card-user .user-username {
+    color: #7d7d7d;
+}
+
+.card-user .user-button-follow {
     border: none;
 }

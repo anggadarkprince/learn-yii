@@ -53,6 +53,10 @@ $config = [
                 'recipe' => 'recipe/index',
                 'recipe/<slug:[0-9a-zA-Z\-]+>' => 'recipe/view',
                 '<username:[0-9a-zA-Z\-]+>' => 'user/view',
+                '<username:[0-9a-zA-Z\-]+>/favorites' => 'user/favorites',
+                '<username:[0-9a-zA-Z\-]+>/made' => 'user/made',
+                '<username:[0-9a-zA-Z\-]+>/following' => 'user/following',
+                '<username:[0-9a-zA-Z\-]+>/followers' => 'user/followers',
             ],
         ],
         'assetManager' => [

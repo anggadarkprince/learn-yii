@@ -2,12 +2,11 @@
 
 namespace app\models;
 
-use yii\base\Object;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 
 /**
- * This is the model class for table "recipes".
+ * This is the model class for table "users".
  *
  * @property integer $id
  * @property string $name
@@ -15,6 +14,7 @@ use yii\web\IdentityInterface;
  * @property string $email
  * @property string $password
  * @property string $avatar
+ * @property string $cover
  * @property string $location
  * @property string $about
  * @property string $contact
@@ -24,6 +24,8 @@ use yii\web\IdentityInterface;
  * @property Rating[] $ratings
  * @property User[] $followers
  * @property User[] $followings
+ * @property User[] $favorites
+ * @property User[] $cooked
  */
 class User extends ActiveRecord implements IdentityInterface
 {
@@ -50,6 +52,7 @@ class User extends ActiveRecord implements IdentityInterface
     ];
 
     /**
+     * Set default table name.
      * @inheritdoc
      */
     public static function tableName()
@@ -57,12 +60,16 @@ class User extends ActiveRecord implements IdentityInterface
         return 'users';
     }
 
+    /**
+     * Filter object fields.
+     * @return array
+     */
     public function fields()
     {
         $fields = parent::fields();
 
         // remove fields that contain sensitive information
-        unset($fields['password'], $fields['updated_at']);
+        unset($fields['password'], $fields['auth_key'], $fields['access_token']);
 
         return $fields;
     }
@@ -93,11 +100,11 @@ class User extends ActiveRecord implements IdentityInterface
      * Finds user by username
      *
      * @param string $username
-     * @return static|null
+     * @return array|null|ActiveRecord
      */
     public static function findByUsername($username)
     {
-        return self::find()->where(['username' => $username])->one();
+        return User::find()->where(['username' => $username])->one();
     }
 
     /**
@@ -140,41 +147,42 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function getRecipes()
     {
-        return $this->hasMany(Recipe::className(), ['user_id' => 'id'])->orderBy(['created_at' => SORT_DESC]);
+        return $this->hasMany(Recipe::className(), ['user_id' => 'id'])
+            ->orderBy(['created_at' => SORT_DESC]);
     }
 
     /**
      * Get user followers.
      * @param null $max
-     * @return \yii\db\ActiveQuery
+     * @return \yii\db\ActiveQuery|ActiveRecord[]
      */
     public function getFollowers($max = null)
     {
-        $followers = $this->hasMany(User::className(), ['id' => 'following_id'])
+        $followersUser = $this->hasMany(User::className(), ['id' => 'following_id'])
             ->viaTable('followers', ['user_id' => 'id'])
             ->orderBy(['created_at' => SORT_DESC]);
 
-        if(!is_null($max)){
-            return $followers->limit($max)->all();
+        if (!is_null($max)) {
+            return $followersUser->limit($max)->all();
         }
-        return $followers;
+        return $followersUser;
     }
 
     /**
      * Get user that following us.
      * @param null $max
-     * @return \yii\db\ActiveQuery
+     * @return \yii\db\ActiveQuery|ActiveRecord[]
      */
     public function getFollowings($max = null)
     {
-        $followings = $this->hasMany(User::className(), ['id' => 'user_id'])
+        $followingsUser = $this->hasMany(User::className(), ['id' => 'user_id'])
             ->viaTable('followers', ['following_id' => 'id'])
             ->orderBy(['created_at' => SORT_DESC]);
 
-        if(!is_null($max)){
-            return $followings->limit($max)->all();
+        if (!is_null($max)) {
+            return $followingsUser->limit($max)->all();
         }
-        return $followings;
+        return $followingsUser;
     }
 
     /**
@@ -190,7 +198,7 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getCookeds()
+    public function getCooks()
     {
         return $this->hasMany(Recipe::className(), ['id' => 'recipe_id'])
             ->viaTable('cookers', ['user_id' => 'id'])
