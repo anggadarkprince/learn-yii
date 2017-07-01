@@ -17,7 +17,7 @@ use yii\helpers\Url;
         <ul class="blog-sidebar-recent">
             <?php foreach ($articles as $article): ?>
                 <li>
-                    <a href="<?= Url::to('/article/' . $article->title) ?>" class="link-natural">
+                    <a href="<?= Url::to('/article/' . $article->slug) ?>" class="link-natural">
                         <?= $article->title ?>
                     </a>
                 </li>

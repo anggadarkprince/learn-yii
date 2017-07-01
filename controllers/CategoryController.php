@@ -63,6 +63,7 @@ class CategoryController extends Controller
     }
 
     /**
+     * Show recipes by specific category.
      * @param $slug
      * @return string
      */
@@ -89,9 +90,33 @@ class CategoryController extends Controller
         ]);
     }
 
+    /**
+     * Show articles by specific category.
+     * @param $slug
+     * @return string
+     */
     public function actionArticle($slug)
     {
-        return $this->renderContent('Show article category ' . $slug);
+        /* @var $category Category */
+        $category = Category::find()->where(['slug' => $slug])->one();
+        $articleQuery = $category->getArticles();
+
+        $pagination = new Pagination([
+            'defaultPageSize' => 12,
+            'totalCount' => $articleQuery->count(),
+        ]);
+
+        $articles = $articleQuery->orderBy(['created_at' => SORT_DESC])
+            ->offset($pagination->offset)
+            ->limit($pagination->limit)
+            ->all();
+
+
+        return $this->render('article', [
+            'category' => $category,
+            'articles' => $articles,
+            'pagination' => $pagination,
+        ]);
     }
 
     /**

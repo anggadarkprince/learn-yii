@@ -101,21 +101,32 @@ class Article extends ActiveRecord
      */
     public function getSummary()
     {
-        return BaseStringHelper::truncateWords(strip_tags($this->content), 50);
+        return BaseStringHelper::truncateWords(strip_tags($this->content), 70);
     }
 
+    /**
+     * Get latest updated post.
+     * @param int $totalMax
+     * @return Article[]|array
+     */
     public function getRecentPost($totalMax = 6)
     {
         return self::find()
             ->latest()
-            ->status(self::$STATUS_PUBLISHED)
+            ->published()
             ->limit($totalMax)
             ->all();
     }
 
-    public function getArchiveGroups()
+    /**
+     * Get archive label group.
+     * @param null $year
+     * @param null $month
+     * @return Article[]|array
+     */
+    public function getArchiveLabels($year = null, $month = null)
     {
-        return self::find()
+        $archiveLabel = self::find()
             ->select([
                 'DATE_FORMAT(created_at, "%Y") AS archiveYear',
                 'DATE_FORMAT(created_at, "%m") AS archiveMonth',
@@ -130,8 +141,35 @@ class Article extends ActiveRecord
             ->orderBy([
                 'archiveYear' => SORT_DESC,
                 'archiveMonth' => SORT_DESC
-            ])
-            ->all();
+            ]);
+
+        if (!is_null($year)) {
+            $archiveLabel->where(['DATE_FORMAT(created_at, "%Y")' => $year]);
+        }
+
+        if (!is_null($month)) {
+            $archiveLabel->where(['DATE_FORMAT(created_at, "%m")' => $month]);
+        }
+
+        if (!is_null($year) && !is_null($month)) {
+            return $archiveLabel->one();
+        }
+
+        return $archiveLabel->all();
+    }
+
+    /**
+     * Get archive article by year and month.
+     * @param $year
+     * @param $month
+     * @return ArticleQuery
+     */
+    public function getArchives($year, $month)
+    {
+        return self::find()->latest()->published()->where([
+            'DATE_FORMAT(created_at, "%Y")' => $year,
+            'DATE_FORMAT(created_at, "%m")' => $month,
+        ]);
     }
 
     /**
@@ -161,10 +199,10 @@ class Article extends ActiveRecord
 
     /**
      * @inheritdoc
-     * @return ArticlesQuery the active query used by this AR class.
+     * @return ArticleQuery the active query used by this AR class.
      */
     public static function find()
     {
-        return new ArticlesQuery(get_called_class());
+        return new ArticleQuery(get_called_class());
     }
 }

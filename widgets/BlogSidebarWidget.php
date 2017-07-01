@@ -20,7 +20,7 @@ class BlogSidebarWidget extends Widget
         $article = new Article();
         return $this->render('blog_sidebar', [
             'articles' => $article->getRecentPost(),
-            'archives' => $article->getArchiveGroups(),
+            'archives' => $article->getArchiveLabels(),
             'categories' => Category::find()->all(),
         ]);
     }

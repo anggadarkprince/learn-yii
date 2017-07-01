@@ -9,7 +9,7 @@ use yii\db\ActiveQuery;
  *
  * @see Article
  */
-class ArticlesQuery extends ActiveQuery
+class ArticleQuery extends ActiveQuery
 {
     /*public function active()
     {
@@ -37,6 +37,16 @@ class ArticlesQuery extends ActiveQuery
     public function status($state = 'published')
     {
         return $this->andOnCondition(['status' => $state]);
+    }
+
+    public function published()
+    {
+        return $this->andOnCondition(['status' => Article::$STATUS_PUBLISHED]);
+    }
+
+    public function draft()
+    {
+        return $this->andOnCondition(['status' => Article::$STATUS_DRAFT]);
     }
 
     public function latest()

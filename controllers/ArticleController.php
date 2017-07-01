@@ -8,6 +8,10 @@ use yii\web\Controller;
 
 class ArticleController extends Controller
 {
+    /**
+     * Show index blog articles.
+     * @return string
+     */
     public function actionIndex()
     {
         $articleQuery = Article::find();
@@ -28,9 +32,33 @@ class ArticleController extends Controller
         ]);
     }
 
+    /**
+     * Show articles by year and month.
+     * @param $year
+     * @param $month
+     * @return string
+     */
     public function actionArchive($year, $month)
     {
-        return $this->renderContent('Show archive ' . $year.'/'.$month);
+        $article = new Article();
+        $archive = $article->getArchiveLabels($year, $month);
+        $articleQuery = $article->getArchives($year, $month);
+
+        $pagination = new Pagination([
+            'defaultPageSize' => 8,
+            'totalCount' => $articleQuery->count(),
+        ]);
+
+        $articles = $articleQuery->orderBy(['created_at' => SORT_DESC])
+            ->offset($pagination->offset)
+            ->limit($pagination->limit)
+            ->all();
+
+        return $this->render('archive', [
+            'archive' => $archive,
+            'articles' => $articles,
+            'pagination' => $pagination,
+        ]);
     }
 
     public function actionView($slug)

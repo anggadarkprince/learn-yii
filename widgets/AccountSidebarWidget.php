@@ -22,7 +22,7 @@ class AccountSidebarWidget extends Widget
 
     public function run()
     {
-        return $this->render('sidebar', [
+        return $this->render('account_sidebar', [
             'user' => $this->user,
             'followers' => $this->user->getFollowers(10),
             'followings' => $this->user->getFollowings(10),

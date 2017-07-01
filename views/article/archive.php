@@ -2,13 +2,14 @@
 /* @var $this yii\web\View */
 /* @var $articles yii\db\ActiveRecord */
 /* @var $article app\models\Article */
+/* @var $archive app\models\Article */
 /* @var $pagination yii\data\Pagination */
 
 use app\widgets\BlogSidebarWidget;
 use yii\helpers\Url;
 use yii\widgets\LinkPager;
 
-$this->title = 'Blog and Magazine - Yummy';
+$this->title = 'Blog Archive ' . $archive->archiveLabel . ' - Yummy';
 $this->registerMetaTag(['name' => 'keywords', 'content' => 'article, magazine, post, blog, recipe, delicious, yummy, food, beverage, coffee']);
 $this->registerMetaTag(['name' => 'description', 'content' => 'This website is about recipe around the world.'], 'description');
 $this->registerLinkTag([
@@ -21,17 +22,13 @@ $this->registerLinkTag([
 
 <?php $this->beginBlock('account-banner'); ?>
 
-<div class="blog-banner"
+<div class="blog-banner blog-banner-category"
      style="background: url('<?= Url::to('/img/layout/blog-featured.jpg') ?>') top center / cover">
     <div class="banner-content">
-        <h1>The Yummy Blog</h1>
-        <p>Food trends and insights</p>
+        <h1>Archive - <?= $archive->archiveLabel ?></h1>
         <p>
             <small>
-                At Yummy, we have the amazing privilege of being a part of the world’s biggest food community. The
-                staff at Yummy created this blog so we can share with you the trends, insights, and ideas we come across
-                every
-                day.
+                Yummy's blog - Food trends and insights
             </small>
         </p>
     </div>
