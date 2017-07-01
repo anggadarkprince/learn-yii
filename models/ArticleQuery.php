@@ -11,11 +11,6 @@ use yii\db\ActiveQuery;
  */
 class ArticleQuery extends ActiveQuery
 {
-    /*public function active()
-    {
-        return $this->andWhere('[[status]]=1');
-    }*/
-
     /**
      * @inheritdoc
      * @return Article[]|array
@@ -52,5 +47,10 @@ class ArticleQuery extends ActiveQuery
     public function latest()
     {
         return $this->orderBy(['created_at' => SORT_DESC]);
+    }
+
+    public function slug($slug)
+    {
+        return $this->andWhere(['slug' => $slug]);
     }
 }

@@ -61,9 +61,15 @@ class ArticleController extends Controller
         ]);
     }
 
+    /**
+     * View article post content.
+     * @param $slug
+     * @return string
+     */
     public function actionView($slug)
     {
-        return $this->renderContent('Show article ' . $slug);
+        $article = Article::find()->slug($slug)->one();
+        return $this->render('view', ['article' => $article]);
     }
 
 }

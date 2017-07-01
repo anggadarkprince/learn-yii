@@ -22,6 +22,7 @@ use yii\helpers\BaseStringHelper;
  * @property string $created_at
  * @property string $updated_at
  * @property string $publishedAt
+ * @property string $updatedAt
  * @property string $summary
  *
  * @property Tag[] $tags
@@ -93,6 +94,15 @@ class Article extends ActiveRecord
     public function getPublishedAt()
     {
         return (new \DateTime($this->created_at))->format('d F Y H:i');
+    }
+
+    /**
+     * Get updated date friendly format.
+     * @return string
+     */
+    public function getUpdatedAt()
+    {
+        return (new \DateTime($this->updated_at))->format('d F Y H:i');
     }
 
     /**

@@ -28,7 +28,8 @@ $columnSmall = $column < 6 ? $column : 12;
                     </li>
                     <li><?= $article->publishedAt ?></li>
                     <li>
-                        <a href="<?= Url::to('blog/' . $article->category->slug) ?>">
+                        Category
+                        <a href="<?= Url::to('/blog/' . $article->category->slug) ?>">
                             <?= $article->category->category ?>
                         </a>
                     </li>
