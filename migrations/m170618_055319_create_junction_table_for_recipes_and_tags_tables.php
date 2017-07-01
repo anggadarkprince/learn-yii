@@ -3,7 +3,7 @@
 use yii\db\Migration;
 
 /**
- * Handles the creation of table `recipes_tags`.
+ * Handles the creation of table `recipe_tags`.
  * Has foreign keys to the tables:
  *
  * - `recipes`
@@ -19,6 +19,7 @@ class m170618_055319_create_junction_table_for_recipes_and_tags_tables extends M
         $this->createTable('recipe_tags', [
             'recipe_id' => $this->integer(),
             'tag_id' => $this->integer(),
+            'created_at' => $this->dateTime(),
             'PRIMARY KEY(recipe_id, tag_id)',
         ]);
 

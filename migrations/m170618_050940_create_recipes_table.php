@@ -78,7 +78,7 @@ class m170618_050940_create_recipes_table extends Migration
             'recipes'
         );
 
-        // drops index for column `tag_id`
+        // drops index for column `user_id`
         $this->dropIndex(
             'idx-recipes-user_id',
             'recipes'
@@ -86,13 +86,13 @@ class m170618_050940_create_recipes_table extends Migration
 
         // drops foreign key for table `categories`
         $this->dropForeignKey(
-            'fk-categories-category_id',
+            'fk-recipes-category_id',
             'recipes'
         );
 
-        // drops index for column `tag_id`
+        // drops index for column `category_id`
         $this->dropIndex(
-            'idx-categories-category_id',
+            'idx-recipes-category_id',
             'recipes'
         );
 

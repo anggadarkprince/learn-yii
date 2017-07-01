@@ -39,25 +39,15 @@ FontAwesomeAsset::register($this);
             </div>
             <div id="navigation-collapse" class="collapse navbar-collapse">
                 <ul class="navbar-nav nav">
-                    <li><a href="<?= Url::to(['/magazine']) ?>">Magazine</a></li>
+                    <li><a href="<?= Url::to(['/blog']) ?>">Blog</a></li>
                     <li><a href="<?= Url::to(['/cooking']) ?>">Cooking</a></li>
+                    <li><a href="<?= Url::to(['/cooking']) ?>">Diet</a></li>
                     <li><a href="<?= Url::to(['/discovery']) ?>">Discovery</a></li>
-                    <ul class="navbar-nav nav">
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Recipes <b class="caret"></b></a>
-                            <?= CategoryMenuWidget::widget() ?>
-                        </li>
-                    </ul>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Recipes <b class="caret"></b></a>
+                        <?= CategoryMenuWidget::widget() ?>
+                    </li>
                 </ul>
-                <form class="navbar-form navbar-left" method="get">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Find a recipe" name="q"
-                               style="width: 300px; box-shadow: none; border-radius: 2px;">
-                        <span class="input-group-btn">
-                            <button class="btn btn-primary" type="button">Search</button>
-                        </span>
-                    </div>
-                </form>
 
                 <?php if (!Yii::$app->user->isGuest): ?>
                     <a href="<?= Url::to(['recipe/create']) ?>" class="navbar-right btn btn-primary navbar-btn"
@@ -101,6 +91,18 @@ FontAwesomeAsset::register($this);
                         </li>
                     <?php endif; ?>
                 </ul>
+                <div class="navbar-right">
+                    <button class="navbar-button-search"><i class="fa fa-search"></i> Search</button>
+                    <form class="navbar-form navbar-search" method="get" style="display: none">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Find a recipe" name="q"
+                                   style="width: 300px; box-shadow: none; border-radius: 2px;">
+                            <span class="input-group-btn">
+                            <button class="btn btn-primary" type="button">Search</button>
+                        </span>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </nav>
