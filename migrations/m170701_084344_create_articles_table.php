@@ -19,6 +19,7 @@ class m170701_084344_create_articles_table extends Migration
             'title' => $this->string(200)->notNull(),
             'slug' => $this->string(400)->notNull(),
             'content' => $this->text()->notNull(),
+            'feature' => $this->string(300)->defaultValue('nofeature.jpg'),
             'excerpt' => $this->string(500),
             'status' => "ENUM('draft', 'published') DEFAULT 'draft'",
             'format' => "ENUM('standard', 'image', 'video') DEFAULT 'standard'",

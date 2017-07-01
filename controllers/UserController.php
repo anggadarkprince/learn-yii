@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\models\User;
 use yii\data\Pagination;
 use yii\web\Controller;
+use yii\web\HttpException;
 
 class UserController extends Controller
 {
@@ -12,10 +13,14 @@ class UserController extends Controller
      * Show user profile.
      * @param $username
      * @return string
+     * @throws HttpException
      */
     public function actionView($username)
     {
         $user = User::findByUsername($username);
+        if(is_null($user)){
+            throw new HttpException(404, 'Cooker not found');
+        }
         $recipeQuery = $user->getRecipes();
 
         $pagination = new Pagination([
@@ -40,10 +45,14 @@ class UserController extends Controller
      * Get favorite recipes of user.
      * @param $username
      * @return string
+     * @throws HttpException
      */
     public function actionFavorites($username)
     {
         $user = User::findByUsername($username);
+        if(is_null($user)){
+            throw new HttpException(404, 'Cooker not found');
+        }
         $recipeQuery = $user->getFavorites();
 
         $pagination = new Pagination([
@@ -68,10 +77,14 @@ class UserController extends Controller
      * Get made recipes of user.
      * @param $username
      * @return string
+     * @throws HttpException
      */
     public function actionMade($username)
     {
         $user = User::findByUsername($username);
+        if(is_null($user)){
+            throw new HttpException(404, 'Cooker not found');
+        }
         $recipeQuery = $user->getCooks();
 
         $pagination = new Pagination([
@@ -96,10 +109,14 @@ class UserController extends Controller
      * Get following user.
      * @param $username
      * @return string
+     * @throws HttpException
      */
     public function actionFollowing($username)
     {
         $user = User::findByUsername($username);
+        if(is_null($user)){
+            throw new HttpException(404, 'Cooker not found');
+        }
         $followingQuery = $user->getFollowings();
 
         $pagination = new Pagination([
@@ -124,10 +141,14 @@ class UserController extends Controller
      * Get following user.
      * @param $username
      * @return string
+     * @throws HttpException
      */
     public function actionFollowers($username)
     {
         $user = User::findByUsername($username);
+        if(is_null($user)){
+            throw new HttpException(404, 'Cooker not found');
+        }
         $followingQuery = $user->getFollowers();
 
         $pagination = new Pagination([

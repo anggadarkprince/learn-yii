@@ -39,7 +39,7 @@ FontAwesomeAsset::register($this);
             </div>
             <div id="navigation-collapse" class="collapse navbar-collapse">
                 <ul class="navbar-nav nav">
-                    <li><a href="<?= Url::to(['/blog']) ?>">Blog</a></li>
+                    <li class="<?= Yii::$app->controller->id == 'article' ? 'active' : '' ?>"><a href="<?= Url::to(['/blog']) ?>">Blog</a></li>
                     <li><a href="<?= Url::to(['/cooking']) ?>">Cooking</a></li>
                     <li><a href="<?= Url::to(['/cooking']) ?>">Diet</a></li>
                     <li><a href="<?= Url::to(['/discovery']) ?>">Discovery</a></li>

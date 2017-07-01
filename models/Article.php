@@ -2,7 +2,8 @@
 
 namespace app\models;
 
-use Yii;
+use yii\db\ActiveRecord;
+use yii\helpers\BaseStringHelper;
 
 /**
  * This is the model class for table "articles".
@@ -13,20 +14,30 @@ use Yii;
  * @property string $title
  * @property string $slug
  * @property string $content
+ * @property string $feature
  * @property string $excerpt
  * @property string $status
  * @property string $format
  * @property integer $view
  * @property string $created_at
  * @property string $updated_at
+ * @property string $publishedAt
+ * @property string $summary
  *
- * @property ArticleTags[] $articleTags
- * @property Tags[] $tags
- * @property Categories $category
- * @property Users $user
+ * @property Tag[] $tags
+ * @property Category $category
+ * @property User $user
  */
-class Article extends \yii\db\ActiveRecord
+class Article extends ActiveRecord
 {
+    public static $STATUS_PUBLISHED = 'published';
+    public static $STATUS_DRAFT = 'draft';
+
+    public $archiveYear;
+    public $archiveMonth;
+    public $archiveLabel;
+    public $totalArticle;
+
     /**
      * @inheritdoc
      */
@@ -43,13 +54,13 @@ class Article extends \yii\db\ActiveRecord
         return [
             [['user_id', 'category_id', 'title', 'slug', 'content'], 'required'],
             [['user_id', 'category_id', 'view'], 'integer'],
-            [['content', 'status', 'format'], 'string'],
+            [['content', 'status', 'format', 'feature'], 'string'],
             [['created_at', 'updated_at'], 'safe'],
             [['title'], 'string', 'max' => 200],
             [['slug'], 'string', 'max' => 400],
             [['excerpt'], 'string', 'max' => 500],
-            [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Categories::className(), 'targetAttribute' => ['category_id' => 'id']],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['user_id' => 'id']],
+            [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'id']],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
 
@@ -60,11 +71,12 @@ class Article extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'user_id' => 'User ID',
-            'category_id' => 'Category ID',
+            'user_id' => 'Author',
+            'category_id' => 'Category',
             'title' => 'Title',
             'slug' => 'Slug',
             'content' => 'Content',
+            'feature' => 'Feature',
             'excerpt' => 'Excerpt',
             'status' => 'Status',
             'format' => 'Format',
@@ -75,11 +87,51 @@ class Article extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * Get published date friendly format.
+     * @return string
      */
-    public function getArticleTags()
+    public function getPublishedAt()
     {
-        return $this->hasMany(ArticleTags::className(), ['article_id' => 'id']);
+        return (new \DateTime($this->created_at))->format('d F Y H:i');
+    }
+
+    /**
+     * Get summary excerpt
+     * @return string
+     */
+    public function getSummary()
+    {
+        return BaseStringHelper::truncateWords(strip_tags($this->content), 50);
+    }
+
+    public function getRecentPost($totalMax = 6)
+    {
+        return self::find()
+            ->latest()
+            ->status(self::$STATUS_PUBLISHED)
+            ->limit($totalMax)
+            ->all();
+    }
+
+    public function getArchiveGroups()
+    {
+        return self::find()
+            ->select([
+                'DATE_FORMAT(created_at, "%Y") AS archiveYear',
+                'DATE_FORMAT(created_at, "%m") AS archiveMonth',
+                'DATE_FORMAT(created_at, "%M %Y") AS archiveLabel',
+                'COUNT(id) AS totalArticle'
+            ])
+            ->groupBy([
+                'DATE_FORMAT(created_at, "%Y")',
+                'DATE_FORMAT(created_at, "%m")',
+                'DATE_FORMAT(created_at, "%M %Y")'
+            ])
+            ->orderBy([
+                'archiveYear' => SORT_DESC,
+                'archiveMonth' => SORT_DESC
+            ])
+            ->all();
     }
 
     /**
@@ -87,7 +139,8 @@ class Article extends \yii\db\ActiveRecord
      */
     public function getTags()
     {
-        return $this->hasMany(Tags::className(), ['id' => 'tag_id'])->viaTable('article_tags', ['article_id' => 'id']);
+        return $this->hasMany(Tag::className(), ['id' => 'tag_id'])
+            ->viaTable('article_tags', ['article_id' => 'id']);
     }
 
     /**
@@ -95,7 +148,7 @@ class Article extends \yii\db\ActiveRecord
      */
     public function getCategory()
     {
-        return $this->hasOne(Categories::className(), ['id' => 'category_id']);
+        return $this->hasOne(Category::className(), ['id' => 'category_id']);
     }
 
     /**
@@ -103,6 +156,15 @@ class Article extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(Users::className(), ['id' => 'user_id']);
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
+    }
+
+    /**
+     * @inheritdoc
+     * @return ArticlesQuery the active query used by this AR class.
+     */
+    public static function find()
+    {
+        return new ArticlesQuery(get_called_class());
     }
 }

@@ -89,6 +89,11 @@ class CategoryController extends Controller
         ]);
     }
 
+    public function actionArticle($slug)
+    {
+        return $this->renderContent('Show article category ' . $slug);
+    }
+
     /**
      * Creates a new Category model.
      * If creation is successful, the browser will be redirected to the 'view' page.

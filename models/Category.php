@@ -18,6 +18,7 @@ use yii\db\ActiveRecord;
  * @property string $updated_at
  *
  * @property Recipes[] $recipes
+ * @property Article[] $articles
  */
 class Category extends ActiveRecord
 {
@@ -65,12 +66,21 @@ class Category extends ActiveRecord
     }
 
     /**
-     * Get all related receipts of current category data.
+     * Get all related recipes of current category data.
      * @return \yii\db\ActiveQuery
      */
     public function getRecipes()
     {
         return $this->hasMany(Recipe::className(), ['category_id' => 'id']);
+    }
+
+    /**
+     * Get all related articles of current category data.
+     * @return \yii\db\ActiveQuery
+     */
+    public function getArticles()
+    {
+        return $this->hasMany(Article::className(), ['category_id' => 'id']);
     }
 
     /**
