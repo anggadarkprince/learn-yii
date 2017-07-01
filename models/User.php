@@ -3,6 +3,7 @@
 namespace app\models;
 
 use yii\db\ActiveRecord;
+use yii\helpers\Url;
 use yii\web\IdentityInterface;
 
 /**
@@ -72,6 +73,16 @@ class User extends ActiveRecord implements IdentityInterface
         unset($fields['password'], $fields['auth_key'], $fields['access_token']);
 
         return $fields;
+    }
+
+    public function getAvatarUrl()
+    {
+        return Url::to("/img/avatars/{$this->avatar}");
+    }
+
+    public function setAvatarUrl($value)
+    {
+        $this->avatar = end(explode('/', $value));
     }
 
     /**
@@ -153,17 +164,17 @@ class User extends ActiveRecord implements IdentityInterface
 
     /**
      * Get user followers.
-     * @param null $max
+     * @param null $totalMax
      * @return \yii\db\ActiveQuery|ActiveRecord[]
      */
-    public function getFollowers($max = null)
+    public function getFollowers($totalMax = null)
     {
         $followersUser = $this->hasMany(User::className(), ['id' => 'following_id'])
             ->viaTable('followers', ['user_id' => 'id'])
             ->orderBy(['created_at' => SORT_DESC]);
 
-        if (!is_null($max)) {
-            return $followersUser->limit($max)->all();
+        if (!is_null($totalMax)) {
+            return $followersUser->limit($totalMax)->all();
         }
         return $followersUser;
     }

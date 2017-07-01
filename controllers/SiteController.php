@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\Category;
+use app\models\Recipe;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -59,15 +60,14 @@ class SiteController extends Controller
 
     /**
      * Displays homepage.
-     *
      * @return string
      */
     public function actionIndex()
     {
-        $category = new Category();
-        $categories = Category::find()->all();
-        Yii::$app->view->params['categoryMenu'] = $categories;
-        return $this->render('index', ['categories' => $category]);
+        $recipe = new Recipe();
+        $recipes = $recipe->featuredRecipes;
+
+        return $this->render('index', ['recipes' => $recipes]);
     }
 
     public function actionSay($message = 'Hi people')
@@ -77,7 +77,6 @@ class SiteController extends Controller
 
     /**
      * Login action.
-     *
      * @return Response|string
      */
     public function actionLogin()
@@ -97,7 +96,6 @@ class SiteController extends Controller
 
     /**
      * Logout action.
-     *
      * @return Response
      */
     public function actionLogout()
@@ -109,7 +107,6 @@ class SiteController extends Controller
 
     /**
      * Displays contact page.
-     *
      * @return Response|string
      */
     public function actionContact()
@@ -127,7 +124,6 @@ class SiteController extends Controller
 
     /**
      * Displays about page.
-     *
      * @return string
      */
     public function actionAbout()

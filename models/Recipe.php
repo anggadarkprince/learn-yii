@@ -2,7 +2,6 @@
 
 namespace app\models;
 
-use Yii;
 use yii\db\ActiveRecord;
 use yii\db\Query;
 use yii\helpers\ArrayHelper;
@@ -29,15 +28,16 @@ use yii\helpers\ArrayHelper;
  * @property Direction[] $directions
  * @property Ingredient[] $ingredients
  * @property Rating[] $ratings
- * @property RecipeTags[] $recipeTags
  * @property Tag[] $tags
  * @property Recipe[] $relatedRecipes
+ * @property Recipe[] $featuredRecipes
  * @property Category $category
  * @property User $user
  */
 class Recipe extends ActiveRecord
 {
     /**
+     * Set default table name.
      * @inheritdoc
      */
     public static function tableName()
@@ -46,6 +46,7 @@ class Recipe extends ActiveRecord
     }
 
     /**
+     * Set recipe data rules.
      * @inheritdoc
      */
     public function rules()
@@ -66,6 +67,7 @@ class Recipe extends ActiveRecord
     }
 
     /**
+     * Set recipe attribute label.
      * @inheritdoc
      */
     public function attributeLabels()
@@ -89,6 +91,32 @@ class Recipe extends ActiveRecord
     }
 
     /**
+     * Get featured recipe randomly.
+     * @param int $totalMax
+     * @return array|ActiveRecord[]
+     */
+    public function getFeaturedRecipes($totalMax = 4)
+    {
+        $recipesQuery = Recipe::find()
+            ->select(['recipes.id', 'title', 'IFNULL(AVG(ratings.rate), 0) AS rating'])
+            ->joinWith('ratings', false)
+            ->groupBy('recipes.id')
+            ->orderBy(['rating' => SORT_DESC])
+            ->limit($totalMax * 2)
+            ->createCommand()
+            ->getRawSql();
+
+        $randomRecipes = (new Query())
+            ->select('id')
+            ->from('(' . $recipesQuery . ') AS top_recipes')
+            ->orderBy('RAND()')
+            ->limit($totalMax)
+            ->all();
+
+        return Recipe::find()->where(['in', 'id', $randomRecipes])->all();
+    }
+
+    /**
      * Get related recipe by similar tags.
      * @param int $totalMax
      * @param null $recipeId
@@ -98,16 +126,15 @@ class Recipe extends ActiveRecord
     {
         $recipeId = is_null($recipeId) ? $this->id : $recipeId;
 
-        $recipe = Recipe::find()
-            ->where(['recipes.id' => $recipeId])
-            ->one();
+        /* @var $recipe Recipe */
+        $recipe = Recipe::find()->where(['recipes.id' => $recipeId])->one();
         $tags = array_column(ArrayHelper::toArray($recipe->tags), 'id');
 
         $related = Recipe::find()
             ->leftJoin('ratings', 'recipes.id = ratings.recipe_id')
             ->innerJoin('recipe_tags', 'recipes.id = recipe_tags.recipe_id')
             ->where(['recipe_tags.tag_id' => $tags])
-            ->andWhere(['!=' , 'recipes.id', $recipeId])
+            ->andWhere(['!=', 'recipes.id', $recipeId])
             ->orderBy([
                 'ratings.vote' => SORT_DESC,
                 'ratings.rate' => SORT_DESC,
@@ -123,19 +150,21 @@ class Recipe extends ActiveRecord
             $sqlQuery = "
               SELECT * FROM recipes 
               WHERE category_id = :category 
-              ORDER BY RAND() LIMIT {$additionalTotal}";
+              ORDER BY RAND() LIMIT :total";
 
-            $additionalQuery = Recipe::findBySql($sqlQuery, [':category' => $categoryId])
-                ->createCommand()
-                ->getRawSql();
+            $additionalQuery = Recipe::findBySql($sqlQuery, [
+                ':category' => $categoryId,
+                ':total' => $additionalTotal,
+            ]);
 
-            $related->union($additionalQuery);
+            $related->union($additionalQuery->createCommand()->getRawSql());
         }
 
         return $related->all();
     }
 
     /**
+     * Get recipe directions
      * @return \yii\db\ActiveQuery
      */
     public function getDirections()
@@ -144,6 +173,7 @@ class Recipe extends ActiveRecord
     }
 
     /**
+     * Get recipe ingredients
      * @return \yii\db\ActiveQuery
      */
     public function getIngredients()
