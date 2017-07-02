@@ -38,7 +38,7 @@ $columnSmall = $column < 6 ? $column : 12;
             </div>
             <div class="blog-article-body">
                 <p><?= $article->summary ?></p>
-                <a href="<?= Url::to(["blog/article/{$article->slug}"]) ?>">READ MORE</a>
+                <a href="<?= Url::to(["/article/{$article->slug}"]) ?>">READ MORE</a>
             </div>
         </div>
     </div>

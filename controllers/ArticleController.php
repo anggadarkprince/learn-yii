@@ -21,7 +21,7 @@ class ArticleController extends Controller
             'totalCount' => $articleQuery->count(),
         ]);
 
-        $articles = $articleQuery->orderBy(['created_at' => SORT_DESC])
+        $articles = $articleQuery->latest()->published()
             ->offset($pagination->offset)
             ->limit($pagination->limit)
             ->all();
@@ -49,7 +49,7 @@ class ArticleController extends Controller
             'totalCount' => $articleQuery->count(),
         ]);
 
-        $articles = $articleQuery->orderBy(['created_at' => SORT_DESC])
+        $articles = $articleQuery->latest()->published()
             ->offset($pagination->offset)
             ->limit($pagination->limit)
             ->all();

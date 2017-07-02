@@ -469,6 +469,7 @@ a.desc:after {
 
 .recipe-review .review-author {
     margin-bottom: 3px;
+    font-weight: 700;
 }
 
 .recipe-review .review-stats {
@@ -489,7 +490,7 @@ a.desc:after {
 }
 
 .recipe-review .review-content {
-    min-height: 100px;
+    min-height: 115px;
     margin: 10px 0;
     color: #5d5d5d;
 }

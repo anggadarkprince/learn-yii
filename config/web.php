@@ -53,6 +53,7 @@ $config = [
                 'recipe' => 'recipe/index',
                 'recipe/<slug:[0-9a-zA-Z\-]+>' => 'recipe/view',
                 'blog' => 'article/index',
+                'blog/tag/<slug:[0-9a-zA-Z\-]+>' => 'tag/article',
                 'blog/<slug:[0-9a-zA-Z\-]+>' => 'category/article',
                 'blog/<year:[0-9]+>/<month:[0-9]+>' => 'article/archive',
                 'article/<slug:[0-9a-zA-Z\-]+>' => 'article/view',

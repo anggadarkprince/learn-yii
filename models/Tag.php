@@ -2,7 +2,6 @@
 
 namespace app\models;
 
-use Yii;
 use yii\db\ActiveRecord;
 
 /**
@@ -14,12 +13,13 @@ use yii\db\ActiveRecord;
  * @property string $created_at
  * @property string $updated_at
  *
- * @property RecipeTags[] $recipeTags
- * @property Recipes[] $recipes
+ * @property Recipe[] $recipes
+ * @property Article[] $articles
  */
 class Tag extends ActiveRecord
 {
     /**
+     * Set default table name.
      * @inheritdoc
      */
     public static function tableName()
@@ -28,6 +28,7 @@ class Tag extends ActiveRecord
     }
 
     /**
+     * Set input field rules.
      * @inheritdoc
      */
     public function rules()
@@ -41,6 +42,7 @@ class Tag extends ActiveRecord
     }
 
     /**
+     * Set attribute labels of tag.
      * @inheritdoc
      */
     public function attributeLabels()
@@ -55,10 +57,22 @@ class Tag extends ActiveRecord
     }
 
     /**
+     * Get related recipes by current tag model.
      * @return \yii\db\ActiveQuery
      */
     public function getRecipes()
     {
-        return $this->hasMany(Recipe::className(), ['id' => 'recipe_id'])->viaTable('recipe_tags', ['tag_id' => 'id']);
+        return $this->hasMany(Recipe::className(), ['id' => 'recipe_id'])
+            ->viaTable('recipe_tags', ['tag_id' => 'id']);
+    }
+
+    /**
+     * Get related article by current tag model.
+     * @return ArticleQuery
+     */
+    public function getArticles()
+    {
+        return $this->hasMany(Article::className(), ['id' => 'article_id'])
+            ->viaTable('article_tags', ['tag_id' => 'id']);
     }
 }
