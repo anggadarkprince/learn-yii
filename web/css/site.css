@@ -80,6 +80,9 @@ p {
     border: none;
     position: relative;
     background-color: rgba(0, 0, 0, 0.5);
+}
+
+.footer.transparent p {
     color: #ffffff;
 }
 
@@ -281,6 +284,10 @@ a.desc:after {
 .banner-featured {
     position: relative;
     background: url("../img/layout/main-featured.jpg") center center / cover;
+}
+
+.banner-featured.banner-2 {
+    background: url("../img/layout/blog-featured.jpg") center center / cover;
 }
 
 .banner-featured:before {
@@ -1050,4 +1057,31 @@ a.desc:after {
     margin-bottom: 15px;
     list-style: none;
     font-size: 18px;
+}
+
+.site-login {
+    color: #ffffff;
+    position: relative;
+}
+
+.site-login p {
+    color: #ffffff;
+    margin-bottom: 20px;
+}
+
+.site-login .promotion,
+.site-login .social {
+    margin-bottom: 30px;
+}
+
+.site-login .promotion small {
+    color: #cccccc;
+}
+
+.site-login .btn-social {
+    margin-right: 10px;
+}
+
+.site-login .btn-social i {
+    margin-right: 10px;
 }
