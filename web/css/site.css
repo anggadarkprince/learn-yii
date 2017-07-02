@@ -769,7 +769,8 @@ a.desc:after {
     padding-top: 0;
 }
 
-.blog-banner + .container {
+.blog-banner + .container,
+.cooking-banner + .container {
     padding-top: 40px;
 }
 
@@ -1084,4 +1085,67 @@ a.desc:after {
 
 .site-login .btn-social i {
     margin-right: 10px;
+}
+
+/* COOKING */
+.blog-banner.cooking-banner .banner-content {
+    padding: 10% 6% 8%;
+}
+
+.blog-banner.cooking-banner .banner-content p {
+    max-width: 800px;
+}
+
+.cooking-page-section {
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto 50px;
+}
+
+.cooking-page-section .section-head {
+    margin-bottom: 30px;
+}
+
+.cooking-page-section .section-head h2 {
+    margin-top: 0;
+}
+
+.cooking-page-section .section-head .lead {
+    margin-bottom: 10px;
+}
+
+.cooking-featured .featured-section {
+    margin: 30px 0;
+}
+
+.cooking-featured .btn {
+    min-width: 200px;
+}
+
+.cooking-pricing{
+    margin-bottom: 70px;
+}
+
+.cooking-pricing .price{
+    font-size: 45px;
+    color: rgb(255, 133, 27);
+    font-weight: 700;
+}
+.cooking-pricing .price span{
+    color: #999999;
+    font-size: 20px;
+    text-align: left;
+}
+.cooking-pricing p{
+    max-width: 280px;
+    margin: auto;
+}
+
+.cooking-pricing .column{
+    border-right: 1px solid #dddddd;
+}
+
+.cooking-pricing .btn {
+    margin-top: 20px;
+    min-width: 200px;
 }

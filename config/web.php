@@ -43,6 +43,7 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'cooking' => 'site/cooking',
                 'about' => 'site/about',
                 'contact' => 'site/contact',
                 'logout' => 'site/logout',

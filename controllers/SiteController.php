@@ -75,6 +75,11 @@ class SiteController extends Controller
         return $this->render('say', ['message' => $message]);
     }
 
+    public function actionCooking()
+    {
+        return $this->render('cooking');
+    }
+
     /**
      * Displays contact page.
      * @return Response|string
