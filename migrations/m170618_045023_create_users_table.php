@@ -22,6 +22,7 @@ class m170618_045023_create_users_table extends Migration
             "contact" => $this->string(50),
             "auth_key" => $this->string(100),
             "access_token" => $this->string(100),
+            "status" => "ENUM('pending', 'activated', 'suspended') DEFAULT 'pending",
             "created_at" => $this->timestamp()->notNull()->defaultExpression('CURRENT_TIMESTAMP'),
             "updated_at" => $this->timestamp()->notNull()->defaultExpression('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
         ]);

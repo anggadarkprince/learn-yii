@@ -286,8 +286,12 @@ a.desc:after {
     background: url("../img/layout/main-featured.jpg") center center / cover;
 }
 
-.banner-featured.banner-2 {
+.banner-featured.banner-login {
     background: url("../img/layout/blog-featured.jpg") center center / cover;
+}
+
+.banner-featured.banner-register {
+    background: url("../img/layout/secondary-featured.jpg") center center / cover;
 }
 
 .banner-featured:before {

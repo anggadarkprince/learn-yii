@@ -14,7 +14,10 @@ class CategoryMenuWidget extends Widget
 
     public function run()
     {
-        $categories = Category::find()->all();
+        $categories = Category::find()
+            ->select(['category'])
+            ->indexBy('slug')
+            ->column();
         return $this->render('menu', ['categories' => $categories]);
     }
 }

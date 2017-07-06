@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\LoginForm;
+use app\models\RegisterForm;
 use app\models\User;
 use Yii;
 use yii\data\Pagination;
@@ -186,6 +187,25 @@ class UserController extends Controller
             return $this->goBack();
         }
         return $this->render('login', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * Show register form.
+     * @return string|\yii\web\Response
+     */
+    public function actionRegister()
+    {
+        if (!Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+
+        $model = new RegisterForm();
+        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            return $this->goBack();
+        }
+        return $this->render('register', [
             'model' => $model,
         ]);
     }

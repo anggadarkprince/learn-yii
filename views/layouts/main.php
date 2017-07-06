@@ -39,8 +39,12 @@ FontAwesomeAsset::register($this);
             </div>
             <div id="navigation-collapse" class="collapse navbar-collapse">
                 <ul class="navbar-nav nav">
-                    <li class="<?= Yii::$app->controller->id == 'article' ? 'active' : '' ?>"><a href="<?= Url::to(['/blog']) ?>">Blog</a></li>
-                    <li><a href="<?= Url::to(['/cooking']) ?>">Cooking</a></li>
+                    <li class="<?= Yii::$app->controller->id == 'article' ? 'active' : '' ?>">
+                        <a href="<?= Url::to(['/blog']) ?>">Blog</a>
+                    </li>
+                    <li class="<?= Yii::$app->controller->id == 'site' && Yii::$app->controller->action->id == 'cooking' ? 'active' : '' ?>">
+                        <a href="<?= Url::to(['/cooking']) ?>">Cooking</a>
+                    </li>
                     <li><a href="<?= Url::to(['/cooking']) ?>">Diet</a></li>
                     <li><a href="<?= Url::to(['/discovery']) ?>">Discovery</a></li>
                     <li class="dropdown">
@@ -57,8 +61,12 @@ FontAwesomeAsset::register($this);
                 <?php endif; ?>
                 <ul class="navbar-nav navbar-right nav">
                     <?php if (Yii::$app->user->isGuest): ?>
-                        <li><a href="<?= Url::to(['account/login']) ?>">Login</a></li>
-                        <li><a href="<?= Url::to(['account/register']) ?>">Register</a></li>
+                        <li class="<?= Yii::$app->controller->action->id == 'login' ? 'active' : '' ?>">
+                            <a href="<?= Url::to(['account/login']) ?>">Login</a>
+                        </li>
+                        <li class="<?= Yii::$app->controller->action->id == 'register' ? 'active' : '' ?>">
+                            <a href="<?= Url::to(['account/register']) ?>">Register</a>
+                        </li>
                     <?php else: ?>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">

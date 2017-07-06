@@ -9,11 +9,11 @@ use yii\helpers\Url;
         <a href="<?= Url::to('/recipe') ?>"><strong>All Recipes</strong></a>
     </li>
     <li class="divider"></li>
-    <?php foreach ($categories as $category): ?>
-        <?php $active = Yii::$app->request->get('slug', '') == $category->slug; ?>
+    <?php foreach ($categories as $slug => $category): ?>
+        <?php $active = Yii::$app->request->get('slug', '') == $slug; ?>
         <li class="<?= $active ? 'active' : '' ?>">
-            <a href="<?= Url::to(['category/' . $category->slug]) ?>">
-                <?= $category->category ?>
+            <a href="<?= Url::to(['category/' . $slug]) ?>">
+                <?= $category ?>
             </a>
         </li>
     <?php endforeach; ?>
