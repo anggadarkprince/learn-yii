@@ -37,7 +37,7 @@ $this->params['banner-class'] = 'banner-featured banner-register';
             ]) ?>
 
             <p class="small">
-                By registering your account, you are agreeing to our <a href="<?= Url::to('/legal/tos') ?>">Terms of
+                By registering your account, you are agreeing to our <a href="<?= Url::to('/legal/terms-of-service') ?>">Terms of
                     Service</a> and our <a href="<?= Url::to('/legal/privacy') ?>">Privacy Policy Rights</a>.
             </p>
 

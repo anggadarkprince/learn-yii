@@ -42,10 +42,12 @@ FontAwesomeAsset::register($this);
                     <li class="<?= Yii::$app->controller->id == 'article' ? 'active' : '' ?>">
                         <a href="<?= Url::to(['/blog']) ?>">Blog</a>
                     </li>
-                    <li class="<?= Yii::$app->controller->id == 'site' && Yii::$app->controller->action->id == 'cooking' ? 'active' : '' ?>">
+                    <li class="<?= Yii::$app->controller->id == 'cooking' ? 'active' : '' ?>">
                         <a href="<?= Url::to(['/cooking']) ?>">Cooking</a>
                     </li>
-                    <li><a href="<?= Url::to(['/cooking']) ?>">Diet</a></li>
+                    <li class="<?= Yii::$app->controller->id == 'diet' ? 'active' : '' ?>">
+                        <a href="<?= Url::to(['/die']) ?>">Diet</a>
+                    </li>
                     <li><a href="<?= Url::to(['/discovery']) ?>">Discovery</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Recipes <b class="caret"></b></a>

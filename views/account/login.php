@@ -42,7 +42,7 @@ $this->params['banner-class'] = 'banner-featured banner-login';
             <?php ActiveForm::end(); ?>
 
             <p class="small">
-                By signing in, you are agreeing to our <a href="<?= Url::to('/legal/tos') ?>">Terms of
+                By signing in, you are agreeing to our <a href="<?= Url::to('/legal/terms-of-service') ?>">Terms of
                     Service</a> and our <a href="<?= Url::to('/legal/privacy') ?>">Privacy Policy Rights</a>.
             </p>
 

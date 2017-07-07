@@ -687,13 +687,13 @@ a.desc:after {
 
 .card-recipe .recipe-stats,
 .recipe-review .recipe-stats {
-    font-size: 12px;
+    font-size: 13px;
     margin-bottom: 0;
 }
 
 .card-recipe .recipe-author,
 .recipe-review .recipe-author {
-    font-size: 12px;
+    font-size: 13px;
     margin-bottom: 5px;
 }
 
@@ -1152,4 +1152,18 @@ a.desc:after {
 .cooking-pricing .btn {
     margin-top: 20px;
     min-width: 200px;
+}
+
+/* LEGAL PAGE */
+.legal-section{
+    margin-bottom: 20px;
+}
+
+.legal-section p{
+    line-height: 1.6;
+}
+
+.legal-section .lead {
+    margin: 30px 0 10px;
+    font-weight: 700;
 }
