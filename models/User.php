@@ -19,6 +19,8 @@ use yii\web\IdentityInterface;
  * @property string $location
  * @property string $about
  * @property string $contact
+ * @property string $auth_key
+ * @property string $access_token
  * @property string $created_at
  *
  * @property Recipe[] $recipes
@@ -30,28 +32,6 @@ use yii\web\IdentityInterface;
  */
 class User extends ActiveRecord implements IdentityInterface
 {
-    public $authKey;
-    public $accessToken;
-
-    private static $users = [
-        '100' => [
-            'id' => '100',
-            'name' => 'Angga Ari',
-            'username' => 'admin',
-            'password' => 'admin',
-            'authKey' => 'test100key',
-            'accessToken' => '100-token',
-        ],
-        '101' => [
-            'id' => '101',
-            'name' => 'Angga Ari',
-            'username' => 'demo',
-            'password' => 'demo',
-            'authKey' => 'test101key',
-            'accessToken' => '101-token',
-        ],
-    ];
-
     /**
      * Set default table name.
      * @inheritdoc
@@ -86,25 +66,26 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * @inheritdoc
+     * Finds an identity by the given ID.
+     *
+     * @param string|int $id the ID to be looked for
+     * @return IdentityInterface|null the identity object that matches the given ID.
      */
     public static function findIdentity($id)
     {
-        return isset(self::$users[$id]) ? new static(self::$users[$id]) : null;
+        return static::findOne($id);
     }
 
     /**
-     * @inheritdoc
+     * Finds an identity by the given token.
+     *
+     * @param string $token the token to be looked for
+     * @param null $type
+     * @return null|IdentityInterface the identity object that matches the given token.
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
-        foreach (self::$users as $user) {
-            if ($user['accessToken'] === $token) {
-                return new static($user);
-            }
-        }
-
-        return null;
+        return static::findOne(['access_token' => $token]);
     }
 
     /**
@@ -115,11 +96,11 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findByUsername($username)
     {
-        return User::find()->where(['username' => $username])->one();
+        return static::find()->where(['username' => $username])->one();
     }
 
     /**
-     * @inheritdoc
+     * @return int|string current user ID
      */
     public function getId()
     {
@@ -127,19 +108,20 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * @inheritdoc
+     * @return string current user auth key
      */
     public function getAuthKey()
     {
-        return $this->authKey;
+        return $this->auth_key;
     }
 
     /**
-     * @inheritdoc
+     * @param string $authKey
+     * @return bool if auth key is valid for current user
      */
     public function validateAuthKey($authKey)
     {
-        return $this->authKey === $authKey;
+        return $this->getAuthKey() === $authKey;
     }
 
     /**
@@ -150,7 +132,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function validatePassword($password)
     {
-        return $this->password === $password;
+        return password_verify($password, $this->password);
     }
 
     /**

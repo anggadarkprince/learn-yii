@@ -252,6 +252,10 @@ a.desc:after {
     color: #ffffff;
 }
 
+.navbar-btn{
+    margin: 13px 0 12px 15px
+}
+
 .navbar-button-search {
     padding: 18px;
     background: none;

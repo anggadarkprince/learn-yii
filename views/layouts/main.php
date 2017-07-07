@@ -56,10 +56,11 @@ FontAwesomeAsset::register($this);
                 </ul>
 
                 <?php if (!Yii::$app->user->isGuest): ?>
-                    <a href="<?= Url::to(['recipe/create']) ?>" class="navbar-right btn btn-primary navbar-btn"
-                       style="margin: 8px 0 8px 15px">
+                <ul class="navbar-nav navbar-right nav">
+                    <a href="<?= Url::to(['recipe/create']) ?>" class="navbar-right btn btn-primary navbar-btn">
                         Make Recipe
                     </a>
+                </ul>
                 <?php endif; ?>
                 <ul class="navbar-nav navbar-right nav">
                     <?php if (Yii::$app->user->isGuest): ?>
@@ -78,23 +79,23 @@ FontAwesomeAsset::register($this);
                             <ul class="dropdown-menu">
                                 <li>
                                     <a href="<?= Url::to(['account/dashboard']) ?>">
-                                        <i class="glyphicon glyphicon-dashboard text-muted"></i> &nbsp; Dashboard
+                                        <i class="fa fa-dashboard text-muted"></i> &nbsp; Dashboard
                                     </a>
                                 </li>
                                 <li>
                                     <a href="<?= Url::to(['account/recipes']) ?>">
-                                        <i class="glyphicon glyphicon-file text-muted"></i> &nbsp; Recipes
+                                        <i class="fa fa-cutlery text-muted"></i> &nbsp; Recipes
                                     </a>
                                 </li>
                                 <li>
                                     <a href="<?= Url::to(['account/setting']) ?>">
-                                        <i class="glyphicon glyphicon-cog text-muted"></i> &nbsp; Setting
+                                        <i class="fa fa-cog text-muted"></i> &nbsp; Setting
                                     </a>
                                 </li>
                                 <li role="separator" class="divider"></li>
                                 <li>
                                     <a href="<?= Url::to(['account/logout']) ?>">
-                                        <i class="glyphicon glyphicon-log-out text-muted"></i> &nbsp; Logout
+                                        <i class="fa fa-sign-out text-muted"></i> &nbsp; Logout
                                     </a>
                                 </li>
                             </ul>

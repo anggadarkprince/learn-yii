@@ -21,7 +21,7 @@ class UserController extends Controller
     public function actionView($username)
     {
         $user = User::findByUsername($username);
-        if(is_null($user)){
+        if (is_null($user)) {
             throw new HttpException(404, 'Cooker not found');
         }
         $recipeQuery = $user->getRecipes();
@@ -53,7 +53,7 @@ class UserController extends Controller
     public function actionFavorites($username)
     {
         $user = User::findByUsername($username);
-        if(is_null($user)){
+        if (is_null($user)) {
             throw new HttpException(404, 'Cooker not found');
         }
         $recipeQuery = $user->getFavorites();
@@ -85,7 +85,7 @@ class UserController extends Controller
     public function actionMade($username)
     {
         $user = User::findByUsername($username);
-        if(is_null($user)){
+        if (is_null($user)) {
             throw new HttpException(404, 'Cooker not found');
         }
         $recipeQuery = $user->getCooks();
@@ -117,7 +117,7 @@ class UserController extends Controller
     public function actionFollowing($username)
     {
         $user = User::findByUsername($username);
-        if(is_null($user)){
+        if (is_null($user)) {
             throw new HttpException(404, 'Cooker not found');
         }
         $followingQuery = $user->getFollowings();
@@ -149,7 +149,7 @@ class UserController extends Controller
     public function actionFollowers($username)
     {
         $user = User::findByUsername($username);
-        if(is_null($user)){
+        if (is_null($user)) {
             throw new HttpException(404, 'Cooker not found');
         }
         $followingQuery = $user->getFollowers();
@@ -184,7 +184,7 @@ class UserController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
+            return $this->redirect('/' . Yii::$app->user->identity->username);
         }
         return $this->render('login', [
             'model' => $model,
