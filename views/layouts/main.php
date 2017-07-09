@@ -65,10 +65,10 @@ FontAwesomeAsset::register($this);
                 <ul class="navbar-nav navbar-right nav">
                     <?php if (Yii::$app->user->isGuest): ?>
                         <li class="<?= Yii::$app->controller->action->id == 'login' ? 'active' : '' ?>">
-                            <a href="<?= Url::to(['account/login']) ?>">Login</a>
+                            <a href="<?= Url::to(['auth/login']) ?>">Login</a>
                         </li>
                         <li class="<?= Yii::$app->controller->action->id == 'register' ? 'active' : '' ?>">
-                            <a href="<?= Url::to(['account/register']) ?>">Register</a>
+                            <a href="<?= Url::to(['auth/register']) ?>">Register</a>
                         </li>
                     <?php else: ?>
                         <li class="dropdown">
@@ -94,7 +94,7 @@ FontAwesomeAsset::register($this);
                                 </li>
                                 <li role="separator" class="divider"></li>
                                 <li>
-                                    <a href="<?= Url::to(['account/logout']) ?>">
+                                    <a href="<?= Url::to(['auth/logout']) ?>">
                                         <i class="fa fa-sign-out text-muted"></i> &nbsp; Logout
                                     </a>
                                 </li>

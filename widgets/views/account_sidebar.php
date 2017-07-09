@@ -24,10 +24,10 @@ use yii\helpers\Url;
         </button>
 
         <ul class="account-info">
-            <li><i class="fa fa-map-marker"></i><?= $user->location ?></li>
+            <li><i class="fa fa-map-marker"></i><?= is_null($user->location) ? 'No location' : $user->location ?></li>
             <li><i class="fa fa-envelope-o"></i><?= $user->email ?></li>
             <li><i class="fa fa-calendar-o"></i>Joined <?= (new DateTime($user->created_at))->format('F Y') ?></li>
-            <li><i class="fa fa-phone"></i>Contact <?= $user->contact ?></li>
+            <li><i class="fa fa-phone"></i><?= is_null($user->contact) ? 'No Contact' : 'Contact ' . $user->contact ?></li>
         </ul>
 
         <div class="account-section">

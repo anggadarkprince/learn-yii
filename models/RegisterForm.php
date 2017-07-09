@@ -43,50 +43,13 @@ class RegisterForm extends Model
     }
 
     /**
-     * Register a user by email.
-     */
-    public function register()
-    {
-        if ($this->validate()) {
-            $connection = Yii::$app->db;
-            $transaction = $connection->beginTransaction();
-            try {
-                $user = new User();
-                $user->name = $this->name;
-                $user->username = $this->username;
-                $user->email = $this->email;
-                $user->password = Yii::$app->getSecurity()->generatePasswordHash($this->password);
-                $user->status = User::$STATUS_PENDING;
-                $user->save();
-
-                $token = Yii::$app->getSecurity()->generateRandomString();
-                $connection->createCommand()->insert('user_tokens', [
-                    'user_id' => $user->id,
-                    'key' => $token,
-                    'type' => 'registration'
-                ])->execute();
-
-                $this->sendActivationEmail($user, $token);
-
-                $transaction->commit();
-                return true;
-            } catch (\Exception $e) {
-                $transaction->rollBack();
-                throw $e;
-            }
-        }
-
-        return false;
-    }
-
-    /**
      * Send user activation email.
      * @param User $user
      * @param $token
      */
     public function sendActivationEmail(User $user, $token)
     {
-        $urlActivation = Url::toRoute(['account/activate', 'token' => $token], true);
+        $urlActivation = Url::toRoute(['auth/activate', 'token' => $token], true);
 
         $message = Yii::$app->mailer->compose('activation', [
             'user' => $user,
