@@ -252,7 +252,7 @@ a.desc:after {
     color: #ffffff;
 }
 
-.navbar-btn{
+.navbar-btn {
     margin: 13px 0 12px 15px
 }
 
@@ -778,7 +778,8 @@ a.desc:after {
 }
 
 .blog-banner + .container,
-.cooking-banner + .container {
+.cooking-banner + .container,
+.diet-banner + .container {
     padding-top: 40px;
 }
 
@@ -1102,6 +1103,7 @@ a.desc:after {
 
 .blog-banner.cooking-banner .banner-content p {
     max-width: 800px;
+    margin-bottom: 25px;
 }
 
 .cooking-page-section {
@@ -1130,26 +1132,28 @@ a.desc:after {
     min-width: 200px;
 }
 
-.cooking-pricing{
+.cooking-pricing {
     margin-bottom: 70px;
 }
 
-.cooking-pricing .price{
+.cooking-pricing .price {
     font-size: 45px;
     color: rgb(255, 133, 27);
     font-weight: 700;
 }
-.cooking-pricing .price span{
+
+.cooking-pricing .price span {
     color: #999999;
     font-size: 20px;
     text-align: left;
 }
-.cooking-pricing p{
+
+.cooking-pricing p {
     max-width: 280px;
     margin: auto;
 }
 
-.cooking-pricing .column{
+.cooking-pricing .column {
     border-right: 1px solid #dddddd;
 }
 
@@ -1159,15 +1163,93 @@ a.desc:after {
 }
 
 /* LEGAL PAGE */
-.legal-section{
+.legal-section {
     margin-bottom: 20px;
 }
 
-.legal-section p{
+.legal-section p {
     line-height: 1.6;
 }
 
 .legal-section .lead {
     margin: 30px 0 10px;
     font-weight: 700;
+}
+
+/* DIET */
+.diet-banner {
+    margin-bottom: 20px;
+    position: relative;
+    text-align: center;
+}
+
+.diet-banner .banner-content {
+    position: relative;
+    width: auto;
+    margin: auto;
+    padding: 10% 8% 14%;
+    color: #ffffff;
+}
+
+.diet-banner .banner-content h1 {
+    font-weight: 300;
+    font-size: 85px;
+}
+
+.diet-banner .banner-content h2 {
+    font-weight: 300;
+    font-size: 70px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+.diet-banner .banner-content p {
+    margin-bottom: 30px;
+}
+
+.diet-banner .banner-content .btn {
+    min-width: 200px;
+}
+
+.diet-feature-section{
+    margin-bottom: 70px;
+}
+
+.diet-feature-title{
+    font-size: 40px;
+    font-weight: 300;
+    margin-bottom: 30px;
+}
+
+.diet-feature-subtitle{
+    font-weight: 700;
+    letter-spacing: 5px;
+}
+
+.diet-feature-text{
+    font-size: 18px;
+}
+
+.diet-feature-section.premium{
+    text-align: center;
+    padding: 70px;
+}
+
+.diet-feature-section.premium .premium-text{
+    letter-spacing: 4px;
+    font-weight: 700;
+}
+
+.diet-feature-section.premium .diet-feature-title{
+    margin-bottom: 10px;
+}
+
+.diet-feature-section.premium .diet-feature-text{
+    margin-bottom: 30px;
+    letter-spacing: 1px;
+}
+
+.diet-feature-section.premium .btn{
+    min-width: 250px;
+    letter-spacing: 2px;
 }
