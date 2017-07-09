@@ -102,7 +102,7 @@ p {
 
 .jumbotron small {
     opacity: 0.75;
-    font-size: 75%;
+    font-size: 80%;
     max-width: 800px;
     display: block;
     margin: 15px auto 30px;
@@ -663,6 +663,14 @@ a.desc:after {
     font-size: 20px;
 }
 
+.card-recipe .recipe-title > a {
+    color: #4d4d4d;
+}
+
+.card-recipe .recipe-title > a:hover {
+    color: #337ab7;
+}
+
 .card-recipe .recipe-category {
     font-size: 13px;
     color: #7f7f7f;
@@ -723,7 +731,7 @@ a.desc:after {
 }
 
 .card-recipe.thumbnail-recipe .recipe-title {
-    font-size: 16px;
+    font-size: 18px;
     margin: 0 0 5px;
 }
 
@@ -902,10 +910,11 @@ a.desc:after {
 
 /* CARD USER */
 .card-user {
-    box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.06);
-    border: solid 1px #e6e6e6;
+    box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.08);
     border-radius: 2px;
     margin-bottom: 20px;
+    background: #ffffff;
+    min-height: 315px;
 }
 
 .card-user .user-feature {
@@ -931,9 +940,16 @@ a.desc:after {
 
 .card-user .user-name {
     margin: 0 0 5px;
-    font-size: 16px;
-    font-weight: 700;
+    font-size: 18px;
     padding-top: 45px;
+}
+
+.card-user .user-name > a {
+    color: #4d4d4d;
+}
+
+.card-user .user-name > a:hover {
+    color: #337ab7;
 }
 
 .card-user .user-username {
@@ -1211,45 +1227,132 @@ a.desc:after {
     min-width: 200px;
 }
 
-.diet-feature-section{
+.diet-feature-section {
     margin-bottom: 70px;
 }
 
-.diet-feature-title{
+.diet-feature-title {
     font-size: 40px;
     font-weight: 300;
     margin-bottom: 30px;
 }
 
-.diet-feature-subtitle{
+.diet-feature-subtitle {
     font-weight: 700;
     letter-spacing: 5px;
 }
 
-.diet-feature-text{
+.diet-feature-text {
     font-size: 18px;
 }
 
-.diet-feature-section.premium{
+.diet-feature-section.premium {
     text-align: center;
     padding: 70px;
 }
 
-.diet-feature-section.premium .premium-text{
+.diet-feature-section.premium .premium-text {
     letter-spacing: 4px;
     font-weight: 700;
 }
 
-.diet-feature-section.premium .diet-feature-title{
+.diet-feature-section.premium .diet-feature-title {
     margin-bottom: 10px;
 }
 
-.diet-feature-section.premium .diet-feature-text{
+.diet-feature-section.premium .diet-feature-text {
     margin-bottom: 30px;
     letter-spacing: 1px;
 }
 
-.diet-feature-section.premium .btn{
+.diet-feature-section.premium .btn {
     min-width: 250px;
     letter-spacing: 2px;
+}
+
+/* DISCOVERY */
+.discovery-section:first-of-type {
+    padding-top: 60px;
+}
+
+.discovery-section {
+    position: relative;
+}
+
+.discovery-section:before {
+    content: "";
+    position: absolute;
+    background: rgba(0, 0, 0, 0);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.85) 50%);
+    width: 100%;
+    height: 100%;
+    right: 0;
+    bottom: 0;
+}
+
+.discovery-content {
+    padding: 50px 0 0;
+    position: relative;
+}
+
+.discovery-subtitle {
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: #ffffff;
+}
+
+.discovery-title {
+    font-size: 35px;
+    margin-bottom: 40px;
+    color: #ffffff;
+}
+
+.discovery-footer {
+    position: relative;
+    margin-top: 40px;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.7);
+    color: #ffffff;
+}
+
+.discovery-footer h4 {
+    font-weight: 700;
+}
+
+.discovery-footer p {
+    color: #ffffff;
+    opacity: 0.7;
+}
+
+.discovery-footer .footer-button {
+    text-align: right;
+    margin: 15px 0;
+    letter-spacing: 2px;
+}
+
+/* CARD DIET */
+.card-diet {
+    margin-bottom: 20px;
+    background: #ffffff;
+    box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.08);
+}
+
+.card-diet .diet-feature{
+    height: 100px;
+}
+
+.card-diet .diet-content{
+    padding: 20px 25px;
+    text-align: center;
+}
+
+.card-diet .diet-title{
+    margin: 0 0 5px;
+    font-size: 25px;
+    font-weight: 400;
+}
+
+.card-diet .diet-description{
+    margin-bottom: 10px;
+    font-weight: 300;
 }

@@ -28,17 +28,8 @@ FontAwesomeAsset::register($this);
 <div class="wrap <?= isset($this->params['banner-class']) ? $this->params['banner-class'] : '' ?>">
 
     <?= $this->render('_navigation') ?>
+    <?= $content ?>
 
-    <?php if (isset($this->blocks['account-banner'])): ?>
-        <?= $this->blocks['account-banner'] ?>
-    <?php endif; ?>
-
-    <div class="container">
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
-        <?= $content ?>
-    </div>
 </div>
 
 <footer class="footer <?= isset($this->params['banner-class']) ? 'transparent' : '' ?>">

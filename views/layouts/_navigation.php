@@ -18,15 +18,17 @@ use app\widgets\CategoryMenuWidget;
         <div id="navigation-collapse" class="collapse navbar-collapse">
             <ul class="navbar-nav nav">
                 <li class="<?= Yii::$app->controller->id == 'article' ? 'active' : '' ?>">
-                    <a href="<?= Url::to(['/blog']) ?>">Blog</a>
+                    <a href="<?= Url::toRoute(['/blog']) ?>">Blog</a>
                 </li>
                 <li class="<?= Yii::$app->controller->id == 'cooking' ? 'active' : '' ?>">
-                    <a href="<?= Url::to(['/cooking']) ?>">Cooking</a>
+                    <a href="<?= Url::toRoute(['/cooking']) ?>">Cooking</a>
                 </li>
                 <li class="<?= Yii::$app->controller->id == 'diet' ? 'active' : '' ?>">
-                    <a href="<?= Url::to(['/diet']) ?>">Diet</a>
+                    <a href="<?= Url::toRoute(['/diet']) ?>">Diet</a>
                 </li>
-                <li><a href="<?= Url::to(['/discovery']) ?>">Discovery</a></li>
+                <li class="<?= Yii::$app->controller->id == 'discovery' ? 'active' : '' ?>">
+                    <a href="<?= Url::toRoute(['/discovery']) ?>">Discovery</a>
+                </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Recipes <b class="caret"></b></a>
                     <?= CategoryMenuWidget::widget() ?>
@@ -35,7 +37,7 @@ use app\widgets\CategoryMenuWidget;
 
             <?php if (!Yii::$app->user->isGuest): ?>
                 <ul class="navbar-nav navbar-right nav">
-                    <a href="<?= Url::to(['recipe/create']) ?>" class="navbar-right btn btn-primary navbar-btn">
+                    <a href="<?= Url::toRoute(['recipe/create']) ?>" class="navbar-right btn btn-primary navbar-btn">
                         Make Recipe
                     </a>
                 </ul>
@@ -43,10 +45,10 @@ use app\widgets\CategoryMenuWidget;
             <ul class="navbar-nav navbar-right nav">
                 <?php if (Yii::$app->user->isGuest): ?>
                     <li class="<?= Yii::$app->controller->action->id == 'login' ? 'active' : '' ?>">
-                        <a href="<?= Url::to(['auth/login']) ?>">Login</a>
+                        <a href="<?= Url::toRoute(['auth/login']) ?>">Login</a>
                     </li>
                     <li class="<?= Yii::$app->controller->action->id == 'register' ? 'active' : '' ?>">
-                        <a href="<?= Url::to(['auth/register']) ?>">Register</a>
+                        <a href="<?= Url::toRoute(['auth/register']) ?>">Register</a>
                     </li>
                 <?php else: ?>
                     <li class="dropdown">
@@ -56,23 +58,23 @@ use app\widgets\CategoryMenuWidget;
                         </a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a href="<?= Url::to(['account/dashboard']) ?>">
+                                <a href="<?= Url::toRoute(['account/dashboard']) ?>">
                                     <i class="fa fa-dashboard text-muted"></i> &nbsp; Dashboard
                                 </a>
                             </li>
                             <li>
-                                <a href="<?= Url::to(['account/recipes']) ?>">
+                                <a href="<?= Url::toRoute(['account/recipes']) ?>">
                                     <i class="fa fa-cutlery text-muted"></i> &nbsp; Recipes
                                 </a>
                             </li>
                             <li>
-                                <a href="<?= Url::to(['account/setting']) ?>">
+                                <a href="<?= Url::toRoute(['account/setting']) ?>">
                                     <i class="fa fa-cog text-muted"></i> &nbsp; Setting
                                 </a>
                             </li>
                             <li role="separator" class="divider"></li>
                             <li>
-                                <a href="<?= Url::to(['auth/logout']) ?>">
+                                <a href="<?= Url::toRoute(['auth/logout']) ?>">
                                     <i class="fa fa-sign-out text-muted"></i> &nbsp; Logout
                                 </a>
                             </li>
