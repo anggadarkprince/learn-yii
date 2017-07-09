@@ -4,6 +4,7 @@
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model app\models\LoginForm */
 
+use yii\bootstrap\Alert;
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Url;
@@ -17,6 +18,8 @@ $this->params['banner-class'] = 'banner-featured banner-login';
             <h1 class="lead">Sign In With Existing Email</h1>
 
             <p>Please fill out the following fields to login</p>
+
+            <?= $this->render('../errors/_general_alert') ?>
 
             <?php $form = ActiveForm::begin([
                 'id' => 'login-form',

@@ -16,6 +16,8 @@ $this->params['banner-class'] = 'banner-featured banner-register';
         <div class="col-md-4">
             <h1 class="lead">Join Yummy with Existing Email</h1>
 
+            <?= $this->render('../errors/_general_alert') ?>
+
             <?php $form = ActiveForm::begin([
                 'id' => 'login-form',
             ]); ?>
@@ -28,11 +30,15 @@ $this->params['banner-class'] = 'banner-featured banner-register';
                 'placeholder' => 'Put username'
             ]) ?>
 
+            <?= $form->field($model, 'email')->textInput([
+                'placeholder' => 'Email address'
+            ]) ?>
+
             <?= $form->field($model, 'password')->passwordInput([
                 'placeholder' => 'Password'
             ]) ?>
 
-            <?= $form->field($model, 'confirm_password')->textInput([
+            <?= $form->field($model, 'confirm_password')->passwordInput([
                 'placeholder' => 'Confirm password'
             ]) ?>
 

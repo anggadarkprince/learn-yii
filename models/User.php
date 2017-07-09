@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use Yii;
 use yii\db\ActiveRecord;
 use yii\helpers\Url;
 use yii\web\IdentityInterface;
@@ -21,7 +22,9 @@ use yii\web\IdentityInterface;
  * @property string $contact
  * @property string $auth_key
  * @property string $access_token
+ * @property string $status
  * @property string $created_at
+ * @property string $updated_at
  *
  * @property Recipe[] $recipes
  * @property Rating[] $ratings
@@ -32,6 +35,10 @@ use yii\web\IdentityInterface;
  */
 class User extends ActiveRecord implements IdentityInterface
 {
+    public static $STATUS_PENDING = 'pending';
+    public static $STATUS_ACTIVATED = 'activated';
+    public static $STATUS_SUSPENDED = 'suspended';
+
     /**
      * Set default table name.
      * @inheritdoc
@@ -66,6 +73,23 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
+     * Perform action before create new user.
+     * @param bool $insert
+     * @return bool
+     */
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            if ($this->isNewRecord) {
+                $this->auth_key = Yii::$app->security->generateRandomString();
+                $this->access_token = Yii::$app->security->generateRandomString(64);
+            }
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * Finds an identity by the given ID.
      *
      * @param string|int $id the ID to be looked for
@@ -92,7 +116,7 @@ class User extends ActiveRecord implements IdentityInterface
      * Finds user by username
      *
      * @param string $username
-     * @return array|null|ActiveRecord
+     * @return User|ActiveRecord
      */
     public static function findByUsername($username)
     {
@@ -136,6 +160,16 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
+     * Get user tokens.
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTokens()
+    {
+        return $this->hasMany(UserToken::className(), ['user_id' => 'id']);
+    }
+
+    /**
+     * Get user recipes.
      * @return \yii\db\ActiveQuery
      */
     public function getRecipes()
