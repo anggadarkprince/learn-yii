@@ -8,44 +8,39 @@ use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Url;
 
-$this->title = 'Login - Yummy';
+$this->title = 'Forgot Password - Yummy';
 $this->params['banner-class'] = 'banner-featured banner-login';
 ?>
 <div class="site-login">
     <div class="row">
         <div class="col-md-4">
-            <h1 class="lead">Sign In With Existing Email</h1>
+            <h1 class="lead">Forgot Password</h1>
 
-            <p>Please fill out the following fields to login</p>
+            <p>Fill out the following email to recover your account</p>
 
             <?= $this->render('../errors/_general_alert') ?>
 
             <?php $form = ActiveForm::begin([
-                'id' => 'login-form',
+                'id' => 'forgot-form',
             ]); ?>
 
-            <?= $form->field($model, 'username')->textInput([
-                'placeholder' => 'Put username or email'
+            <?= $form->field($model, 'email')->textInput([
+                'placeholder' => 'Registered email address'
             ]) ?>
-
-            <?= $form->field($model, 'password')->passwordInput([
-                'placeholder' => 'Password'
-            ]) ?>
-
-            <?= $form->field($model, 'rememberMe')->checkbox() ?>
 
             <div class="form-group">
-                <?= Html::submitButton('Login', [
+                <?= Html::submitButton('Reset Password', [
                     'class' => 'btn btn-primary btn-block btn-lg',
-                    'name' => 'login-button'
+                    'name' => 'forgot-button'
                 ]) ?>
             </div>
 
             <?php ActiveForm::end(); ?>
 
             <p class="small">
-                By signing in, you are agreeing to our <a href="<?= Url::to('/legal/terms-of-service') ?>">Terms of
-                    Service</a> and our <a href="<?= Url::to('/legal/privacy') ?>">Privacy Policy Rights</a>.
+                Remember you credentials? <a href="<?= Url::toRoute(['auth/login']) ?>">Login Here</a>.
+                <br>
+                Or <a href="<?= Url::to('/auth/register') ?>">Register new account?</a>
             </p>
 
         </div>
@@ -63,13 +58,7 @@ $this->params['banner-class'] = 'banner-featured banner-login';
                 <button class="btn btn-lg btn-primary btn-social"><i class="fa fa-facebook"></i>Facebook</button>
                 <button class="btn btn-lg btn-info btn-social"><i class="fa fa-twitter"></i>Twitter</button>
                 <button class="btn btn-lg btn-danger btn-social"><i class="fa fa-google"></i>Google</button>
-
             </div>
-            <h4>
-                Get trouble with login, try <a href="<?= Url::to('/auth/forgot') ?>">Forgot Password?</a>
-                <br><br>
-                Or <a href="<?= Url::to('/auth/register') ?>">Register new account?</a>
-            </h4>
         </div>
     </div>
 </div>

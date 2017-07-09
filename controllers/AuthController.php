@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\LoginForm;
 use app\models\RegisterForm;
+use app\models\ResetForm;
 use app\models\User;
 use app\models\UserToken;
 use Yii;
@@ -29,14 +30,14 @@ class AuthController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             $user = $model->getUser();
             if (!is_null($user)) {
-                if ($user->status == User::$STATUS_PENDING) {
-                    $tokenData = $user->getTokens()->where(['type' => UserToken::$TYPE_REGISTRATION])->one();
-                    $link = Html::a('click here', Url::toRoute(['auth/registered',
+                if ($user->status == User::STATUS_PENDING) {
+                    $tokenData = $user->getTokens()->where(['type' => UserToken::TYPE_REGISTRATION])->one();
+                    $link = Html::a('click here', Url::toRoute(['auth/confirmation',
                         'token' => $tokenData['key']
                     ]));
                     Yii::$app->session->setFlash('status', 'danger');
                     Yii::$app->session->setFlash('message', 'Account need activation, ' . $link . ' to resend email confirmation');
-                } else if ($user->status == User::$STATUS_SUSPENDED) {
+                } else if ($user->status == User::STATUS_SUSPENDED) {
                     Yii::$app->session->setFlash('status', 'danger');
                     Yii::$app->session->setFlash('message', 'Your account was suspended, contact our team support to fix this');
                 } else if ($model->login()) {
@@ -47,6 +48,17 @@ class AuthController extends Controller
         return $this->render('login', [
             'model' => $model,
         ]);
+    }
+
+    /**
+     * Logout action.
+     * @return yii\web\Response
+     */
+    public function actionLogout()
+    {
+        Yii::$app->user->logout();
+
+        return $this->goHome();
     }
 
     /**
@@ -68,20 +80,20 @@ class AuthController extends Controller
                 $user->username = $model->username;
                 $user->email = $model->email;
                 $user->password = Yii::$app->getSecurity()->generatePasswordHash($model->password);
-                $user->status = User::$STATUS_PENDING;
+                $user->status = User::STATUS_PENDING;
                 $user->save();
 
                 $token = Yii::$app->getSecurity()->generateRandomString();
                 $userToken = new UserToken();
                 $userToken->key = $token;
-                $userToken->type = UserToken::$TYPE_REGISTRATION;
+                $userToken->type = UserToken::TYPE_REGISTRATION;
                 $userToken->link('user', $user);
 
                 $transaction->commit();
 
                 $model->sendActivationEmail($user, $token);
 
-                return $this->redirect(Url::toRoute(['auth/registered',
+                return $this->redirect(Url::toRoute(['auth/confirmation',
                     'token' => $token
                 ]));
             } catch (Exception $e) {
@@ -103,7 +115,7 @@ class AuthController extends Controller
      * @return string
      * @throws HttpException
      */
-    public function actionRegistered($token)
+    public function actionConfirmation($token)
     {
         $tokenData = UserToken::findOne(['key' => $token]);
         if (is_null($tokenData)) {
@@ -111,7 +123,7 @@ class AuthController extends Controller
         }
 
         $userData = $tokenData->user;
-        if ($userData->status != User::$STATUS_PENDING) {
+        if ($userData->status != User::STATUS_PENDING) {
             throw new HttpException(400, 'Your account was ' . $userData->status);
         }
 
@@ -121,7 +133,7 @@ class AuthController extends Controller
         }
 
         $model = new LoginForm();
-        return $this->render('registered', [
+        return $this->render('confirmation', [
             'user' => $userData,
             'token' => $token,
             'model' => $model
@@ -141,7 +153,7 @@ class AuthController extends Controller
         }
 
         $userData = $tokenData->user;
-        if ($userData->status != User::$STATUS_PENDING) {
+        if ($userData->status != User::STATUS_PENDING) {
             throw new HttpException(400, 'Your account was ' . $userData->status);
         }
 
@@ -152,7 +164,7 @@ class AuthController extends Controller
         $transaction = Yii::$app->db->beginTransaction();
         try {
             // update user status
-            $userData->status = User::$STATUS_ACTIVATED;
+            $userData->status = User::STATUS_ACTIVATED;
             $userData->save();
 
             // delete user token for activation
@@ -172,14 +184,90 @@ class AuthController extends Controller
     }
 
     /**
-     * Logout action.
-     * @return yii\web\Response
+     * Request reset password form.
+     * @return bool|string
      */
-    public function actionLogout()
+    public function actionForgot()
     {
-        Yii::$app->user->logout();
+        $model = new ResetForm();
+        $model->scenario = ResetForm::SCENARIO_RESET;
 
-        return $this->goHome();
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+
+            $user = User::findByEmail($model->email);
+
+            /* @var $tokenModel UserToken */
+            $tokenModel = $user->getTokens()->where(['type' => UserToken::TYPE_PASSWORD])->one();
+            if (is_null($tokenModel)) {
+                $token = Yii::$app->getSecurity()->generateRandomString();
+                $userToken = new UserToken();
+                $userToken->key = $token;
+                $userToken->type = UserToken::TYPE_PASSWORD;
+                $userToken->link('user', $user);
+            } else {
+                $token = $tokenModel->key;
+            }
+            $model->sendResetEmail($user, $token);
+
+            Yii::$app->session->setFlash('status', 'warning');
+            Yii::$app->session->setFlash('message', 'We have sent you reset email to ' . $model->email);
+
+            return $this->redirect(['login']);
+        }
+
+        return $this->render('forgot', [
+            'model' => $model,
+        ]);
     }
 
+    /**
+     * Resetting password.
+     * @param $token
+     * @return bool|string
+     * @throws HttpException
+     */
+    public function actionReset($token)
+    {
+        $tokenModel = UserToken::findOne(['key' => $token]);
+        if (is_null($tokenModel)) {
+            throw new HttpException(404, 'Invalid user reset token');
+        }
+
+        $userModel = $tokenModel->user;
+
+        $model = new ResetForm();
+        $model->email = $userModel->email;
+        $model->token = $token;
+        $model->scenario = ResetForm::SCENARIO_RECOVERY;
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+
+            $status = 'success';
+            $message = 'Your password successfully recovered';
+
+            $transaction = Yii::$app->db->beginTransaction();
+            try {
+                $password = Yii::$app->request->post('ResetForm')['password'];
+                $userModel->password = Yii::$app->getSecurity()->generatePasswordHash($password);
+                $userModel->save();
+
+                $tokenModel->delete();
+
+                $transaction->commit();
+            } catch (Exception $e) {
+                $transaction->rollBack();
+                $status = 'danger';
+                $message = 'Something went wrong';
+            }
+
+            Yii::$app->session->setFlash('status', $status);
+            Yii::$app->session->setFlash('message', $message);
+
+            return $this->redirect(['login']);
+        }
+
+        return $this->render('reset', [
+            'model' => $model,
+        ]);
+    }
 }

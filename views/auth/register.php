@@ -77,7 +77,7 @@ $this->params['banner-class'] = 'banner-featured banner-register';
 
             </div>
             <p>
-                Or <a href="<?= Url::to('/account/register') ?>">Login with existing account?</a>
+                Or <a href="<?= Url::to('/auth/register') ?>">Login with existing account?</a>
             </p>
         </div>
     </div>

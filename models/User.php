@@ -26,6 +26,7 @@ use yii\web\IdentityInterface;
  * @property string $created_at
  * @property string $updated_at
  *
+ * @property UserToken[] $tokens
  * @property Recipe[] $recipes
  * @property Rating[] $ratings
  * @property User[] $followers
@@ -35,9 +36,9 @@ use yii\web\IdentityInterface;
  */
 class User extends ActiveRecord implements IdentityInterface
 {
-    public static $STATUS_PENDING = 'pending';
-    public static $STATUS_ACTIVATED = 'activated';
-    public static $STATUS_SUSPENDED = 'suspended';
+    const STATUS_PENDING = 'pending';
+    const STATUS_ACTIVATED = 'activated';
+    const STATUS_SUSPENDED = 'suspended';
 
     /**
      * Set default table name.
@@ -121,6 +122,17 @@ class User extends ActiveRecord implements IdentityInterface
     public static function findByUsername($username)
     {
         return static::find()->where(['username' => $username])->one();
+    }
+
+    /**
+     * Finds user by email
+     *
+     * @param string $email
+     * @return User|ActiveRecord
+     */
+    public static function findByEmail($email)
+    {
+        return static::find()->where(['email' => $email])->one();
     }
 
     /**

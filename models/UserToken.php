@@ -20,8 +20,8 @@ use yii\db\ActiveRecord;
  */
 class UserToken extends ActiveRecord
 {
-    public static $TYPE_REGISTRATION = 'registration';
-    public static $TYPE_PASSWORD = 'password';
+    const TYPE_REGISTRATION = 'registration';
+    const TYPE_PASSWORD = 'password';
 
     /**
      * @inheritdoc
