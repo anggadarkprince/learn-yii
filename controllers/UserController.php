@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\User;
+use Yii;
 use yii\data\Pagination;
 use yii\web\Controller;
 use yii\web\HttpException;

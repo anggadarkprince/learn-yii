@@ -191,11 +191,11 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * Get user followers.
+     * Get user that following us.
      * @param null $totalMax
      * @return \yii\db\ActiveQuery|ActiveRecord[]
      */
-    public function getFollowers($totalMax = null)
+    public function getFollowings($totalMax = null)
     {
         $followersUser = $this->hasMany(User::className(), ['id' => 'following_id'])
             ->viaTable('followers', ['user_id' => 'id'])
@@ -208,11 +208,11 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * Get user that following us.
+     * Get user followers.
      * @param null $max
      * @return \yii\db\ActiveQuery|ActiveRecord[]
      */
-    public function getFollowings($max = null)
+    public function getFollowers($max = null)
     {
         $followingsUser = $this->hasMany(User::className(), ['id' => 'user_id'])
             ->viaTable('followers', ['following_id' => 'id'])
@@ -222,6 +222,23 @@ class User extends ActiveRecord implements IdentityInterface
             return $followingsUser->limit($max)->all();
         }
         return $followingsUser;
+    }
+
+    /**
+     * Check if current user is following an user.
+     * @param $userId
+     * @return bool
+     */
+    public function isFollow($userId)
+    {
+        if(Yii::$app->user->isGuest) {
+            return -1;
+        }
+        $isFollowing = $this->getFollowings()->where(['id' => $userId])->count();
+        if ($isFollowing > 0) {
+            return 1;
+        }
+        return 0;
     }
 
     /**

@@ -13,7 +13,13 @@ use yii\helpers\Url;
     <div class="container">
         <div class="row">
             <div class="col-md-9 col-md-offset-3">
-                <button class="btn btn-primary btn-round pull-right navigation-button-follow">FOLLOW</button>
+
+                <?php if(!Yii::$app->user->isGuest && Yii::$app->user->id == $user->id): ?>
+                    <a class="btn btn-round btn-primary pull-right navigation-button-control">
+                        Edit Profile
+                    </a>
+                <?php endif; ?>
+
                 <ul class="navigation">
                     <li class="<?= $active == 'recipes' ? 'active' : '' ?>">
                         <a href="<?= Url::to('/' . $user->username) ?>">

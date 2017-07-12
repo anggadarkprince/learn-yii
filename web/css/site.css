@@ -824,8 +824,12 @@ a.desc:after {
 .account-sidebar .account-button-follow {
     margin-bottom: 20px;
     padding: 9px 10px;
-    border: none;
     letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.account-sidebar .account-button-follow.btn-primary {
+    border-color: transparent;
 }
 
 .account-sidebar .account-info {
@@ -873,7 +877,7 @@ a.desc:after {
 .account-navigation .navigation li {
     display: inline-block;
     text-align: center;
-    padding: 8px 20px;
+    padding: 6px 20px;
 }
 
 .account-navigation .navigation li a {
@@ -903,7 +907,7 @@ a.desc:after {
     font-weight: 700;
 }
 
-.account-navigation .navigation-button-follow {
+.account-navigation .navigation-button-control {
     margin-top: 15px;
     border: none;
 }
@@ -956,8 +960,12 @@ a.desc:after {
     color: #7d7d7d;
 }
 
-.card-user .user-button-follow {
-    border: none;
+.card-user .user-button-follow{
+    text-transform: capitalize;
+}
+
+.card-user .user-button-follow.btn-primary {
+    border-color: transparent;
 }
 
 /* BLOG */
@@ -1337,22 +1345,22 @@ a.desc:after {
     box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.08);
 }
 
-.card-diet .diet-feature{
+.card-diet .diet-feature {
     height: 100px;
 }
 
-.card-diet .diet-content{
+.card-diet .diet-content {
     padding: 20px 25px;
     text-align: center;
 }
 
-.card-diet .diet-title{
+.card-diet .diet-title {
     margin: 0 0 5px;
     font-size: 25px;
     font-weight: 400;
 }
 
-.card-diet .diet-description{
+.card-diet .diet-description {
     margin-bottom: 10px;
     font-weight: 300;
 }

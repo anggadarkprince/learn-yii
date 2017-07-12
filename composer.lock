@@ -4,8 +4,54 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "831817b0c1db70412ea1e5d1c89fa6fc",
+    "content-hash": "d4ed8663ca2cc89834e401b8438129c5",
     "packages": [
+        {
+            "name": "bower-asset/axios",
+            "version": "v0.16.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mzabriskie/axios.git",
+                "reference": "46e275c407f81c44dd9aad419b6e861d8a936580"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mzabriskie/axios/zipball/46e275c407f81c44dd9aad419b6e861d8a936580",
+                "reference": "46e275c407f81c44dd9aad419b6e861d8a936580",
+                "shasum": ""
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": "./dist/axios.js",
+                "bower-asset-ignore": [
+                    "**/.*",
+                    "*.iml",
+                    "examples",
+                    "lib",
+                    "node_modules",
+                    "sandbox",
+                    "test",
+                    "CONTRIBUTING.md",
+                    "COOKBOOK.md",
+                    "Gruntfile.js",
+                    "index.js",
+                    "karma.conf.js",
+                    "package.json",
+                    "webpack.*.js"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Promise based HTTP client for the browser and node.js",
+            "keywords": [
+                "ajax",
+                "http",
+                "node",
+                "promise",
+                "xhr"
+            ]
+        },
         {
             "name": "bower-asset/bootstrap",
             "version": "v3.3.7",
@@ -350,6 +396,71 @@
                 "html"
             ],
             "time": "2017-06-03T02:28:16+00:00"
+        },
+        {
+            "name": "npm-asset/qs",
+            "version": "6.5.0",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/qs/-/qs-6.5.0.tgz",
+                "reference": null,
+                "shasum": "8d04954d364def3efc55b5a0793e1e2c8b1e6e49"
+            },
+            "require-dev": {
+                "npm-asset/browserify": ">=14.4.0,<15.0.0",
+                "npm-asset/covert": ">=1.1.0,<2.0.0",
+                "npm-asset/editorconfig-tools": ">=0.1.1,<0.2.0",
+                "npm-asset/eslint": ">=3.19.0,<4.0.0",
+                "npm-asset/evalmd": ">=0.0.17,<0.0.18",
+                "npm-asset/iconv-lite": ">=0.4.18,<0.5.0",
+                "npm-asset/ljharb--eslint-config": ">=11.0.0,<12.0.0",
+                "npm-asset/mkdirp": ">=0.5.1,<0.6.0",
+                "npm-asset/qs-iconv": ">=1.0.4,<2.0.0",
+                "npm-asset/safe-publish-latest": ">=1.1.1,<2.0.0",
+                "npm-asset/tape": ">=4.7.0,<5.0.0"
+            },
+            "type": "npm-asset-library",
+            "extra": {
+                "npm-asset-bugs": {
+                    "url": "https://github.com/ljharb/qs/issues"
+                },
+                "npm-asset-main": "lib/index.js",
+                "npm-asset-directories": [],
+                "npm-asset-repository": {
+                    "type": "git",
+                    "url": "git+https://github.com/ljharb/qs.git"
+                },
+                "npm-asset-scripts": {
+                    "prepublish": "safe-publish-latest && npm run dist",
+                    "pretest": "npm run --silent readme && npm run --silent lint",
+                    "test": "npm run --silent coverage",
+                    "tests-only": "node test",
+                    "readme": "evalmd README.md",
+                    "prelint": "editorconfig-tools check * lib/* test/*",
+                    "lint": "eslint lib/*.js test/*.js",
+                    "coverage": "covert test",
+                    "dist": "mkdirp dist && browserify --standalone Qs lib/index.js > dist/qs.js"
+                },
+                "npm-asset-engines": {
+                    "node": ">=0.6"
+                }
+            },
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Jordan Harband",
+                    "email": "ljharb@gmail.com",
+                    "url": "http://ljharb.codes"
+                }
+            ],
+            "description": "A querystring parser that supports nesting and arrays, with a depth limit",
+            "homepage": "https://github.com/ljharb/qs",
+            "keywords": [
+                "qs",
+                "querystring"
+            ]
         },
         {
             "name": "swiftmailer/swiftmailer",

@@ -16,7 +16,17 @@ $columnSmall = $column < 6 ? $column : 12;
             <div class="user-content">
                 <div class="user-avatar"
                      style="background: url('<?= Url::to('/img/avatars/' . $user->avatar) ?>') center center / cover"></div>
-                <button class="btn btn-round btn-primary pull-right user-button-follow">Following</button>
+                <?php
+                $followState = Yii::$app->user->identity->isFollow($user->id);
+                $followButton = $followState > 0 ? 'btn-primary' : 'btn-default';
+                $followLabel = $followState > 0 ? 'Following' : 'Follow Me';
+                ?>
+                <button class="btn btn-round <?= $followButton ?> pull-right user-button-follow"
+                        data-state="<?= $followState ?>"
+                        data-id="<?= $user->id ?>"
+                        data-toggle="follow">
+                    <?= $followLabel ?>
+                </button>
                 <h3 class="user-name"><a href="<?= Url::to('/'.$user->username) ?>"><?= $user->name ?></a></h3>
                 <p class="user-username">@<?= $user->username ?></p>
                 <p><?= BaseStringHelper::truncateWords($user->about, 18) ?></p>

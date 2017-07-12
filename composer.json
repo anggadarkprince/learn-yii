@@ -18,7 +18,9 @@
         "yiisoft/yii2": "~2.0.5",
         "yiisoft/yii2-bootstrap": "~2.0.0",
         "yiisoft/yii2-swiftmailer": "~2.0.0",
-        "bower-asset/font-awesome": "^4.5"
+        "bower-asset/font-awesome": "^4.5",
+        "bower-asset/axios": "^0.16.2",
+        "npm-asset/qs": "^6.5"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

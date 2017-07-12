@@ -1,26 +1,3 @@
-jQuery.fn.extend({
-    slideRight: function () {
-        return this.each(function () {
-            jQuery(this).animate({width: 'show'});
-        });
-    },
-    slideLeft: function () {
-        return this.each(function () {
-            jQuery(this).animate({width: 'hide'});
-        });
-    },
-    slideToggleWidth: function () {
-        return this.each(function () {
-            var el = jQuery(this);
-            if (el.css('display') == 'none') {
-                el.slideRight();
-            } else {
-                el.slideLeft();
-            }
-        });
-    }
-});
-
 $(function () {
     var buttonSearch = $('.navbar-button-search');
     var inputSearch = $('.navbar-search');
@@ -41,5 +18,36 @@ $(function () {
         $(this).animate({width: 'hide'}, function () {
             buttonSearch.fadeIn(300);
         });
-    })
+    });
+
+    $('[data-toggle=follow]').click(function () {
+        var buttonFollow = $(this);
+        app.followControl({
+            button: buttonFollow,
+            state: buttonFollow.data('state'),
+            id: buttonFollow.data('id'),
+            followText: 'Follow Me',
+            followClass: 'btn-default',
+            followingText: 'Following',
+            followingClass: 'btn-primary',
+            onSuccess: function(response){
+                console.log(response);
+            },
+            onError: function(error){
+                console.log(error);
+            }
+        });
+    });
 });
+
+(function () {
+
+    var app = {
+        baseUrl: $('meta[name=url]').attr('content'),
+        csrf: $('meta[name=csrf-token]').attr('content')
+    };
+    axios.defaults.baseURL = app.baseUrl;
+    axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+    axios.defaults.headers.common['X-CSRF-TOKEN'] = app.csrf
+
+}());

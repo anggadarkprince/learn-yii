@@ -19,15 +19,30 @@ use yii\helpers\Url;
         <?php endif; ?>
     </div>
     <div class="account-body">
-        <button class="btn btn-block btn-primary btn-round account-button-follow">
-            FOLLOW ME
-        </button>
+        <?php if (!Yii::$app->user->isGuest && Yii::$app->user->id == $user->id): ?>
+            <a href="#" class="btn btn-block btn-primary btn-round account-button-follow">
+                MAKE RECIPE
+            </a>
+        <?php else: ?>
+            <?php
+            $followState = Yii::$app->user->identity->isFollow($user->id);
+            $followButton = $followState > 0 ? 'btn-primary' : 'btn-default';
+            $followLabel = $followState > 0 ? 'Following' : 'Follow Me';
+            ?>
+            <button class="btn btn-block <?= $followButton ?> btn-round account-button-follow"
+                    data-state="<?= $followState ?>"
+                    data-id="<?= $user->id ?>"
+                    data-toggle="follow">
+                <?= $followLabel ?>
+            </button>
+        <?php endif; ?>
 
         <ul class="account-info">
             <li><i class="fa fa-map-marker"></i><?= is_null($user->location) ? 'No location' : $user->location ?></li>
             <li><i class="fa fa-envelope-o"></i><?= $user->email ?></li>
             <li><i class="fa fa-calendar-o"></i>Joined <?= (new DateTime($user->created_at))->format('F Y') ?></li>
-            <li><i class="fa fa-phone"></i><?= is_null($user->contact) ? 'No Contact' : 'Contact ' . $user->contact ?></li>
+            <li><i class="fa fa-phone"></i><?= is_null($user->contact) ? 'No Contact' : 'Contact ' . $user->contact ?>
+            </li>
         </ul>
 
         <div class="account-section">

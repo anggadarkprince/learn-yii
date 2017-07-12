@@ -35,8 +35,8 @@ class Follower extends ActiveRecord
             [['user_id', 'following_id'], 'required'],
             [['user_id', 'following_id'], 'integer'],
             [['created_at'], 'safe'],
-            [['following_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['following_id' => 'id']],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['user_id' => 'id']],
+            [['following_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['following_id' => 'id']],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
 
@@ -59,7 +59,7 @@ class Follower extends ActiveRecord
      */
     public function getFollowing()
     {
-        return $this->hasOne(Users::className(), ['id' => 'following_id']);
+        return $this->hasOne(User::className(), ['id' => 'following_id']);
     }
 
     /**
@@ -68,6 +68,17 @@ class Follower extends ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(Users::className(), ['id' => 'user_id']);
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
+    }
+
+    public function unfollow()
+    {
+        return static::find()
+            ->where([
+                'user_id' => $this->user_id,
+                'following_id' => $this->following_id
+            ])
+            ->one()
+            ->delete();
     }
 }

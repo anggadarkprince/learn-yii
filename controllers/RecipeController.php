@@ -27,6 +27,7 @@ class RecipeController extends Controller
         $recipes = $recipeQuery->orderBy(['created_at' => SORT_DESC])
             ->offset($pagination->offset)
             ->limit($pagination->limit)
+            ->with('user')
             ->all();
 
         return $this->render('index', [

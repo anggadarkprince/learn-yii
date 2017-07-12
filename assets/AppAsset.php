@@ -24,11 +24,13 @@ class AppAsset extends AssetBundle
     ];
     public $js = [
         'js/app.js',
+        'js/follow.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapAsset',
         'yii\bootstrap\BootstrapPluginAsset',
         'app\assets\FontAwesomeAsset',
+        'app\assets\AxiosAsset',
     ];
 }
