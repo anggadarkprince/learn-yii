@@ -2,8 +2,8 @@
 /* @var $review app\models\Rating */
 
 use app\widgets\RatingWidget;
-use yii\helpers\BaseStringHelper;
 use yii\helpers\Html;
+use yii\helpers\StringHelper;
 use yii\helpers\Url;
 
 $column = isset($columns) ? (12 / $columns) : 12;
@@ -54,7 +54,7 @@ $columnSmall = $column < 6 ? $column : 12;
                     </small>
                 </div>
                 <p class="review-content">
-                    <?= BaseStringHelper::truncateWords($review->review, 30) ?>
+                    <?= StringHelper::truncateWords($review->review, 30) ?>
                 </p>
                 <a href="#readmore" class="review-more">
                     <i class="fa fa-external-link-square"></i> Read More

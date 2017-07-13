@@ -1,8 +1,7 @@
 <?php
 /* @var $user app\models\User */
 
-use yii\helpers\BaseStringHelper;
-use yii\helpers\Html;
+use yii\helpers\StringHelper;
 use yii\helpers\Url;
 
 $column = isset($columns) ? (12 / $columns) : 12;
@@ -29,7 +28,7 @@ $columnSmall = $column < 6 ? $column : 12;
                 </button>
                 <h3 class="user-name"><a href="<?= Url::to('/'.$user->username) ?>"><?= $user->name ?></a></h3>
                 <p class="user-username">@<?= $user->username ?></p>
-                <p><?= BaseStringHelper::truncateWords($user->about, 18) ?></p>
+                <p><?= StringHelper::truncateWords($user->about, 18) ?></p>
             </div>
         </div>
     </div>

@@ -3,7 +3,7 @@
 namespace app\models;
 
 use yii\db\ActiveRecord;
-use yii\helpers\BaseStringHelper;
+use yii\helpers\StringHelper;
 
 /**
  * This is the model class for table "articles".
@@ -111,7 +111,7 @@ class Article extends ActiveRecord
      */
     public function getSummary()
     {
-        return BaseStringHelper::truncateWords(strip_tags($this->content), 70);
+        return StringHelper::truncateWords(strip_tags($this->content), 70);
     }
 
     /**

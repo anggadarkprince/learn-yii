@@ -2,8 +2,8 @@
 /* @var $recipe app\models\Recipe */
 
 use app\widgets\RatingWidget;
-use yii\helpers\BaseStringHelper;
 use yii\helpers\Html;
+use yii\helpers\StringHelper;
 use yii\helpers\Url;
 
 $column = isset($columns) ? (12 / $columns) : 12;
@@ -23,7 +23,7 @@ $columnSmall = $column < 6 ? $column : 12;
                     </a>
                 </h4>
                 <p>
-                    <?= BaseStringHelper::truncateWords($recipe->description, 14) ?>
+                    <?= StringHelper::truncateWords($recipe->description, 14) ?>
                 </p>
                 <div class="recipe-stars text-danger">
                     <?= RatingWidget::widget([

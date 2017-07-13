@@ -1,3 +1,15 @@
+(function () {
+
+    var app = {
+        baseUrl: $('meta[name=url]').attr('content'),
+        csrf: $('meta[name=csrf-token]').attr('content')
+    };
+    axios.defaults.baseURL = app.baseUrl;
+    axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+    axios.defaults.headers.common['X-CSRF-TOKEN'] = app.csrf
+
+}());
+
 $(function () {
     var buttonSearch = $('.navbar-button-search');
     var inputSearch = $('.navbar-search');
@@ -20,6 +32,7 @@ $(function () {
         });
     });
 
+    /* Follow Control */
     $('[data-toggle=follow]').click(function () {
         var buttonFollow = $(this);
         app.followControl({
@@ -30,24 +43,20 @@ $(function () {
             followClass: 'btn-default',
             followingText: 'Following',
             followingClass: 'btn-primary',
-            onSuccess: function(response){
+            onSuccess: function (response) {
                 console.log(response);
             },
-            onError: function(error){
+            onError: function (error) {
                 console.log(error);
             }
         });
     });
+
+    /* Show More About */
+    $('.account-show-more').click(function (e) {
+        e.preventDefault();
+        var about = $('.account-about').data('content');
+        $('.account-about').html(about);
+        $(this).remove();
+    });
 });
-
-(function () {
-
-    var app = {
-        baseUrl: $('meta[name=url]').attr('content'),
-        csrf: $('meta[name=csrf-token]').attr('content')
-    };
-    axios.defaults.baseURL = app.baseUrl;
-    axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-    axios.defaults.headers.common['X-CSRF-TOKEN'] = app.csrf
-
-}());
