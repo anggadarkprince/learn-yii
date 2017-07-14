@@ -23,10 +23,18 @@ p {
     color: #4d4d4d;
 }
 
+.lead {
+    font-weight: 400;
+}
+
 .btn,
 .form-control,
 .label {
     border-radius: 2px;
+}
+
+.form-control {
+    box-shadow: none;
 }
 
 .label-outline {
@@ -960,7 +968,7 @@ a.desc:after {
     color: #7d7d7d;
 }
 
-.card-user .user-button-follow{
+.card-user .user-button-follow {
     text-transform: capitalize;
 }
 

@@ -1,6 +1,9 @@
 <?php
 /* @var $this yii\web\View */
+/* @var $pagination \yii\data\Pagination */
 /* @var $user app\models\User */
+/* @var $recipes[] app\models\Recipe */
+/* @var $active string */
 
 use app\widgets\AccountNavigationWidget;
 use app\widgets\AccountSidebarWidget;
@@ -20,6 +23,9 @@ $this->title = $user->name . ' (' . $user->username . ') - Yummy';
     </div>
     <div class="col-md-9">
         <div class="account-content">
+
+            <?= $this->render('../errors/_general_alert') ?>
+
             <div class="row card-recipe-container">
 
                 <?php foreach ($recipes as $recipe): ?>

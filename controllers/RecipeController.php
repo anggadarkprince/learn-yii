@@ -3,11 +3,13 @@
 namespace app\controllers;
 
 use app\models\Category;
+use app\models\Direction;
+use app\models\Ingredient;
 use app\models\Recipe;
-use app\models\RecipeForm;
 use Yii;
 use yii\data\Pagination;
 use yii\web\Controller;
+use yii\web\UploadedFile;
 
 class RecipeController extends Controller
 {
@@ -60,20 +62,43 @@ class RecipeController extends Controller
      */
     public function actionCreate()
     {
-        $model = new RecipeForm();
+        $recipe = new Recipe();
+        $ingredient = new Ingredient();
+        $direction = new Direction();
         $category = new Category();
         $categories = $category->findCategoryList();
+        $user = Yii::$app->user->identity;
 
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            // valid data received in $model
+        $recipe->user_id = Yii::$app->user->id;
+        $recipeLoaded = $recipe->load(Yii::$app->request->post());
+        $ingredientLoaded = $ingredient->load(Yii::$app->request->post());
+        $directionLoaded = $direction->load(Yii::$app->request->post());
+        if ($recipeLoaded && $ingredientLoaded && $directionLoaded) {
+            $isValidRecipe = $recipe->validate();
+            $isValidIngredient = $ingredient->validate();
+            $isValidDirection = $direction->validate();
+            $isValid = $isValidRecipe && $isValidIngredient && $isValidDirection;
 
-            // do something meaningful here about $model ...
+            if ($isValid) {
+                $recipe->feature = UploadedFile::getInstance($recipe, 'feature');
+                $recipe->uploadFeature();
+                $recipe->save(false);
+                $ingredient->save(false);
+                $direction->save(false);
+                return $this->redirect(["/{$user->username}"]);
+            }
 
-            return $this->render('create-confirm', ['model' => $model, 'categories' => $categories]);
-        } else {
-            // either the page is initially displayed or there is some validation error
-            return $this->render('create', ['model' => $model, 'categories' => $categories]);
+            Yii::$app->session->setFlash('status', 'danger');
+            Yii::$app->session->setFlash('message', 'Something went wrong');
         }
+
+        return $this->render('create', [
+            'user' => $user,
+            'recipe' => $recipe,
+            'ingredient' => $ingredient,
+            'direction' => $direction,
+            'categories' => $categories
+        ]);
     }
 
     /**

@@ -13,7 +13,7 @@ use yii\db\ActiveRecord;
  * @property string $direction
  * @property string $created_at
  *
- * @property Recipes $recipe
+ * @property Recipe $recipe
  */
 class Direction extends ActiveRecord
 {
@@ -35,7 +35,7 @@ class Direction extends ActiveRecord
             [['recipe_id'], 'integer'],
             [['created_at'], 'safe'],
             [['direction'], 'string', 'max' => 700],
-            [['recipe_id'], 'exist', 'skipOnError' => true, 'targetClass' => Recipes::className(), 'targetAttribute' => ['recipe_id' => 'id']],
+            [['recipe_id'], 'exist', 'skipOnError' => true, 'targetClass' => Recipe::className(), 'targetAttribute' => ['recipe_id' => 'id']],
         ];
     }
 

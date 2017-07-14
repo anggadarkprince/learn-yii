@@ -13,7 +13,7 @@ use yii\db\ActiveRecord;
  * @property string $ingredient
  * @property string $created_at
  *
- * @property Recipes $recipe
+ * @property Recipe $recipe
  */
 class Ingredient extends ActiveRecord
 {
@@ -35,7 +35,7 @@ class Ingredient extends ActiveRecord
             [['recipe_id'], 'integer'],
             [['created_at'], 'safe'],
             [['ingredient'], 'string', 'max' => 500],
-            [['recipe_id'], 'exist', 'skipOnError' => true, 'targetClass' => Recipes::className(), 'targetAttribute' => ['recipe_id' => 'id']],
+            [['recipe_id'], 'exist', 'skipOnError' => true, 'targetClass' => Recipe::className(), 'targetAttribute' => ['recipe_id' => 'id']],
         ];
     }
 

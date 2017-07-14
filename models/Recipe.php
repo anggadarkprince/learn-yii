@@ -36,6 +36,13 @@ use yii\helpers\ArrayHelper;
  */
 class Recipe extends ActiveRecord
 {
+    public $preparation_time = '00:30';
+    public $cook_time = '02:00';
+    public $servings = 1;
+    public $calories = 100;
+    public $privacy = 'public';
+    public $feature;
+
     /**
      * Set default table name.
      * @inheritdoc
@@ -52,15 +59,15 @@ class Recipe extends ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'category_id', 'title', 'slug', 'description', 'feature'], 'required'],
+            [['user_id', 'category_id', 'title', 'slug', 'description'], 'required'],
             [['user_id', 'category_id', 'servings', 'calories'], 'integer'],
             [['preparation_time', 'cook_time', 'created_at', 'updated_at'], 'safe'],
+            [['title', 'slug', 'description', 'tips'], 'filter', 'filter' => 'trim', 'skipOnArray' => true],
             [['privacy'], 'string'],
             [['title'], 'string', 'max' => 100],
             [['slug'], 'string', 'max' => 200],
             [['description'], 'string', 'max' => 500],
             [['tips'], 'string', 'max' => 300],
-            [['feature'], 'string', 'max' => 300],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
@@ -85,9 +92,25 @@ class Recipe extends ActiveRecord
             'servings' => 'Servings',
             'calories' => 'Calories',
             'privacy' => 'Privacy',
+            'feature' => 'Feature Image',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];
+    }
+
+    /**
+     * Upload feature image.
+     * @return bool
+     */
+    public function uploadFeature()
+    {
+        if ($this->validate()) {
+            $filePath = 'img/recipes/' . $this->feature->baseName . '.' . $this->feature->extension;
+            $this->feature->saveAs($filePath);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -182,6 +205,7 @@ class Recipe extends ActiveRecord
     }
 
     /**
+     * Get recipe ratings data.
      * @return \yii\db\ActiveQuery
      */
     public function getRatings()
@@ -190,6 +214,7 @@ class Recipe extends ActiveRecord
     }
 
     /**
+     * Get total rating by value or all review.
      * @param null $rating
      * @return int|string
      */
@@ -254,6 +279,7 @@ class Recipe extends ActiveRecord
     }
 
     /**
+     * Get recipe's tags.
      * @return \yii\db\ActiveQuery
      */
     public function getTags()
@@ -262,6 +288,7 @@ class Recipe extends ActiveRecord
     }
 
     /**
+     * Get user that bookmark as favorite recipe.
      * @return \yii\db\ActiveQuery
      */
     public function getFavoriters()
@@ -270,6 +297,7 @@ class Recipe extends ActiveRecord
     }
 
     /**
+     * Get user that made of the recipe.
      * @return \yii\db\ActiveQuery
      */
     public function getCookers()
@@ -278,6 +306,7 @@ class Recipe extends ActiveRecord
     }
 
     /**
+     * Get recipe categories
      * @return \yii\db\ActiveQuery
      */
     public function getCategory()
@@ -286,6 +315,7 @@ class Recipe extends ActiveRecord
     }
 
     /**
+     * Get author of recipe.
      * @return \yii\db\ActiveQuery
      */
     public function getUser()

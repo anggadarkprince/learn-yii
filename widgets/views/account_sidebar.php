@@ -23,7 +23,7 @@ use yii\helpers\Url;
     </div>
     <div class="account-body">
         <?php if (!Yii::$app->user->isGuest && Yii::$app->user->id == $user->id): ?>
-            <a href="#" class="btn btn-block btn-primary btn-round account-button-follow">
+            <a href="<?= Url::to(["recipe/create"]) ?>" class="btn btn-block btn-primary btn-round account-button-follow">
                 MAKE RECIPE
             </a>
         <?php else: ?>

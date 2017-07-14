@@ -60,6 +60,7 @@ $config = [
                 'tag/<slug:[0-9a-zA-Z\-]+>' => 'tag/recipe',
                 'category/<slug:[0-9a-zA-Z\-]+>' => 'category/recipe',
                 'recipe' => 'recipe/index',
+                'recipe/create' => 'recipe/create',
                 'recipe/<slug:[0-9a-zA-Z\-]+>' => 'recipe/view',
                 'cooking' => 'cooking/index',
                 'diet' => 'diet/index',

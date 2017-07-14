@@ -52,6 +52,15 @@ $(function () {
         });
     });
 
+    /* Slug Control */
+    $('[data-toggle=slug]').keyup(function () {
+        app.slug({
+            text: $(this).val(),
+            target: $(this).data('target'),
+            autoSync: false
+        });
+    });
+
     /* Show More About */
     $('.account-show-more').click(function (e) {
         e.preventDefault();
