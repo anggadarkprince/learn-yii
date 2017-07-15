@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "d4ed8663ca2cc89834e401b8438129c5",
+    "content-hash": "8a51906d1cc9eb4e4acb10eb22b4f3b1",
     "packages": [
         {
             "name": "bower-asset/axios",
@@ -99,6 +99,52 @@
                 "mobile-first",
                 "responsive",
                 "web"
+            ]
+        },
+        {
+            "name": "bower-asset/eonasdan-bootstrap-datetimepicker",
+            "version": "4.17.47",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Eonasdan/bootstrap-datetimepicker.git",
+                "reference": "25c11d79e614bc6463a87c3dd9cbf8280422e006"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Eonasdan/bootstrap-datetimepicker/zipball/25c11d79e614bc6463a87c3dd9cbf8280422e006",
+                "reference": "25c11d79e614bc6463a87c3dd9cbf8280422e006",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/jquery": ">=1.8.3",
+                "bower-asset/moment": ">=2.10.5"
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": [
+                    "build/css/bootstrap-datetimepicker.min.css",
+                    "build/js/bootstrap-datetimepicker.min.js"
+                ],
+                "bower-asset-ignore": [
+                    "**/.*",
+                    "node_modules",
+                    "bower_components",
+                    "test",
+                    "tests"
+                ],
+                "bower-asset-private": false
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "bootstrap3 datetimepicker",
+            "keywords": [
+                "bootstrap",
+                "datepicker",
+                "datetimepicker",
+                "moment",
+                "timepicker",
+                "twitter-bootstrap"
             ]
         },
         {
@@ -229,6 +275,48 @@
             ]
         },
         {
+            "name": "bower-asset/moment",
+            "version": "2.18.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/moment/moment.git",
+                "reference": "b8a7fc310eb3625e83fc0c8f1ea2840fa83c7378"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/moment/moment/zipball/b8a7fc310eb3625e83fc0c8f1ea2840fa83c7378",
+                "reference": "b8a7fc310eb3625e83fc0c8f1ea2840fa83c7378",
+                "shasum": ""
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": "moment.js",
+                "bower-asset-ignore": [
+                    "**/.*",
+                    "benchmarks",
+                    "bower_components",
+                    "meteor",
+                    "node_modules",
+                    "scripts",
+                    "tasks",
+                    "test",
+                    "component.json",
+                    "composer.json",
+                    "CONTRIBUTING.md",
+                    "ender.js",
+                    "Gruntfile.js",
+                    "Moment.js.nuspec",
+                    "package.js",
+                    "package.json",
+                    "ISSUE_TEMPLATE.md",
+                    "typing-tests"
+                ]
+            },
+            "license": [
+                "MIT"
+            ]
+        },
+        {
             "name": "bower-asset/punycode",
             "version": "v1.3.2",
             "source": {
@@ -255,6 +343,29 @@
                     "package.json"
                 ]
             }
+        },
+        {
+            "name": "bower-asset/select2",
+            "version": "4.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/select2/select2.git",
+                "reference": "566c7846fbf8c3b7674346f26d0ee872c0a77629"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/select2/select2/zipball/566c7846fbf8c3b7674346f26d0ee872c0a77629",
+                "reference": "566c7846fbf8c3b7674346f26d0ee872c0a77629",
+                "shasum": ""
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": [
+                    "dist/js/select2.js",
+                    "src/scss/core.scss"
+                ]
+            },
+            "description": "Select2 is a jQuery based replacement for select boxes. It supports searching, remote data sets, and infinite scrolling of results."
         },
         {
             "name": "bower-asset/yii2-pjax",
@@ -398,6 +509,66 @@
             "time": "2017-06-03T02:28:16+00:00"
         },
         {
+            "name": "npm-asset/bootstrap-tagsinput",
+            "version": "0.8.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bootstrap-tagsinput/bootstrap-tagsinput.git",
+                "reference": "5380ff820805a19807cd93d2da44bf9d26c5324a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bootstrap-tagsinput/bootstrap-tagsinput/zipball/5380ff820805a19807cd93d2da44bf9d26c5324a",
+                "reference": "5380ff820805a19807cd93d2da44bf9d26c5324a",
+                "shasum": ""
+            },
+            "require-dev": {
+                "npm-asset/bower": "~1.3.8",
+                "npm-asset/grunt": "~0.4.1",
+                "npm-asset/grunt-banner": ">=0.6.0,<0.7.0",
+                "npm-asset/grunt-bower-task": "~0.4.0",
+                "npm-asset/grunt-cli": "~0.1.13",
+                "npm-asset/grunt-contrib-copy": "~0.5.0",
+                "npm-asset/grunt-contrib-uglify": ">=0.9.1,<0.10.0",
+                "npm-asset/grunt-jquerymanifest": "~0.1.4",
+                "npm-asset/grunt-karma": ">=0.12.1,<0.13.0",
+                "npm-asset/grunt-zip": "~0.15.0",
+                "npm-asset/karma": "~0.12.19",
+                "npm-asset/karma-jasmine": "~0.1.5",
+                "npm-asset/karma-phantomjs-launcher": "~0.1.3",
+                "npm-asset/phantomjs": "~1.9.7-patch15"
+            },
+            "type": "npm-asset-library",
+            "extra": {
+                "npm-asset-main": "dist/bootstrap-tagsinput.js",
+                "npm-asset-repository": {
+                    "type": "git",
+                    "url": "git://github.com/timschlechter/bootstrap-tagsinput.git"
+                },
+                "npm-asset-scripts": {
+                    "test": "karma start --single-run --no-auto-watch"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                "Tim Schlechter",
+                {
+                    "name": "Luckner Jr Jean-Baptiste"
+                }
+            ],
+            "description": "jQuery plugin providing a Twitter Bootstrap user interface for managing tags.",
+            "homepage": "http://timschlechter.github.io/bootstrap-tagsinput/examples/",
+            "keywords": [
+                "bootstrap",
+                "form",
+                "input",
+                "select",
+                "tags"
+            ]
+        },
+        {
             "name": "npm-asset/qs",
             "version": "6.5.0",
             "dist": {
@@ -460,6 +631,74 @@
             "keywords": [
                 "qs",
                 "querystring"
+            ]
+        },
+        {
+            "name": "npm-asset/select2-bootstrap-theme",
+            "version": "0.1.0-beta.10",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/select2-bootstrap-theme/-/select2-bootstrap-theme-0.1.0-beta.10.tgz",
+                "reference": null,
+                "shasum": "b9426ecfc03bf4a235e76a132377574310469ac0"
+            },
+            "require-dev": {
+                "npm-asset/anchor-js": ">=3.2.1,<4.0.0",
+                "npm-asset/autoprefixer": ">=6.4.0,<7.0.0",
+                "npm-asset/bootstrap": ">=3.3.7,<4.0.0",
+                "npm-asset/bootstrap-sass": ">=3.3.7,<4.0.0",
+                "npm-asset/diff": ">=2.2.3,<3.0.0",
+                "npm-asset/github:scottjehl/respond-1.4.2": "1.4.2",
+                "npm-asset/grunt": ">=1.0.1,<2.0.0",
+                "npm-asset/grunt-browser-sync": ">=2.2.0,<3.0.0",
+                "npm-asset/grunt-bump": ">=0.8.0,<0.9.0",
+                "npm-asset/grunt-contrib-copy": ">=1.0.0,<2.0.0",
+                "npm-asset/grunt-contrib-cssmin": ">=1.0.1,<2.0.0",
+                "npm-asset/grunt-contrib-jshint": ">=1.0.0,<2.0.0",
+                "npm-asset/grunt-contrib-less": ">=1.4.0,<2.0.0",
+                "npm-asset/grunt-contrib-nodeunit": ">=1.0.0,<2.0.0",
+                "npm-asset/grunt-contrib-watch": ">=1.0.0,<2.0.0",
+                "npm-asset/grunt-gh-pages": ">=1.2.0,<2.0.0",
+                "npm-asset/grunt-jekyll": ">=0.4.4,<0.5.0",
+                "npm-asset/grunt-postcss": ">=0.8.0,<0.9.0",
+                "npm-asset/grunt-sass": ">=2.0.0,<3.0.0",
+                "npm-asset/grunt-scss2less": "0.0.1",
+                "npm-asset/grunt-stamp": ">=0.3.0,<0.4.0",
+                "npm-asset/matchdep": ">=1.0.1,<2.0.0"
+            },
+            "type": "npm-asset-library",
+            "extra": {
+                "npm-asset-bugs": {
+                    "url": "https://github.com/select2/select2-bootstrap-theme/issues"
+                },
+                "npm-asset-main": "",
+                "npm-asset-directories": {
+                    "doc": "docs"
+                },
+                "npm-asset-repository": {
+                    "type": "git",
+                    "url": "git://github.com/select2/select2-bootstrap-theme.git"
+                },
+                "npm-asset-scripts": {
+                    "test": "grunt nodeunit"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Florian Kissling"
+                }
+            ],
+            "description": "A theme for Select2 v4 and Bootstrap 3.",
+            "homepage": "https://select2.github.io/select2-bootstrap-theme",
+            "keywords": [
+                "bootstrap",
+                "css",
+                "less",
+                "sass",
+                "select2"
             ]
         },
         {
@@ -3432,7 +3671,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "npm-asset/select2-bootstrap-theme": 10
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

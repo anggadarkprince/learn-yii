@@ -5,6 +5,7 @@ namespace app\models;
 use yii\db\ActiveRecord;
 use yii\db\Query;
 use yii\helpers\ArrayHelper;
+use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "recipes".
@@ -24,6 +25,7 @@ use yii\helpers\ArrayHelper;
  * @property string $feature
  * @property string $created_at
  * @property string $updated_at
+ * @property UploadedFile $featureImage
  *
  * @property Direction[] $directions
  * @property Ingredient[] $ingredients
@@ -36,12 +38,7 @@ use yii\helpers\ArrayHelper;
  */
 class Recipe extends ActiveRecord
 {
-    public $preparation_time = '00:30';
-    public $cook_time = '02:00';
-    public $servings = 1;
-    public $calories = 100;
-    public $privacy = 'public';
-    public $feature;
+    public $featureImage;
 
     /**
      * Set default table name.
@@ -50,6 +47,17 @@ class Recipe extends ActiveRecord
     public static function tableName()
     {
         return 'recipes';
+    }
+
+    public function init()
+    {
+        parent::init();
+
+        $this->preparation_time = '00:30';
+        $this->cook_time = '02:00';
+        $this->servings = 1;
+        $this->calories = 250;
+        $this->privacy = 'public';
     }
 
     /**
@@ -68,6 +76,7 @@ class Recipe extends ActiveRecord
             [['slug'], 'string', 'max' => 200],
             [['description'], 'string', 'max' => 500],
             [['tips'], 'string', 'max' => 300],
+            [['feature'], 'file', 'skipOnEmpty' => true, 'extensions' => 'gif, png, jpg'],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
@@ -105,9 +114,15 @@ class Recipe extends ActiveRecord
     public function uploadFeature()
     {
         if ($this->validate()) {
-            $filePath = 'img/recipes/' . $this->feature->baseName . '.' . $this->feature->extension;
-            $this->feature->saveAs($filePath);
-            return true;
+            $file = mb_ereg_replace("([^A-Za-z\s\d\-_\[\]\(\).])", '', $this->featureImage->baseName);
+            $file = mb_ereg_replace("([\.]{2,})", '', $file);
+            $fileName = uniqid() . $file . '.' . $this->featureImage->extension;
+            $filePath = 'img/recipes/' . $fileName;
+            if ($this->featureImage->saveAs($filePath)) {
+                $this->feature = $fileName;
+                return true;
+            }
+            return false;
         } else {
             return false;
         }
@@ -205,12 +220,18 @@ class Recipe extends ActiveRecord
     }
 
     /**
-     * Get recipe ratings data.
-     * @return \yii\db\ActiveQuery
+     * Get total rating percentage.
+     * @param $rating
+     * @return float|int
      */
-    public function getRatings()
+    public function getTotalRatingPercentage($rating)
     {
-        return $this->hasMany(Rating::className(), ['recipe_id' => 'id']);
+        $totalRating = $this->getTotalRating();
+        $ratingValue = $this->getTotalRating($rating);
+        if ($ratingValue == 0) {
+            return 0;
+        }
+        return $ratingValue / $totalRating * 100;
     }
 
     /**
@@ -228,18 +249,12 @@ class Recipe extends ActiveRecord
     }
 
     /**
-     * Get total rating percentage.
-     * @param $rating
-     * @return float|int
+     * Get recipe ratings data.
+     * @return \yii\db\ActiveQuery
      */
-    public function getTotalRatingPercentage($rating)
+    public function getRatings()
     {
-        $totalRating = $this->getTotalRating();
-        $ratingValue = $this->getTotalRating($rating);
-        if ($ratingValue == 0) {
-            return 0;
-        }
-        return $ratingValue / $totalRating * 100;
+        return $this->hasMany(Rating::className(), ['recipe_id' => 'id']);
     }
 
     /**

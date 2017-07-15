@@ -68,4 +68,37 @@ $(function () {
         $('.account-about').html(about);
         $(this).remove();
     });
+
+    $.fn.select2.defaults.set("theme", "bootstrap");
+    $('select').select2();
+    $("select").on("select2:open", function () {
+        $(".select2-search__field").attr("placeholder", "Search...");
+    });
+    $("select").on("select2:close", function () {
+        $(".select2-search__field").attr("placeholder", null);
+    });
+
+    $('[type=time]').datetimepicker({
+        format: 'HH:mm',
+        icons: {
+            time: "fa fa-clock-o",
+            date: "fa fa-calendar",
+            up: "fa fa-arrow-up",
+            down: "fa fa-arrow-down"
+        }
+    });
+
+    $('[type=date]').datetimepicker({
+        format: 'd MMMM YYYY',
+        icons: {
+            time: "fa fa-clock-o",
+            date: "fa fa-calendar",
+            up: "fa fa-arrow-up",
+            down: "fa fa-arrow-down"
+        }
+    });
+
+    /* Recipe form */
+    app.recipe.init();
+    app.recipe.form();
 });

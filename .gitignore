@@ -28,3 +28,9 @@ phpunit.phar
 
 tests/_output/*
 tests/_support/_generated
+
+web/img
+!web/img/layout/
+!web/img/avatars/noavatar.jpg
+!web/img/covers/nocover.jpg
+!web/img/blog/nofeature.jpg

@@ -3,17 +3,26 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 
+use app\assets\AppAsset;
 use app\assets\AxiosAsset;
-use app\assets\QsAsset;
+use app\assets\DateTimePickerAsset;
+use app\assets\FontAwesomeAsset;
+use app\assets\MomentAsset;
+use app\assets\Select2Asset;
+use app\assets\Select2BootstrapAsset;
+use app\assets\TagsInputAsset;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
-use app\assets\AppAsset;
-use app\assets\FontAwesomeAsset;
 
 AppAsset::register($this);
 FontAwesomeAsset::register($this);
 AxiosAsset::register($this);
+Select2Asset::register($this);
+Select2BootstrapAsset::register($this);
+TagsInputAsset::register($this);
+MomentAsset::register($this);
+DateTimePickerAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -25,6 +34,7 @@ AxiosAsset::register($this);
     <meta name="url" content="<?= Url::home(true) ?>">
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
+    <link rel="shortcut icon" href="/favicon.gif" type="image/x-icon">
     <?php $this->head() ?>
 </head>
 <body>

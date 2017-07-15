@@ -1,13 +1,15 @@
 <?php
 use app\widgets\AccountNavigationWidget;
 use app\widgets\AccountSidebarWidget;
+use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $recipe app\models\Recipe */
 /* @var $ingredient app\models\Ingredient */
 /* @var $direction app\models\Direction */
+/* @var $categories [] app\models\Category */
+/* @var $tag app\models\Tag */
 /* @var $form yii\widgets\ActiveForm */
 
 $this->title = 'Create Recipe - Yummy';
@@ -26,6 +28,8 @@ $this->title = 'Create Recipe - Yummy';
             <div class="row">
                 <div class="col-md-10 col-md-offset-1">
                     <h1 class="lead">Create New Recipe</h1>
+
+                    <?= $this->render('../errors/_general_alert') ?>
 
                     <?php $form = ActiveForm::begin([
                         'id' => 'recipe-form'
@@ -50,7 +54,9 @@ $this->title = 'Create Recipe - Yummy';
                         ]) ?>
 
                     <?= $form->field($recipe, 'category_id')
-                        ->dropDownList($categories)
+                        ->dropDownList($categories, [
+                            'data-placeholder' => 'Select Category'
+                        ])
                         ->label('Category') ?>
 
                     <?= $form->field($recipe, 'feature')->fileInput([
@@ -84,33 +90,81 @@ $this->title = 'Create Recipe - Yummy';
                             <?= $form->field($recipe, 'calories')->textInput([
                                 'type' => 'number',
                                 'min' => 0,
+                                'max' => 5000,
                                 'placeholder' => 'Total calories per serve'
                             ])->hint('Serving size by acquired energy 2000 KCal') ?>
                         </div>
                     </div>
 
-                    <?= $form->field($ingredient, 'ingredient')->textarea([
-                        'rows' => 3,
-                        'placeholder' => 'Cook tips and short suggestion'
-                    ]) ?>
+                    <label for="direction">Ingredient</label>
+                    <table class="table" id="table-input-ingredient">
+                        <thead>
+                        <tr>
+                            <th width="40" class="text-center">No</th>
+                            <th>Ingredient of cooking</th>
+                            <th width="100" class="text-center">Remove</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
 
-                    <?= $form->field($direction, 'direction')->textarea([
-                        'rows' => 3,
-                        'placeholder' => 'Cook tips and short suggestion'
-                    ]) ?>
+                    <?= $form->field($ingredient, 'ingredient')->hiddenInput()->label(false) ?>
+                    <div class="form-group">
+                        <textarea id="ingredient" class="form-control" rows="1" maxlength="100"
+                                  placeholder="Ingredient item"></textarea>
+                    </div>
 
-                    <?= $form->field($recipe, 'privacy')->radioList([
-                        'public' => 'Public',
-                        'private' => 'Private',
-                        'follower' => 'Follower'
-                    ], [
-                        'class' => 'radio'
-                    ]) ?>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-primary btn-block" id="button-add-ingredient">
+                            ADD INGREDIENT
+                        </button>
+                    </div>
+
+                    <label for="direction">Direction</label>
+                    <table class="table" id="table-input-direction">
+                        <thead>
+                        <tr>
+                            <th width="40" class="text-center">No</th>
+                            <th>Direction of cooking</th>
+                            <th width="100" class="text-center">Remove</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+
+                    <?= $form->field($direction, 'direction')->hiddenInput()->label(false) ?>
+                    <div class="form-group">
+                        <textarea id="direction" class="form-control" rows="2" maxlength="300"
+                                  placeholder="Cook tips and short suggestion"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="button" class="btn btn-primary btn-block" id="button-add-direction">
+                            ADD DIRECTION
+                        </button>
+                    </div>
 
                     <?= $form->field($recipe, 'tips')->textarea([
                         'rows' => 3,
                         'placeholder' => 'Cook tips and short suggestion'
                     ]) ?>
+
+                    <?= $form->field($recipe, 'privacy', [
+                        'inline' => true
+                    ])->radioList([
+                        'public' => 'Public',
+                        'private' => 'Private',
+                        'follower' => 'Follower'
+                    ]) ?>
+
+                    <?= $form->field($tag, 'tag')->textInput([
+                        'placeholder' => 'Recipe tags or keywords',
+                        'data-role' => 'tagsinput'
+                    ])->label('Tags or Keywords')->hint('Press , or enter to add tag item') ?>
+
+                    <br>
 
                     <div class="form-group">
                         <?= Html::submitButton('Create Recipe', ['class' => 'btn btn-primary']) ?>

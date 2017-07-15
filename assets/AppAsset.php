@@ -26,6 +26,7 @@ class AppAsset extends AssetBundle
         'js/app.js',
         'js/follow.js',
         'js/slugger.js',
+        'js/recipe.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',
@@ -33,5 +34,10 @@ class AppAsset extends AssetBundle
         'yii\bootstrap\BootstrapPluginAsset',
         'app\assets\FontAwesomeAsset',
         'app\assets\AxiosAsset',
+        'app\assets\Select2Asset',
+        'app\assets\Select2BootstrapAsset',
+        'app\assets\TagsInputAsset',
+        'app\assets\MomentAsset',
+        'app\assets\DateTimePickerAsset',
     ];
 }
