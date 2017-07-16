@@ -3,6 +3,7 @@ use app\widgets\AccountNavigationWidget;
 use app\widgets\AccountSidebarWidget;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $recipe app\models\Recipe */
@@ -35,7 +36,19 @@ $this->title = 'Edit Recipe - Yummy';
                         'id' => 'recipe-form'
                     ]); ?>
 
-                    <?= Html::hiddenInput('user_id', Yii::$app->user->identity->getId()) ?>
+                    <?php foreach ($ingredients as $index => $ingredient): ?>
+                        <?= Html::hiddenInput("Ingredient[$index][ingredient]", $ingredient->ingredient, [
+                            'id' => uniqid(),
+                            'class' => 'recipe-ingredients'
+                        ]) ?>
+                    <?php endforeach; ?>
+
+                    <?php foreach ($directions as $index => $direction): ?>
+                        <?= Html::hiddenInput("Direction[$index][direction]", $direction->direction, [
+                            'id' => uniqid(),
+                            'class' => 'recipe-directions'
+                        ]) ?>
+                    <?php endforeach; ?>
 
                     <?= $form->field($recipe, 'title')->textInput([
                         'placeholder' => 'Recipe title',
@@ -59,7 +72,8 @@ $this->title = 'Edit Recipe - Yummy';
                         ])
                         ->label('Category') ?>
 
-                    <?= $form->field($recipe, 'feature')->fileInput([
+                    <div style="height: 200px; margin: 10px 0; background: url('<?= Url::to('/img/recipes/' . $recipe->feature) ?>') center center / cover"></div>
+                    <?= $form->field($recipe, 'featureImage')->fileInput([
                         'accept' => 'image/*'
                     ]) ?>
 

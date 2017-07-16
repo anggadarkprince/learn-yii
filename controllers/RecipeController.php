@@ -70,6 +70,7 @@ class RecipeController extends Controller
     public function actionCreate()
     {
         $recipe = new Recipe();
+        $recipe->scenario = Recipe::SCENARIO_CREATE;
 
         $ingredient = new Ingredient();
         $countIngredient = count(Yii::$app->request->post('Ingredient', []));
@@ -99,12 +100,10 @@ class RecipeController extends Controller
         $tagLoaded = $tag->load(Yii::$app->request->post());
 
         if ($recipeLoaded && $ingredientsLoaded && $directionsLoaded && $tagLoaded) {
-
+            $recipe->featureImage = UploadedFile::getInstance($recipe, 'featureImage');
             if ($recipe->validate()) {
-                $recipe->featureImage = UploadedFile::getInstance($recipe, 'feature');
-
                 if ($recipe->uploadFeature()) {
-                    Yii::$app->db->transaction(function ($db) use ($recipe, $ingredients, $directions, $tag, $user) {
+                    Yii::$app->db->transaction(function ($db) use ($recipe, $ingredients, $directions, $tag) {
                         $recipe->safeSlug();
                         $recipe->save(false);
 
@@ -159,84 +158,89 @@ class RecipeController extends Controller
     public function actionEdit($slug)
     {
         $recipe = $this->findModelBySlug($slug);
-        $ingredientData = $recipe->getIngredients()->select('ingredient')->column();
-        $directionData = $recipe->getDirections()->select('direction')->column();
-        $tagData = $recipe->getTags()->select('tag')->column();
+        $recipe->scenario = Recipe::SCENARIO_UPDATE;
 
-        $ingredient = new Ingredient();
-        $ingredient->ingredient = implode('||', $ingredientData);
+        $ingredients = [];
+        foreach ($recipe->ingredients as $ingredient) {
+            $ingredients[] = $ingredient;
+        }
 
-        $direction = new Direction();
-        $direction->direction = implode('||', $directionData);
+        $directions = [];
+        foreach ($recipe->directions as $direction) {
+            $directions[] = $direction;
+        }
 
         $tag = new Tag();
-        $tag->tag = implode('||', $tagData);
+        $tag->tag = implode(',', $recipe->getTags()->select('tag')->column());
 
         $category = new Category();
         $categories = $category->findCategoryList();
+
+        if (Yii::$app->request->isPost) {
+            $countIngredient = count(Yii::$app->request->post('Ingredient', []));
+            $ingredients = [];
+            for ($i = 0; $i < $countIngredient; $i++) {
+                $ingredients[] = new Ingredient();
+            }
+
+            $countDirection = count(Yii::$app->request->post('Direction', []));
+            $directions = [];
+            for ($i = 0; $i < $countDirection; $i++) {
+                $directions[] = new Direction();
+            }
+        }
 
         /* @var $user User */
         $user = Yii::$app->user->identity;
 
         $recipe->user_id = Yii::$app->user->id;
         $recipeLoaded = $recipe->load(Yii::$app->request->post());
-        $ingredientLoaded = $ingredient->load(Yii::$app->request->post());
-        $directionLoaded = $direction->load(Yii::$app->request->post());
+        $ingredientsLoaded = Model::loadMultiple($ingredients, Yii::$app->request->post());
+        $directionsLoaded = Model::loadMultiple($directions, Yii::$app->request->post());
         $tagLoaded = $tag->load(Yii::$app->request->post());
 
-        if ($recipeLoaded && $ingredientLoaded && $directionLoaded && $tagLoaded) {
+        if ($recipeLoaded && $ingredientsLoaded && $directionsLoaded && $tagLoaded) {
 
+            $recipe->featureImage = UploadedFile::getInstance($recipe, 'featureImage');
             if ($recipe->validate()) {
-                $recipe->featureImage = UploadedFile::getInstance($recipe, 'feature');
                 if (!is_null($recipe->featureImage)) {
-                    echo 'upload first';
+                    $oldFeature = $recipe->feature;
                     $upload = $recipe->uploadFeature();
+                    if ($upload) {
+                        @unlink(Yii::getAlias('@webroot') . '/img/recipes/' . $oldFeature);
+                    }
                 } else {
-                    echo 'without upload';
                     $upload = true;
                 }
 
                 if ($upload) {
-                    Yii::$app->db->transaction(function ($db) use ($recipe, $ingredient, $direction, $tag, $user) {
-                        $recipeSlug = $recipe->slug;
-                        $totalFound = Recipe::find()->where(['slug' => $recipe->slug])->count();
-                        if ($totalFound > 0) {
-                            $recipeSlug .= '-' . ($totalFound + 1);
-                        }
-                        $recipe->slug = $recipeSlug;
+                    Yii::$app->db->transaction(function ($db) use ($recipe, $ingredients, $directions, $tag) {
+                        $recipe->safeSlug($recipe->id);
                         $recipe->save(false);
 
                         Ingredient::deleteAll(['recipe_id' => $recipe->id]);
-                        $ingredientData = explode('||', $ingredient->ingredient);
-                        foreach ($ingredientData as $ingredientDatum) {
-                            $ingredientItem = new Ingredient();
-                            $ingredientItem->ingredient = $ingredientDatum;
-                            $recipe->link('ingredients', $ingredientItem);
+                        foreach ($ingredients as $ingredient) {
+                            if (!is_null($ingredient->ingredient)) {
+                                $recipe->link('ingredients', $ingredient);
+                            }
                         }
 
                         Direction::deleteAll(['recipe_id' => $recipe->id]);
-                        $directionData = explode('||', $direction->direction);
-                        foreach ($directionData as $directionDatum) {
-                            $directionItem = new Direction();
-                            $directionItem->direction = $directionDatum;
-                            $recipe->link('directions', $directionItem);
+                        foreach ($directions as $direction) {
+                            if (!is_null($direction->direction)) {
+                                $recipe->link('directions', $direction);
+                            }
                         }
 
-                        Tag::deleteAll(['recipe_id' => $recipe->id]);
-                        $tagsData = explode('||', $tag->tag);
-                        foreach ($tagsData as $tagsDatum) {
-                            $tagSlug = Inflector::slug($tag->tag);
-                            $totalFound = Tag::find()->where(['slug' => $tagSlug])->count();
-                            if ($totalFound > 0) {
-                                $tagSlug .= '-' . ($totalFound + 1);
-                            }
-                            $tagItem = new Tag();
-                            $tagItem->slug = $tagSlug;
-                            $tagItem->tag = $tagsDatum;
-                            $tagItem->save();
+                        Yii::$app->db->createCommand()
+                            ->delete('recipe_tags', ['recipe_id' => $recipe->id])
+                            ->execute();
+                        $tagSynced = $tag->checkSyncTags($tag->tag);
+                        foreach ($tagSynced as $tagItem) {
                             $recipe->link('tags', $tagItem);
                         }
                     });
+
                     Yii::$app->session->setFlash('status', 'success');
                     Yii::$app->session->setFlash('message', 'Update recipe <strong>' . $recipe->title . '</strong> success.');
                     return $this->redirect(["/{$user->username}"]);
@@ -254,7 +258,9 @@ class RecipeController extends Controller
             'user' => $user,
             'recipe' => $recipe,
             'ingredient' => $ingredient,
+            'ingredients' => $ingredients,
             'direction' => $direction,
+            'directions' => $directions,
             'tag' => $tag,
             'categories' => $categories
         ]);
@@ -300,30 +306,6 @@ class RecipeController extends Controller
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
-        }
-    }
-
-    protected function syncTags($recipeId, $oldTags, $newTagIds)
-    {
-
-        $oldTagIds = ArrayHelper::getColumn($oldTags, 'id');
-
-        $tagToDelete = array_diff($oldTagIds, $newTagIds);
-        $tagToAdd = array_diff($newTagIds, $oldTagIds);
-
-        if ($tagToDelete) {
-            //delete tags
-            Yii::$app->db->createCommand()
-                ->delete('recipe_tag', ['recipe_id' => $recipeId, 'tag_id' => $tagToDelete])
-                ->execute();
-        }
-
-        if ($tagToAdd) {
-            //link new tag associated with the recipe
-            foreach ($tagToAdd as $value) {
-                $tag = Tag::findOne($value);
-                $this->link('tags', $tag);
-            }
         }
     }
 

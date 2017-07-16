@@ -38,7 +38,24 @@ use yii\web\UploadedFile;
  */
 class Recipe extends ActiveRecord
 {
+    const SCENARIO_CREATE = 'create';
+    const SCENARIO_UPDATE = 'update';
+
     public $featureImage;
+
+    public function scenarios()
+    {
+        $scenarios = parent::scenarios();
+        $scenarios[self::SCENARIO_CREATE] = [
+            'category_id', 'title', 'slug', 'description', 'feature', 'featureImage', 'servings',
+            'calories', 'preparation_time', 'tips', 'privacy'
+        ];
+        $scenarios[self::SCENARIO_UPDATE] = [
+            'category_id', 'title', 'slug', 'description', 'servings',
+            'calories', 'preparation_time', 'tips', 'privacy'
+        ];
+        return $scenarios;
+    }
 
     /**
      * Set default table name.
@@ -76,7 +93,8 @@ class Recipe extends ActiveRecord
             [['slug'], 'string', 'max' => 200],
             [['description'], 'string', 'max' => 500],
             [['tips'], 'string', 'max' => 300],
-            [['feature'], 'file', 'skipOnEmpty' => false, 'extensions' => 'gif, png, jpg'],
+            [['featureImage'], 'required', 'on' => 'create'],
+            [['featureImage'], 'file', 'skipOnEmpty' => false, 'extensions' => 'gif, png, jpg'],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
@@ -102,6 +120,7 @@ class Recipe extends ActiveRecord
             'calories' => 'Calories',
             'privacy' => 'Privacy',
             'feature' => 'Feature Image',
+            'featureImage' => 'Feature Image',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];
@@ -109,24 +128,28 @@ class Recipe extends ActiveRecord
 
     /**
      * Set safe slug, run this method once.
+     * @param $exceptId
      */
-    public function safeSlug()
+    public function safeSlug($exceptId = 0)
     {
-        $this->slug = $this->getSafeSlug($this->slug);
+        $this->slug = $this->getSafeSlug($this->slug, $exceptId);
     }
 
     /**
      * Append order number if recipe slug was exist.
      * @param $value
+     * @param $exceptId
      * @param int $order
      * @return string
      */
-    public function getSafeSlug($value, $order = 1)
+    public function getSafeSlug($value, $exceptId = 0, $order = 1)
     {
         $appendOrder = is_null($order) || $order == '' || $order == 1 ? $value : $value . '-' . $order;
-        $totalFound = Recipe::find()->where(['slug' => $appendOrder])->count();
+        $totalFound = Recipe::find()
+            ->where(['slug' => $appendOrder])
+            ->andWhere(['!=', 'id', $exceptId])->count();
         if ($totalFound > 0) {
-            return $this->getSafeSlug($value, $order + 1);
+            return $this->getSafeSlug($value, $exceptId, $order + 1);
         }
         return $appendOrder;
     }

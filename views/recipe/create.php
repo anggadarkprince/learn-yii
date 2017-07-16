@@ -71,7 +71,7 @@ $this->title = 'Create Recipe - Yummy';
                         ])
                         ->label('Category') ?>
 
-                    <?= $form->field($recipe, 'feature')->fileInput([
+                    <?= $form->field($recipe, 'featureImage')->fileInput([
                         'accept' => 'image/*'
                     ]) ?>
 

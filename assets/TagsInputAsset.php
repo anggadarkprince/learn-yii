@@ -14,6 +14,7 @@ class TagsInputAsset extends AssetBundle
 {
     public $sourcePath = '@npm/bootstrap-tagsinput/dist';
     public $css = [
+        'bootstrap-tagsinput.css',
         'bootstrap-tagsinput-typeahead.css',
     ];
     public $js = [
