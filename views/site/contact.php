@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = 'Contact Us';
             <?php if (Yii::$app->mailer->useFileTransport): ?>
                 Because the application is in development mode, the email is not sent but saved as
                 a file under <code><?= Yii::getAlias(Yii::$app->mailer->fileTransportPath) ?></code>.
-                                                                                                    Please configure the
+                Please configure the
                 <code>useFileTransport</code> property of the <code>mail</code>
                 application component to be false to enable email sending.
             <?php endif; ?>

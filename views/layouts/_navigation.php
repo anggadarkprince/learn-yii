@@ -58,7 +58,7 @@ use app\widgets\CategoryMenuWidget;
                         </a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a href="<?= Url::toRoute(['account/dashboard']) ?>">
+                                <a href="<?= Url::toRoute(['/'.Yii::$app->user->identity->username]) ?>">
                                     <i class="fa fa-dashboard text-muted"></i> &nbsp; Dashboard
                                 </a>
                             </li>

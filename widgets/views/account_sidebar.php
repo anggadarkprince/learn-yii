@@ -27,17 +27,23 @@ use yii\helpers\Url;
                 MAKE RECIPE
             </a>
         <?php else: ?>
-            <?php
-            $followState = Yii::$app->user->identity->isFollow($user->id);
-            $followButton = $followState > 0 ? 'btn-primary' : 'btn-default';
-            $followLabel = $followState > 0 ? 'Following' : 'Follow Me';
-            ?>
-            <button class="btn btn-block <?= $followButton ?> btn-round account-button-follow"
-                    data-state="<?= $followState ?>"
-                    data-id="<?= $user->id ?>"
-                    data-toggle="follow">
-                <?= $followLabel ?>
-            </button>
+            <?php if(Yii::$app->user->isGuest): ?>
+                <a href="<?= Url::toRoute(['auth/login', 'redirect' => Url::toRoute(['/'.$user->username], true)]) ?>" class="btn btn-default btn-block btn-round account-button-follow">
+                    Follow Me
+                </a>
+            <?php else: ?>
+                <?php
+                $followState = Yii::$app->user->isGuest ? 0 : Yii::$app->user->identity->isFollow($user->id);
+                $followButton = $followState > 0 ? 'btn-primary' : 'btn-default';
+                $followLabel = $followState > 0 ? 'Following' : 'Follow Me';
+                ?>
+                <button class="btn btn-block <?= $followButton ?> btn-round account-button-follow"
+                        data-state="<?= $followState ?>"
+                        data-id="<?= $user->id ?>"
+                        data-toggle="follow">
+                    <?= $followLabel ?>
+                </button>
+            <?php endif; ?>
         <?php endif; ?>
 
         <ul class="account-info">
@@ -79,6 +85,21 @@ use yii\helpers\Url;
                        style="background: url('<?= Url::to('/img/avatars/' . $following->avatar) ?>') center center / cover"></a>
                 <?php endforeach; ?>
             <?php endif; ?>
+        </div>
+
+        <div class="account-section">
+            <h5 class="text-muted">Yummy In Action</h5>
+            <ul class="list-inline">
+                <li><a href="<?= Url::home() ?>">Home</a></li>
+                <li><a href="<?= Url::toRoute('/discovery') ?>">Discovery</a></li>
+                <li><a href="<?= Url::toRoute('/cooking') ?>">Cooking</a></li>
+                <li><a href="<?= Url::toRoute('/diet') ?>">Diet</a></li>
+                <li><a href="<?= Url::toRoute('/blog') ?>">Blog</a></li>
+                <li><a href="<?= Url::toRoute('/about') ?>">About</a></li>
+                <li><a href="<?= Url::toRoute('/contact') ?>">Contact</a></li>
+                <li><a href="<?= Url::toRoute('legal/privacy') ?>">Privacy</a></li>
+                <li><a href="<?= Url::toRoute('legal/terms-of-service') ?>">Terms of Service</a></li>
+            </ul>
         </div>
     </div>
 </div>

@@ -32,7 +32,8 @@ $this->title = $user->name . ' (' . $user->username . ') - Yummy';
 
                     <?= $this->render('../recipe/_card_default', [
                         'recipe' => $recipe,
-                        'columns' => 3
+                        'columns' => 3,
+                        'isEditable' => $user->id == Yii::$app->user->id
                     ]) ?>
 
                 <?php endforeach; ?>

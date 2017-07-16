@@ -41,7 +41,8 @@ class AuthController extends Controller
                     Yii::$app->session->setFlash('status', 'danger');
                     Yii::$app->session->setFlash('message', 'Your account was suspended, contact our team support to fix this');
                 } else if ($model->login()) {
-                    return $this->redirect('/' . Yii::$app->user->identity->username);
+                    $redirect = Yii::$app->request->get('redirect', '/' . Yii::$app->user->identity->username);
+                    return $this->redirect($redirect);
                 }
             }
         }

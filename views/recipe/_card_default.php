@@ -6,6 +6,7 @@ use yii\helpers\Html;
 use yii\helpers\StringHelper;
 use yii\helpers\Url;
 
+$isEditable = isset($isEditable) ? $isEditable : false;
 $column = isset($columns) ? (12 / $columns) : 12;
 $columnSmall = $column < 6 ? $column : 12;
 ?>
@@ -15,19 +16,21 @@ $columnSmall = $column < 6 ? $column : 12;
             <div class="recipe-feature"
                  style="background: url('<?= Url::to('/img/recipes/' . $recipe->feature) ?>') center center / cover">
 
-                <div class="recipe-control dropdown pull-right">
-                    <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="true">
-                        ACTION <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-right">
-                        <li class="dropdown-header">Action</li>
-                        <li><a href="javascript:void(0)">Share To</a></li>
-                        <li><a href="<?= Url::toRoute('recipe/edit/' . $recipe->slug) ?>">Edit Recipe</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="<?= Url::toRoute('recipe/delete/' . $recipe->slug) ?>">Delete Decipe</a></li>
-                    </ul>
-                </div>
+                <?php if ($isEditable): ?>
+                    <div class="recipe-control dropdown pull-right">
+                        <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="true">
+                            ACTION <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li class="dropdown-header">Action</li>
+                            <li><a href="javascript:void(0)">Share To</a></li>
+                            <li><a href="<?= Url::toRoute('recipe/edit/' . $recipe->slug) ?>">Edit Recipe</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="<?= Url::toRoute('recipe/delete/' . $recipe->slug) ?>">Delete Decipe</a></li>
+                        </ul>
+                    </div>
+                <?php endif; ?>
 
             </div>
             <div class="caption">

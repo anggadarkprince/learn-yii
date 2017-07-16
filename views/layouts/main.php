@@ -57,7 +57,7 @@ DateTimePickerAsset::register($this);
 
 <footer class="footer <?= isset($this->params['banner-class']) ? 'transparent' : '' ?>">
     <div class="container">
-        <p class="pull-left">&copy; <a href="<?= Url::toRoute(['about']) ?>">Yummy</a> - Recipes around the
+        <p class="pull-left">&copy; <a href="<?= Url::toRoute(['/about']) ?>">Yummy</a> - Recipes around the
             world <?= date('Y') ?></p>
         <p class="pull-right"><?= Yii::powered() ?></p>
     </div>
