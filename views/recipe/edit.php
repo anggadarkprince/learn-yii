@@ -12,7 +12,7 @@ use yii\helpers\Html;
 /* @var $tag app\models\Tag */
 /* @var $form yii\widgets\ActiveForm */
 
-$this->title = 'Create Recipe - Yummy';
+$this->title = 'Edit Recipe - Yummy';
 ?>
 
 <?php $this->beginBlock('account-banner'); ?>
@@ -27,7 +27,7 @@ $this->title = 'Create Recipe - Yummy';
         <div class="account-content">
             <div class="row">
                 <div class="col-md-10 col-md-offset-1">
-                    <h1 class="lead">Create New Recipe</h1>
+                    <h1 class="lead">Edit Recipe</h1>
 
                     <?= $this->render('../errors/_general_alert') ?>
 
@@ -35,19 +35,7 @@ $this->title = 'Create Recipe - Yummy';
                         'id' => 'recipe-form'
                     ]); ?>
 
-                    <?php foreach ($ingredients as $index => $ingredient): ?>
-                        <?= Html::hiddenInput("Ingredient[$index][ingredient]", $ingredient->ingredient, [
-                            'id' => uniqid(),
-                            'class' => 'recipe-ingredients'
-                        ]) ?>
-                    <?php endforeach; ?>
-
-                    <?php foreach ($directions as $index => $direction): ?>
-                        <?= Html::hiddenInput("Direction[$index][direction]", $direction->direction, [
-                            'id' => uniqid(),
-                            'class' => 'recipe-directions'
-                        ]) ?>
-                    <?php endforeach; ?>
+                    <?= Html::hiddenInput('user_id', Yii::$app->user->identity->getId()) ?>
 
                     <?= $form->field($recipe, 'title')->textInput([
                         'placeholder' => 'Recipe title',
@@ -179,7 +167,7 @@ $this->title = 'Create Recipe - Yummy';
                     <br>
 
                     <div class="form-group">
-                        <?= Html::submitButton('Create Recipe', ['class' => 'btn btn-primary']) ?>
+                        <?= Html::submitButton('Update Recipe', ['class' => 'btn btn-primary']) ?>
                     </div>
 
                     <?php ActiveForm::end(); ?>

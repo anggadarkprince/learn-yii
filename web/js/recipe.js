@@ -15,97 +15,190 @@ var app = app || {};
     var ingredientData = [];
     var directionData = [];
 
-    var pushItem = function (data, table, input, removeClass, inputHidden, maxItem) {
+    function uuidv4() {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+    }
+
+    var pushItem = function (params) {
+        // populate push preferences
+        var defaultOptions = {
+            data: null,
+            table: null,
+            input: '',
+            removeClass: 'button-remove',
+            hiddenName: 'Recipe',
+            hiddenClass: 'recipe-inputs',
+            hiddenInput: 'recipe-hidden',
+            maxItem: 20
+        };
+        var config = $.extend({}, defaultOptions, params);
+
+        // determine if input is string value or input DOM object
         var value = '';
-        if (typeof input === 'string') {
-            value = input;
+        if (typeof config.input === 'string') {
+            value = config.input;
         } else {
-            value = input.val().toString().trim();
-        }
-        if (maxItem === null) {
-            maxItem = 20;
+            value = config.input.val().toString().trim();
         }
 
+        // validate input data
         if (value === '' || value.length === 0) {
             alert('Please input an item');
             return false;
-        } else if (data.length >= maxItem) {
-            alert('Maximum ' + maxItem + ' item allow to listed');
+        } else if (config.data.length >= config.maxItem) {
+            alert('Maximum ' + config.maxItem + ' item allow to listed');
             return false;
         } else {
-            if (typeof input !== 'string') {
-                input.val('');
-                input.focus();
+            // push data into array container
+            var uuidItem = uuidv4();
+            config.data.push({
+                uuid: uuidItem,
+                value: value
+            });
+
+            // create list item in table
+            addRow(uuidItem, value, config.data.length, config.removeClass, config.table.find('tbody'));
+
+            // create array hidden inputs
+            buildInputs(config.data, config.hiddenClass, config.hiddenName);
+
+            // reorder table if needed
+            reorderItem(config.data, config.table, config.hiddenInput);
+
+            // reset input value
+            if (typeof config.input !== 'string') {
+                config.input.val('');
             }
-            data.push(value);
-            table.find('tbody').append(
-                $('<tr>')
-                    .append($('<td class="text-center">').text(data.length))
-                    .append($('<td>').append(value))
-                    .append($('<td class="text-center">').append(
-                        $('<button>', {
-                            class: 'btn btn-danger btn-sm ' + removeClass,
-                            type: 'button'
-                        }).html('<i class="fa fa-trash-o"></i>')
-                        )
-                    )
-            );
-            reorderItem(table);
-            if (inputHidden !== undefined) {
-                inputHidden.val(data.toString());
-            }
+
             return true;
         }
     };
 
-    var spliceItem = function (table, button) {
-        button.closest('tr').remove();
-        reorderItem(table);
+    var addRow = function (uuid, value, order, removeClass, container) {
+        var row = $('<tr>', {'data-uuid': uuid})
+            .append($('<td class="text-center">').text(order))
+            .append($('<td>').append(value))
+            .append($('<td class="text-center">').append(
+                $('<button>', {
+                    class: 'btn btn-danger btn-sm ' + removeClass,
+                    type: 'button'
+                }).html('<i class="fa fa-trash-o"></i>')
+                )
+            );
+        container.append(row);
     };
 
-    var reorderItem = function (table) {
+    var buildInputs = function (data, className, inputName) {
+        $('.' + className).remove();
+        var inputTags = $();
+        for (var i = 0; i < data.length; i++) {
+            inputTags = inputTags.add(
+                $('<input>', {
+                    type: 'hidden',
+                    name: inputName + '[' + i + ']' + '[' + inputName.toLowerCase() + ']',
+                    class: className,
+                    id: data[i].uuid,
+                    value: data[i].value
+                })
+            );
+        }
+        formRecipe.prepend(inputTags);
+    };
+
+    var spliceItem = function (button, data) {
+        var row = button.closest('tr');
+        var uuid = row.data('uuid');
+        var isFound = false;
+        for (var i = 0; i < data.length; i++) {
+            if (data[i].uuid === uuid) {
+                data.splice(i, 1);
+                isFound = true;
+                break;
+            }
+        }
+        if (isFound) {
+            row.remove();
+        }
+    };
+
+    var reorderItem = function (data, table, input) {
         table.find('tbody').find('tr').each(function (index) {
             $(this).children('td').first().html(index + 1);
         });
+        input.val(data.length ? data.length : '');
     };
 
     var actionInit = function () {
-        var valueIngredient = inputIngredientHidden.val().toString().trim();
-        if (valueIngredient !== '') {
-            var valueIngredientDefault = valueIngredient.split(',');
-            $.each(valueIngredientDefault, function (index, value) {
-                pushItem(ingredientData, tableInputIngredient, value, 'button-remove-ingredient');
-            });
-        }
+        var ingredients = $('input.recipe-ingredients');
+        ingredients.each(function (index, input) {
+            if ($(input).val() !== '') {
+                ingredientData.push({
+                    uuid: $(input).attr('id'),
+                    value: $(input).val()
+                });
+                addRow($(input).attr('id'), $(input).val(), index + 1, 'button-remove-ingredient',
+                    tableInputIngredient.find('tbody'));
+            }
+        });
+        inputIngredientHidden.val(ingredientData.length);
 
-        var valueDirection = inputDirectionHidden.val().toString().trim();
-        if (valueDirection !== '') {
-            var valueDirectionDefault = valueDirection.split(',');
-            $.each(valueDirectionDefault, function (index, value) {
-                pushItem(directionData, tableInputDirection, value, 'button-remove-direction');
-            });
-        }
+        var directions = $('input.recipe-directions');
+        directions.each(function (index, input) {
+            if ($(input).val() !== '') {
+                directionData.push({
+                    uuid: $(input).attr('id'),
+                    value: $(input).val()
+                });
+                addRow($(input).attr('id'), $(input).val(), index + 1, 'button-remove-direction',
+                    tableInputDirection.find('tbody'));
+            }
+        });
+        inputDirectionHidden.val(directionData.length);
     };
 
     var actionForm = function () {
         buttonAddIngredient.on('click', function () {
-            pushItem(ingredientData, tableInputIngredient, inputIngredient,
-                'button-remove-ingredient', inputIngredientHidden, 20);
+            pushItem({
+                data: ingredientData,
+                table: tableInputIngredient,
+                input: inputIngredient,
+                removeClass: 'button-remove-ingredient',
+                hiddenName: 'Ingredient',
+                hiddenClass: 'recipe-ingredients',
+                hiddenInput: inputIngredientHidden
+            });
             $(this).blur();
         });
 
         formRecipe.on('click', '.button-remove-ingredient', function () {
-            spliceItem(tableInputIngredient, $(this));
+            spliceItem($(this), ingredientData);
+            buildInputs(ingredientData, 'recipe-ingredients', 'Ingredient');
+            reorderItem(ingredientData, tableInputIngredient, inputIngredientHidden);
         });
 
         buttonAddDirection.on('click', function () {
-            pushItem(directionData, tableInputDirection, inputDirection,
-                'button-remove-direction', inputDirectionHidden, 15);
+            pushItem({
+                data: directionData,
+                table: tableInputDirection,
+                input: inputDirection,
+                removeClass: 'button-remove-direction',
+                hiddenName: 'Direction',
+                hiddenClass: 'recipe-directions',
+                hiddenInput: inputDirectionHidden
+            });
             $(this).blur();
         });
 
         formRecipe.on('click', '.button-remove-direction', function () {
-            spliceItem(tableInputDirection, $(this));
+            var row = $(this).closest('tr');
+            var uuid = row.data('uuid');
+            row.remove();
+            spliceItem($(this), directionData);
+            buildInputs(directionData, 'recipe-directions', 'Direction');
+            reorderItem(directionData, tableInputDirection, inputDirectionHidden);
         });
     };
 

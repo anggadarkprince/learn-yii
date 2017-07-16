@@ -76,7 +76,7 @@ class Recipe extends ActiveRecord
             [['slug'], 'string', 'max' => 200],
             [['description'], 'string', 'max' => 500],
             [['tips'], 'string', 'max' => 300],
-            [['feature'], 'file', 'skipOnEmpty' => true, 'extensions' => 'gif, png, jpg'],
+            [['feature'], 'file', 'skipOnEmpty' => false, 'extensions' => 'gif, png, jpg'],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
@@ -105,6 +105,30 @@ class Recipe extends ActiveRecord
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];
+    }
+
+    /**
+     * Set safe slug, run this method once.
+     */
+    public function safeSlug()
+    {
+        $this->slug = $this->getSafeSlug($this->slug);
+    }
+
+    /**
+     * Append order number if recipe slug was exist.
+     * @param $value
+     * @param int $order
+     * @return string
+     */
+    public function getSafeSlug($value, $order = 1)
+    {
+        $appendOrder = is_null($order) || $order == '' || $order == 1 ? $value : $value . '-' . $order;
+        $totalFound = Recipe::find()->where(['slug' => $appendOrder])->count();
+        if ($totalFound > 0) {
+            return $this->getSafeSlug($value, $order + 1);
+        }
+        return $appendOrder;
     }
 
     /**

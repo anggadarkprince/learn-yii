@@ -674,6 +674,10 @@ a.desc:after {
     margin: 4px;
 }
 
+.card-recipe .recipe-control {
+    margin: 10px;
+}
+
 .card-recipe .recipe-title {
     min-height: 30px;
     font-size: 20px;
