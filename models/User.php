@@ -6,6 +6,7 @@ use Yii;
 use yii\db\ActiveRecord;
 use yii\helpers\Url;
 use yii\web\IdentityInterface;
+use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "users".
@@ -23,6 +24,22 @@ use yii\web\IdentityInterface;
  * @property string $auth_key
  * @property string $access_token
  * @property string $status
+ * @property string $language
+ * @property string $country
+ * @property string $timezone
+ * @property string $relevant_content
+ * @property string $login_notification
+ * @property string $login_verification
+ * @property string $email_product_offer
+ * @property string $email_recipe_feed
+ * @property string $email_recipe_recommendation
+ * @property string $email_follower
+ * @property string $email_message
+ * @property string $private_account
+ * @property string $private_recipe
+ * @property string $tag_location
+ * @property string $discoverability
+ * @property string $light_mode
  * @property string $created_at
  * @property string $updated_at
  *
@@ -40,8 +57,49 @@ class User extends ActiveRecord implements IdentityInterface
     const STATUS_ACTIVATED = 'activated';
     const STATUS_SUSPENDED = 'suspended';
 
+    const SCENARIO_SETTING_APPLICATION = 'setting-application';
+    const SCENARIO_SETTING_PROFILE = 'setting-profile';
+    const SCENARIO_SETTING_PASSWORD = 'setting-password';
+    const SCENARIO_SETTING_SECURITY = 'setting-security';
+    const SCENARIO_SETTING_NOTIFICATION = 'setting-notification';
+    const SCENARIO_SETTING_PRIVACY = 'setting-privacy';
+    const SCENARIO_SETTING_ACCESSIBILITY = 'setting-accessibility';
+
+    public $avatarImage;
+    public $coverImage;
+    public $old_password;
     public $new_password;
     public $confirm_password;
+
+    public function scenarios()
+    {
+        $scenarios = parent::scenarios();
+        $scenarios[self::SCENARIO_SETTING_APPLICATION] = [
+            'language', 'timezone', 'country', 'relevant_content'
+        ];
+        $scenarios[self::SCENARIO_SETTING_PROFILE] = [
+            'name', 'username', 'email', 'location', 'about', 'contact', 'avatar', 'feature'
+        ];
+        $scenarios[self::SCENARIO_SETTING_PASSWORD] = [
+            'password', 'old_password', 'new_password', 'confirm_password'
+        ];
+        $scenarios[self::SCENARIO_SETTING_SECURITY] = [
+            'login_notification', 'login_verification'
+        ];
+        $scenarios[self::SCENARIO_SETTING_NOTIFICATION] = [
+            'email_product_offer', 'email_recipe_feed', 'email_recipe_recommendation', 'email_follower', 'email_message'
+        ];
+        $scenarios[self::SCENARIO_SETTING_PRIVACY] = [
+            'private_account', 'private_recipe', 'tag_location'
+        ];
+        $scenarios[self::SCENARIO_SETTING_ACCESSIBILITY] = [
+            'private_account', 'private_recipe', 'tag_location', 'discoverability'
+        ];
+        $scenarios[self::SCENARIO_SETTING_ACCESSIBILITY] = [
+            'light_mode'
+        ];
+        return $scenarios;
+    }
 
     /**
      * Set default table name.
@@ -50,6 +108,76 @@ class User extends ActiveRecord implements IdentityInterface
     public static function tableName()
     {
         return 'users';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            [['name', 'username', 'email', 'password', 'old_password'], 'required'],
+            [['status'], 'string'],
+            [['relevant_content', 'login_notification', 'login_verification', 'email_product_offer', 'email_recipe_feed', 'email_recipe_recommendation', 'email_follower', 'email_message', 'private_account', 'private_recipe', 'tag_location', 'discoverability', 'light_mode'], 'integer'],
+            [['created_at', 'updated_at'], 'safe'],
+            [['name', 'username', 'email', 'contact'], 'string', 'max' => 50],
+            [['password'], 'string', 'max' => 150],
+            [['avatar', 'cover', 'location'], 'string', 'max' => 300],
+            [['avatarImage', 'coverImage'], 'file', 'skipOnEmpty' => false, 'extensions' => 'gif, png, jpg'],
+            [['about'], 'string', 'max' => 500],
+            [['auth_key', 'access_token', 'language', 'country', 'timezone'], 'string', 'max' => 100],
+            [['username'], 'unique', 'targetClass' => 'app\models\User', 'targetAttribute' => ['username'], 'message' => 'Username must be unique.'],
+            [['email'], 'unique', 'targetClass' => 'app\models\User', 'targetAttribute' => ['email'], 'message' => 'Email must be unique.'],
+            ['username', 'match', 'pattern' => '/^[A-Za-z0-9_-]{3,15}$/', 'message' => 'Your username can only contain alphanumeric characters, underscores and dashes.'],
+            ['old_password', function ($attribute, $params, $validator) {
+                if (!$this->validatePassword($this->$attribute)) {
+                    $this->addError($attribute, 'The password is mismatch with current password.');
+                }
+            }, 'on' => self::SCENARIO_SETTING_PASSWORD],
+            ['new_password', 'string', 'min' => 6, 'on' => self::SCENARIO_SETTING_PASSWORD],
+            [['new_password', 'confirm_password'], 'required', 'on' => self::SCENARIO_SETTING_PASSWORD],
+            ['confirm_password', 'compare', 'compareAttribute' => 'new_password', 'message' => "New passwords don't match"],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'name' => 'Name',
+            'username' => 'Username',
+            'email' => 'Email',
+            'password' => 'Password',
+            'avatar' => 'Avatar',
+            'cover' => 'Cover',
+            'location' => 'Location',
+            'contact' => 'Contact',
+            'about' => 'About',
+            'auth_key' => 'Auth Key',
+            'access_token' => 'Access Token',
+            'status' => 'Status',
+            'language' => 'Language',
+            'country' => 'Country',
+            'timezone' => 'Timezone',
+            'relevant_content' => 'Relevant Content',
+            'login_notification' => 'Login Notification',
+            'login_verification' => 'Login Verification',
+            'email_product_offer' => 'Email Product Offer',
+            'email_recipe_feed' => 'Email Recipe Feed',
+            'email_recipe_recommendation' => 'Email Recipe Recommendation',
+            'email_follower' => 'Email Follower',
+            'email_message' => 'Email Message',
+            'private_account' => 'Private Account',
+            'private_recipe' => 'Private Recipe',
+            'tag_location' => 'Tag Location',
+            'discoverability' => 'Discoverability',
+            'light_mode' => 'Light Mode',
+            'created_at' => 'Created At',
+            'updated_at' => 'Updated At',
+        ];
     }
 
     /**
@@ -74,6 +202,27 @@ class User extends ActiveRecord implements IdentityInterface
     public function setAvatarUrl($value)
     {
         $this->avatar = end(explode('/', $value));
+    }
+
+    /**
+     * Upload avatar and feature image.
+     * @param $source UploadedFile
+     * @param $filePath
+     * @param $fileName
+     * @return bool
+     */
+    public function uploadImage($source, $filePath, $fileName)
+    {
+        if ($this->validate()) {
+            $fileName = $fileName . '.' . $source->extension;
+            $filePath = $filePath . $fileName;
+            if ($source->saveAs($filePath)) {
+                return $fileName;
+            }
+            return false;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -234,7 +383,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function isFollow($userId)
     {
-        if(Yii::$app->user->isGuest) {
+        if (Yii::$app->user->isGuest) {
             return -1;
         }
         $isFollowing = $this->getFollowings()->where(['id' => $userId])->count();

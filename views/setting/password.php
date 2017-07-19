@@ -26,8 +26,6 @@ $this->title = 'Setting Password - Yummy';
     <div class="col-md-9">
         <div class="account-content">
 
-            <?= $this->render('../errors/_general_alert') ?>
-
             <div class="row setting-content">
                 <div class="col-md-10 col-lg-offset-1">
                     <div class="row">
@@ -36,18 +34,18 @@ $this->title = 'Setting Password - Yummy';
                         </div>
                         <div class="col-md-8">
 
-                            <?= $this->render('../errors/_general_alert') ?>
-
                             <div class="form-title">
                                 <h3 class="lead">Password</h3>
                                 <p>Change your password or recover your current one.</p>
                             </div>
 
+                            <?= $this->render('../errors/_general_alert') ?>
+
                             <?php $form = ActiveForm::begin([
                                 'id' => 'setting-password-form',
                             ]); ?>
 
-                            <?= $form->field($user, 'password')->textInput([
+                            <?= $form->field($user, 'old_password')->input('password', [
                                 'value' => '',
                                 'placeholder' => 'Your current password'
                             ])->hint('<a href="' . Url::toRoute('/auth/forgot?email=' . $user->email) . '">Forgot Password?</a>') ?>

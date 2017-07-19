@@ -33,12 +33,12 @@ $this->title = 'Setting Privacy - Yummy';
                         </div>
                         <div class="col-md-8">
 
-                            <?= $this->render('../errors/_general_alert') ?>
-
                             <div class="form-title">
                                 <h3 class="lead">Privacy</h3>
                                 <p>Global personal information protection and recipe</p>
                             </div>
+
+                            <?= $this->render('../errors/_general_alert') ?>
 
                             <?php $form = ActiveForm::begin([
                                 'id' => 'setting-privacy-form'

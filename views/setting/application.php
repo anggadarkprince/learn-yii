@@ -35,12 +35,12 @@ $this->title = 'Setting Application - Yummy';
                         </div>
                         <div class="col-md-8">
 
-                            <?= $this->render('../errors/_general_alert') ?>
-
                             <div class="form-title">
                                 <h3 class="lead">Application</h3>
                                 <p>Account global preferences</p>
                             </div>
+
+                            <?= $this->render('../errors/_general_alert') ?>
 
                             <?php $form = ActiveForm::begin([
                                 'id' => 'setting-application-form'
@@ -61,14 +61,14 @@ $this->title = 'Setting Application - Yummy';
 
                             <label for="relevant_content" class="control-label">Content</label>
                             <?= $form->field($user, 'relevant_content')->checkbox()
-                                ->hint('Tweets you are likely to care about most will show up first in your feed. 
+                                ->hint('Feeds you are likely to care about most will show up first in your feed. 
                                 <a href="/help">Learn more</a>.') ?>
 
                             <div class="form-group">
                                 <label for="archive" class="control-label">Archive</label>
                                 <span class="help-block">
                                     You can request a file containing your information,
-                                    starting with your first Tweet. A link will be emailed to you when the file is ready to be downloaded.
+                                    starting with your first Feed. A link will be emailed to you when the file is ready to be downloaded.
                                 </span>
                                 <div>
                                     <a href="#" class="btn btn-default">Request Archive</a>

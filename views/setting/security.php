@@ -33,12 +33,12 @@ $this->title = 'Setting Security - Yummy';
                         </div>
                         <div class="col-md-8">
 
-                            <?= $this->render('../errors/_general_alert') ?>
-
                             <div class="form-title">
                                 <h3 class="lead">Security</h3>
                                 <p>User account protection configuration</p>
                             </div>
+
+                            <?= $this->render('../errors/_general_alert') ?>
 
                             <?php $form = ActiveForm::begin([
                                 'id' => 'setting-security-form'

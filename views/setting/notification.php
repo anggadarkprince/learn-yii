@@ -33,12 +33,12 @@ $this->title = 'Setting Notification - Yummy';
                         </div>
                         <div class="col-md-8">
 
-                            <?= $this->render('../errors/_general_alert') ?>
-
                             <div class="form-title">
                                 <h3 class="lead">Notifications</h3>
                                 <p>Get email and web notification right away</p>
                             </div>
+
+                            <?= $this->render('../errors/_general_alert') ?>
 
                             <?php $form = ActiveForm::begin([
                                 'id' => 'setting-notification-form'
@@ -47,7 +47,7 @@ $this->title = 'Setting Notification - Yummy';
                             <label for="email_product_offer" class="control-label">Product Offer</label>
                             <?= $form->field($user, 'email_product_offer')->checkbox()
                                 ->label('News about Twitter product and feature updates')
-                            ->hint('Tips on getting more out of Yummy, info such as news and update on partner products and other third party services  ') ?>
+                                ->hint('Tips on getting more out of Yummy, info such as news and update on partner products and other third party services  ') ?>
 
                             <label class="control-label">Recipe Feed</label>
                             <?= $form->field($user, 'email_recipe_feed')->checkbox()->label('Send me update recipe of my following') ?>

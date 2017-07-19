@@ -33,12 +33,12 @@ $this->title = 'Setting Accessibility - Yummy';
                         </div>
                         <div class="col-md-8">
 
-                            <?= $this->render('../errors/_general_alert') ?>
-
                             <div class="form-title">
                                 <h3 class="lead">Accessibility</h3>
                                 <p>User experience operation control</p>
                             </div>
+
+                            <?= $this->render('../errors/_general_alert') ?>
 
                             <?php $form = ActiveForm::begin([
                                 'id' => 'setting-accessibility-form'

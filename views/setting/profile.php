@@ -27,8 +27,6 @@ $this->title = 'Setting Profile - Yummy';
     <div class="col-md-9">
         <div class="account-content">
 
-            <?= $this->render('../errors/_general_alert') ?>
-
             <div class="row setting-content">
                 <div class="col-md-10 col-lg-offset-1">
                     <div class="row">
@@ -37,12 +35,12 @@ $this->title = 'Setting Profile - Yummy';
                         </div>
                         <div class="col-md-8">
 
-                            <?= $this->render('../errors/_general_alert') ?>
-
                             <div class="form-title">
                                 <h3 class="lead">User Profile</h3>
                                 <p>Account profile information</p>
                             </div>
+
+                            <?= $this->render('../errors/_general_alert') ?>
 
                             <?php $form = ActiveForm::begin([
                                 'id' => 'setting-profile-form',
@@ -60,12 +58,20 @@ $this->title = 'Setting Profile - Yummy';
                                 'placeholder' => 'Email address'
                             ]) ?>
 
+                            <?= $form->field($user, 'avatarImage')->fileInput([
+                                'accept' => 'image/*'
+                            ]) ?>
+
+                            <?= $form->field($user, 'coverImage')->fileInput([
+                                'accept' => 'image/*'
+                            ]) ?>
+
                             <?= $form->field($user, 'location')->textInput([
                                 'placeholder' => 'Location'
                             ]) ?>
 
                             <?= $form->field($user, 'about')->textarea([
-                                'rows' => 3,
+                                'rows' => 4,
                                 'placeholder' => 'About me'
                             ]) ?>
 
