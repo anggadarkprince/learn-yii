@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "8a51906d1cc9eb4e4acb10eb22b4f3b1",
+    "content-hash": "e5f8672378814422bd8471756b07844c",
     "packages": [
         {
             "name": "bower-asset/axios",
@@ -366,6 +366,46 @@
                 ]
             },
             "description": "Select2 is a jQuery based replacement for select boxes. It supports searching, remote data sets, and infinite scrolling of results."
+        },
+        {
+            "name": "bower-asset/simple-line-icons",
+            "version": "2.4.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thesabbir/simple-line-icons.git",
+                "reference": "ae1cf4ec75a8a32c4810a2fe7ca8c2fdf6f3e32c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thesabbir/simple-line-icons/zipball/ae1cf4ec75a8a32c4810a2fe7ca8c2fdf6f3e32c",
+                "reference": "ae1cf4ec75a8a32c4810a2fe7ca8c2fdf6f3e32c",
+                "shasum": ""
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": [
+                    "css/simple-line-icons.css",
+                    "scss/simple-line-icons.scss",
+                    "less/simple-line-icons.less"
+                ],
+                "bower-asset-ignore": [
+                    "**/.*",
+                    "node_modules",
+                    "bower_components",
+                    "test",
+                    "tests"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Simple Line Icons Bower Package",
+            "keywords": [
+                "fonts",
+                "icon",
+                "simple",
+                "simple-line"
+            ]
         },
         {
             "name": "bower-asset/yii2-pjax",

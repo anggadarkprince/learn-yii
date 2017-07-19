@@ -18,7 +18,7 @@ class AppAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        '//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700',
+        '//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600',
         'css/site.css',
         'css/admin.css',
     ];

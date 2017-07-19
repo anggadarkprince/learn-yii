@@ -257,7 +257,7 @@ a.desc:after {
     height: 60px;
     padding-top: 20px;
     padding-bottom: 20px;
-    font-weight: 700;
+    font-weight: 600;
 }
 
 .navbar-nav > li > a {
@@ -290,7 +290,7 @@ a.desc:after {
     color: rgb(21, 140, 186);
     font-size: 16px;
     display: inline-block;
-    font-weight: 700;
+    font-weight: 600;
 }
 
 .navbar-button-search i {
@@ -511,7 +511,7 @@ a.desc:after {
 
 .recipe-review .review-author {
     margin-bottom: 3px;
-    font-weight: 700;
+    font-weight: 600;
 }
 
 .recipe-review .review-stats {
@@ -845,27 +845,28 @@ a.desc:after {
 .account-sidebar .account-name {
     margin: 0 0 5px;
     font-size: 20px;
-    font-weight: 700;
+    font-weight: 600;
 }
 
 .account-sidebar .account-username {
     color: #7f7f7f;
 }
 
-.account-sidebar .account-button-follow {
-    margin-bottom: 20px;
+.account-sidebar .account-button-control {
+    margin-bottom: 10px;
     padding: 9px 10px;
     letter-spacing: 1px;
     text-transform: uppercase;
 }
 
-.account-sidebar .account-button-follow.btn-primary {
+.account-sidebar .account-button-control.btn-primary {
     border-color: transparent;
 }
 
 .account-sidebar .account-info {
     padding-left: 0;
     margin-bottom: 25px;
+    margin-top: 20px;
 }
 
 .account-sidebar .account-info li {
@@ -908,12 +909,18 @@ a.desc:after {
 .account-navigation .navigation li {
     display: inline-block;
     text-align: center;
-    padding: 6px 20px;
+    padding: 10px 15px;
 }
 
 .account-navigation .navigation li a {
     color: #7d7d7d;
-    font-weight: 700;
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.account-navigation .navigation li a span {
+    font-size: 20px;
+    line-height: 1;
 }
 
 .account-navigation .navigation li.active,
@@ -927,20 +934,23 @@ a.desc:after {
     background: #f7f7f7;
 }
 
-.account-navigation .navigation li.active span,
-.account-navigation .navigation li:hover span {
+.account-navigation .navigation li.active span {
     color: #337ab7;
 }
 
 .account-navigation .navigation-counter {
     display: block;
     font-size: 18px;
-    font-weight: 700;
+    font-weight: 600;
 }
 
 .account-navigation .navigation-button-control {
-    margin-top: 15px;
+    margin-top: 17px;
     border: none;
+}
+
+.account-content {
+    padding: 20px 0;
 }
 
 /* CARD USER */
@@ -1034,7 +1044,7 @@ a.desc:after {
 .blog-banner .banner-content h1 {
     color: #ffffff;
     font-size: 45px;
-    font-weight: 700;
+    font-weight: 600;
 }
 
 .blog-banner .banner-content p {
@@ -1068,12 +1078,12 @@ a.desc:after {
 
 .blog-article .blog-article-header .article-title {
     font-size: 30px;
-    font-weight: 700;
+    font-weight: 600;
 }
 
 .blog-article .blog-article-header .article-stats {
     padding-left: 0;
-    font-weight: 700;
+    font-weight: 600;
 }
 
 .blog-article .blog-article-header .article-stats li {
@@ -1111,7 +1121,7 @@ a.desc:after {
 .blog-sidebar .blog-sidebar-title {
     font-size: 22px;
     margin: 0 0 20px;
-    font-weight: 700;
+    font-weight: 600;
 }
 
 .blog-sidebar .blog-sidebar-recent {
@@ -1194,7 +1204,7 @@ a.desc:after {
 .cooking-pricing .price {
     font-size: 45px;
     color: rgb(255, 133, 27);
-    font-weight: 700;
+    font-weight: 600;
 }
 
 .cooking-pricing .price span {
@@ -1228,7 +1238,7 @@ a.desc:after {
 
 .legal-section .lead {
     margin: 30px 0 10px;
-    font-weight: 700;
+    font-weight: 600;
 }
 
 /* DIET */
@@ -1277,7 +1287,7 @@ a.desc:after {
 }
 
 .diet-feature-subtitle {
-    font-weight: 700;
+    font-weight: 600;
     letter-spacing: 5px;
 }
 
@@ -1292,7 +1302,7 @@ a.desc:after {
 
 .diet-feature-section.premium .premium-text {
     letter-spacing: 4px;
-    font-weight: 700;
+    font-weight: 600;
 }
 
 .diet-feature-section.premium .diet-feature-title {
@@ -1355,7 +1365,7 @@ a.desc:after {
 }
 
 .discovery-footer h4 {
-    font-weight: 700;
+    font-weight: 600;
 }
 
 .discovery-footer p {
@@ -1394,4 +1404,81 @@ a.desc:after {
 .card-diet .diet-description {
     margin-bottom: 10px;
     font-weight: 300;
+}
+
+/* SETTINGS */
+.setting-navigation-title {
+    font-weight: 600;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    display: block;
+    color: #777777;
+}
+
+.setting-navigation {
+    margin-bottom: 30px;
+    margin-right: 20px;
+}
+
+.setting-navigation li {
+    margin-bottom: 10px;
+}
+
+.setting-navigation li a {
+    padding: 7px 25px;
+    display: block;
+    border-radius: 20px;
+    color: #4d4d4d;;
+}
+
+.setting-navigation li a i {
+    margin-right: 10px;
+}
+
+.setting-navigation li.active a {
+    background: rgb(21, 140, 186);
+    color: #ffffff;
+}
+
+.setting-navigation li.active a:hover {
+    background: rgb(25, 142, 210);
+}
+
+.setting-navigation li a:hover {
+    background: #f0f0f0;
+}
+
+.setting-content .form-title {
+    margin-bottom: 20px;
+}
+
+.setting-content .form-title .lead {
+    margin: 0;
+}
+
+.setting-content .form-title p {
+    color: #777777;
+}
+
+.setting-social li {
+    border-bottom: 1px solid #dfdfdf;
+    padding: 10px 0;
+}
+
+.setting-social h4 {
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.setting-social p {
+    color: #777777;
+}
+
+.setting-social button {
+    min-width: 120px;
+    margin-top: 15px;
+}
+
+.setting-social button i {
+    margin-right: 5px;
 }

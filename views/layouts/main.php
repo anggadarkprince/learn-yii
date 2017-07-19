@@ -10,6 +10,7 @@ use app\assets\FontAwesomeAsset;
 use app\assets\MomentAsset;
 use app\assets\Select2Asset;
 use app\assets\Select2BootstrapAsset;
+use app\assets\SimpleLineIconAsset;
 use app\assets\TagsInputAsset;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -17,6 +18,7 @@ use yii\widgets\Breadcrumbs;
 
 AppAsset::register($this);
 FontAwesomeAsset::register($this);
+SimpleLineIconAsset::register($this);
 AxiosAsset::register($this);
 Select2Asset::register($this);
 Select2BootstrapAsset::register($this);

@@ -25,7 +25,8 @@ $this->params['banner-class'] = 'banner-featured banner-login';
             ]); ?>
 
             <?= $form->field($model, 'email')->textInput([
-                'placeholder' => 'Registered email address'
+                'placeholder' => 'Registered email address',
+                'value' => Yii::$app->request->get('email')
             ]) ?>
 
             <div class="form-group">

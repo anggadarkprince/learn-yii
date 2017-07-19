@@ -19,7 +19,7 @@ $this->params['banner-class'] = 'banner-featured banner-register';
             <?= $this->render('../errors/_general_alert') ?>
 
             <?php $form = ActiveForm::begin([
-                'id' => 'login-form',
+                'id' => 'register-form',
             ]); ?>
 
             <?= $form->field($model, 'name')->textInput([

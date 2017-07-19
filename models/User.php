@@ -40,6 +40,9 @@ class User extends ActiveRecord implements IdentityInterface
     const STATUS_ACTIVATED = 'activated';
     const STATUS_SUSPENDED = 'suspended';
 
+    public $new_password;
+    public $confirm_password;
+
     /**
      * Set default table name.
      * @inheritdoc

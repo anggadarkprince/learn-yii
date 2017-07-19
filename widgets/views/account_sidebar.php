@@ -23,12 +23,15 @@ use yii\helpers\Url;
     </div>
     <div class="account-body">
         <?php if (!Yii::$app->user->isGuest && Yii::$app->user->id == $user->id): ?>
-            <a href="<?= Url::to(["recipe/create"]) ?>" class="btn btn-block btn-primary btn-round account-button-follow">
+            <a href="<?= Url::to(["recipe/create"]) ?>" class="btn btn-block btn-primary btn-round account-button-control">
                 MAKE RECIPE
             </a>
+            <button class="btn btn-block btn-default btn-round account-button-control">
+                Messages
+            </button>
         <?php else: ?>
             <?php if(Yii::$app->user->isGuest): ?>
-                <a href="<?= Url::toRoute(['auth/login', 'redirect' => Url::toRoute(['/'.$user->username], true)]) ?>" class="btn btn-default btn-block btn-round account-button-follow">
+                <a href="<?= Url::toRoute(['auth/login', 'redirect' => Url::toRoute(['/'.$user->username], true)]) ?>" class="btn btn-default btn-block btn-round account-button-control">
                     Follow Me
                 </a>
             <?php else: ?>
@@ -37,7 +40,7 @@ use yii\helpers\Url;
                 $followButton = $followState > 0 ? 'btn-primary' : 'btn-default';
                 $followLabel = $followState > 0 ? 'Following' : 'Follow Me';
                 ?>
-                <button class="btn btn-block <?= $followButton ?> btn-round account-button-follow"
+                <button class="btn btn-block <?= $followButton ?> btn-round account-button-control"
                         data-state="<?= $followState ?>"
                         data-id="<?= $user->id ?>"
                         data-toggle="follow">

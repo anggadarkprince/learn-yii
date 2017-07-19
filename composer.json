@@ -25,7 +25,8 @@
         "npm-asset/bootstrap-tagsinput": "^0.8.0",
         "npm-asset/select2-bootstrap-theme": "0.1.0-beta.10",
         "bower-asset/eonasdan-bootstrap-datetimepicker": "^4.17",
-        "bower-asset/moment": "^2.18"
+        "bower-asset/moment": "^2.18",
+        "bower-asset/simple-line-icons": "^2.4"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

@@ -72,6 +72,7 @@ $config = [
                 'blog/<slug:[0-9a-zA-Z\-]+>' => 'category/article',
                 'blog/<year:[0-9]+>/<month:[0-9]+>' => 'article/archive',
                 'article/<slug:[0-9a-zA-Z\-]+>' => 'article/view',
+                'settings' => 'setting/application',
                 '<username:[0-9a-zA-Z\-]+>' => 'user/view',
                 '<username:[0-9a-zA-Z\-]+>/favorites' => 'user/favorites',
                 '<username:[0-9a-zA-Z\-]+>/made' => 'user/made',
@@ -95,6 +96,7 @@ $config = [
     'controllerMap' => [
         // declares "account" controller using a class name
         'account' => 'app\controllers\UserController',
+        'settings' => 'app\controllers\SettingController',
 
         // declares "magazine" controller using a configuration array
         'magazine' => [

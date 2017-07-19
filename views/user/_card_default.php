@@ -16,7 +16,7 @@ $columnSmall = $column < 6 ? $column : 12;
                 <div class="user-avatar"
                      style="background: url('<?= Url::to('/img/avatars/' . $user->avatar) ?>') center center / cover"></div>
                 <?php
-                $followState = Yii::$app->user->identity->isFollow($user->id);
+                $followState = Yii::$app->user->isGuest ? 0 : Yii::$app->user->identity->isFollow($user->id);
                 $followButton = $followState > 0 ? 'btn-primary' : 'btn-default';
                 $followLabel = $followState > 0 ? 'Following' : 'Follow Me';
                 ?>
