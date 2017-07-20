@@ -9,8 +9,6 @@ use app\widgets\AccountNavigationWidget;
 use app\widgets\AccountSidebarWidget;
 use yii\bootstrap\ActiveForm;
 use yii\bootstrap\Html;
-use yii\helpers\Url;
-use yii\widgets\LinkPager;
 
 $this->title = 'Setting Profile - Yummy';
 

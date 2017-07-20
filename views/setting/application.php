@@ -9,8 +9,6 @@ use app\widgets\AccountNavigationWidget;
 use app\widgets\AccountSidebarWidget;
 use yii\bootstrap\ActiveForm;
 use yii\bootstrap\Html;
-use yii\helpers\Url;
-use yii\widgets\LinkPager;
 
 $this->title = 'Setting Application - Yummy';
 
@@ -49,8 +47,6 @@ $this->title = 'Setting Application - Yummy';
                             <?= $form->field($user, 'language')->dropDownList([
                                 'en' => 'English',
                                 'id' => 'Indonesia',
-                                'my' => 'Malaysia',
-                                'jp' => 'Japan',
                             ])->hint('Interested in helping translate Yummy? Check out the <a href="/translate">Translation Center</a>.') ?>
 
                             <?= $form->field($user, 'timezone')->dropDownList($zones) ?>

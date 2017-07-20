@@ -1482,3 +1482,30 @@ a.desc:after {
 .setting-social button i {
     margin-right: 5px;
 }
+
+.search-filter {
+    text-align: center;
+}
+
+.search-filter {
+    border-bottom: 1px solid #dddddd;
+    margin-bottom: 20px;
+}
+
+.search-filter li {
+    display: inline-block;
+}
+
+.search-filter li.active,
+.search-filter li:hover {
+    border-bottom: 3px solid rgb(21, 140, 186);
+}
+
+.search-filter li.active a {
+    color: #337ab7;
+}
+
+.search-filter li a {
+    padding: 0 20px 10px;
+    display: block;
+}

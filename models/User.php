@@ -194,14 +194,41 @@ class User extends ActiveRecord implements IdentityInterface
         return $fields;
     }
 
+    /**
+     * Get full url of avatar.
+     * @return string
+     */
     public function getAvatarUrl()
     {
         return Url::to("/img/avatars/{$this->avatar}");
     }
 
+    /**
+     * Set full url of avatar.
+     * @param $value
+     */
     public function setAvatarUrl($value)
     {
         $this->avatar = end(explode('/', $value));
+    }
+
+
+    /**
+     * Get full url of avatar.
+     * @return string
+     */
+    public function getCoverUrl()
+    {
+        return Url::to("/img/covers/{$this->avatar}");
+    }
+
+    /**
+     * Set full url of avatar.
+     * @param $value
+     */
+    public function setCoverUrl($value)
+    {
+        $this->cover = end(explode('/', $value));
     }
 
     /**
@@ -394,6 +421,7 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
+     * Get recipe that loved by user.
      * @return \yii\db\ActiveQuery
      */
     public function getFavorites()
@@ -404,6 +432,7 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
+     * Get recipe that cooked by user.
      * @return \yii\db\ActiveQuery
      */
     public function getCooks()
@@ -411,5 +440,18 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->hasMany(Recipe::className(), ['id' => 'recipe_id'])
             ->viaTable('cookers', ['user_id' => 'id'])
             ->orderBy(['created_at' => SORT_DESC]);
+    }
+
+    /**
+     * Search user by name, email or username
+     * @param $query
+     * @return array|ActiveRecord[]
+     */
+    public function search($query)
+    {
+        return self::find()
+            ->where(['like', 'name', $query])
+            ->orWhere(['like', 'username', $query])
+            ->orWhere(['like', 'email', $query]);
     }
 }

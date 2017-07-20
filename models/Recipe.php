@@ -384,4 +384,16 @@ class Recipe extends ActiveRecord
     {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
+
+    /**
+     * Search recipe by title.
+     * @param $query
+     * @return array|ActiveRecord[]
+     */
+    public function search($query)
+    {
+        return self::find()
+            ->where(['like', 'title', $query])
+            ->orWhere(['like', 'description', $query]);
+    }
 }

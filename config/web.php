@@ -59,6 +59,7 @@ $config = [
                 'contact' => 'site/contact',
                 'tag/<slug:[0-9a-zA-Z\-]+>' => 'tag/recipe',
                 'category/<slug:[0-9a-zA-Z\-]+>' => 'category/recipe',
+                'search' => 'search/index',
                 'recipe' => 'recipe/index',
                 'recipe/create' => 'recipe/create',
                 'recipe/<slug:[0-9a-zA-Z\-]+>' => 'recipe/view',
@@ -94,11 +95,8 @@ $config = [
     ],
     'defaultRoute' => 'site',
     'controllerMap' => [
-        // declares "account" controller using a class name
         'account' => 'app\controllers\UserController',
         'settings' => 'app\controllers\SettingController',
-
-        // declares "magazine" controller using a configuration array
         'magazine' => [
             'class' => 'app\controllers\PostController',
             'enableCsrfValidation' => false,

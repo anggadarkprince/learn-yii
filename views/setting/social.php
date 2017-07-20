@@ -7,8 +7,6 @@
 
 use app\widgets\AccountNavigationWidget;
 use app\widgets\AccountSidebarWidget;
-use yii\bootstrap\ActiveForm;
-use yii\bootstrap\Html;
 
 $this->title = 'Setting Social - Yummy';
 

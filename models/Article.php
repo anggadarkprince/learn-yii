@@ -215,4 +215,17 @@ class Article extends ActiveRecord
     {
         return new ArticleQuery(get_called_class());
     }
+
+    /**
+     * Search article by title and content.
+     * @param $query
+     * @return Article[]|array
+     */
+    public function search($query)
+    {
+        return self::find()
+            ->where(['like', 'title', $query])
+            ->orWhere(['like', 'excerpt', $query])
+            ->orWhere(['like', 'content', $query]);
+    }
 }

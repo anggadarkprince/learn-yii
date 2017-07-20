@@ -6,7 +6,7 @@ use yii\helpers\Url;
 use app\widgets\CategoryMenuWidget;
 
 ?>
-<nav id="navigation" class="navbar-inverse navbar-fixed-top navbar" role="navigation">
+<nav id="navigation" class="navbar-inverse navbar-fixed-top navbar">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-collapse">
@@ -53,11 +53,11 @@ use app\widgets\CategoryMenuWidget;
             </ul>
 
             <?php if (!Yii::$app->user->isGuest): ?>
-                <ul class="navbar-nav navbar-right nav">
+                <div class="navbar-nav navbar-right nav">
                     <a href="<?= Url::toRoute(['recipe/create']) ?>" class="navbar-right btn btn-primary navbar-btn">
                         Make Recipe
                     </a>
-                </ul>
+                </div>
             <?php endif; ?>
             <ul class="navbar-nav navbar-right nav">
                 <?php if (Yii::$app->user->isGuest): ?>
@@ -123,12 +123,13 @@ use app\widgets\CategoryMenuWidget;
             </ul>
             <div class="navbar-right">
                 <button class="navbar-button-search"><i class="fa fa-search"></i> Search</button>
-                <form class="navbar-form navbar-search" method="get" style="display: none">
+                <form action="<?= Url::to('/search') ?>" class="navbar-form navbar-search" style="display: none">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Find a recipe" name="q"
+                        <input class="form-control" placeholder="Find a recipes, people or articles" name="q"
+                               value="<?= Yii::$app->request->get('q') ?>"
                                style="width: 300px; box-shadow: none; border-radius: 2px;">
                         <span class="input-group-btn">
-                            <button class="btn btn-primary" type="button">Search</button>
+                            <button class="btn btn-primary">Search</button>
                         </span>
                     </div>
                 </form>
