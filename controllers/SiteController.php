@@ -2,15 +2,14 @@
 
 namespace app\controllers;
 
-use app\models\Category;
+use app\models\ContactForm;
 use app\models\Recipe;
+use app\models\User;
 use Yii;
 use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\Response;
-use yii\filters\VerbFilter;
-use app\models\LoginForm;
-use app\models\ContactForm;
 
 class SiteController extends Controller
 {
@@ -65,9 +64,21 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $recipe = new Recipe();
-        $recipes = $recipe->featuredRecipes;
 
-        return $this->render('index', ['recipes' => $recipes]);
+        if (Yii::$app->user->isGuest) {
+            $recipes = $recipe->featuredRecipes;
+            return $this->render('index', ['recipes' => $recipes]);
+        } else {
+            /* @var $user User */
+            $user = Yii::$app->user->identity;
+            $recipe = new Recipe();
+            $recipes = $recipe->feed($user->id);
+
+            return $this->render('../user/home.php', [
+                'stream' => $recipes,
+                'user' => $user,
+            ]);
+        }
     }
 
     /**

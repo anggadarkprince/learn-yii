@@ -840,6 +840,12 @@ a.desc:after {
     transform: translateX(-50%);
 }
 
+.home-stream .account-sidebar .account-avatar {
+    position: static;
+    margin: 10px auto 30px;
+    transform: none;
+}
+
 .account-sidebar .account-name {
     margin: 0 0 5px;
     font-size: 20px;
@@ -949,6 +955,10 @@ a.desc:after {
 
 .account-content {
     padding: 20px 0;
+}
+
+.account-content .lead {
+    margin-top: 0;
 }
 
 /* CARD USER */

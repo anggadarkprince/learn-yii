@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\StringHelper;
 
@@ -219,7 +220,7 @@ class Article extends ActiveRecord
     /**
      * Search article by title and content.
      * @param $query
-     * @return Article[]|array
+     * @return array|ActiveQuery
      */
     public function search($query)
     {

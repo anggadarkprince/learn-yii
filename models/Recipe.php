@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\db\Query;
 use yii\helpers\ArrayHelper;
@@ -388,12 +389,29 @@ class Recipe extends ActiveRecord
     /**
      * Search recipe by title.
      * @param $query
-     * @return array|ActiveRecord[]
+     * @return array|ActiveQuery
      */
     public function search($query)
     {
         return self::find()
             ->where(['like', 'title', $query])
             ->orWhere(['like', 'description', $query]);
+    }
+
+    /**
+     * Generate feed recipe.
+     * @param $userId
+     * @return array|ActiveRecord[]
+     */
+    public function feed($userId)
+    {
+        $recipes = self::find()->select(['recipes.*'])
+            ->from('users')
+            ->innerJoin('followers', 'followers.user_id = users.id')
+            ->innerJoin('recipes', 'recipes.user_id = followers.following_id')
+            ->where(['users.id' => $userId])
+            ->orderBy(['recipes.created_at' => SORT_DESC])
+            ->all();
+        return $recipes;
     }
 }

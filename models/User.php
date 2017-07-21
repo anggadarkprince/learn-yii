@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\Url;
 use yii\web\IdentityInterface;
@@ -445,7 +446,7 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * Search user by name, email or username
      * @param $query
-     * @return array|ActiveRecord[]
+     * @return array|ActiveQuery
      */
     public function search($query)
     {
