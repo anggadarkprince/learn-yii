@@ -9,7 +9,7 @@ $columnSmall = $column < 6 ? $column : 12;
 ?>
 
 <?php if (!is_null($article)): ?>
-    <div class="col-md-<?= $column ?> col-sm-<?= $columnSmall ?>">
+    <div class="col-md-<?= $column ?> col-sm-<?= $columnSmall ?> card-article-wrapper">
         <div class="blog-article">
             <div class="blog-article-header">
                 <div class="article-feature"

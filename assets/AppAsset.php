@@ -39,5 +39,6 @@ class AppAsset extends AssetBundle
         'app\assets\TagsInputAsset',
         'app\assets\MomentAsset',
         'app\assets\DateTimePickerAsset',
+        'app\assets\MasonryAsset',
     ];
 }

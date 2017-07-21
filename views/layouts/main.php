@@ -7,6 +7,7 @@ use app\assets\AppAsset;
 use app\assets\AxiosAsset;
 use app\assets\DateTimePickerAsset;
 use app\assets\FontAwesomeAsset;
+use app\assets\MasonryAsset;
 use app\assets\MomentAsset;
 use app\assets\Select2Asset;
 use app\assets\Select2BootstrapAsset;
@@ -25,6 +26,7 @@ Select2BootstrapAsset::register($this);
 TagsInputAsset::register($this);
 MomentAsset::register($this);
 DateTimePickerAsset::register($this);
+MasonryAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>

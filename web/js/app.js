@@ -98,6 +98,14 @@ $(function () {
         }
     });
 
+    $('.card-recipe-container').masonry({
+        itemSelector: '.card-recipe-wrapper'
+    });
+
+    $('.card-article-container').masonry({
+        itemSelector: '.card-article-wrapper'
+    });
+
     /* Recipe form */
     app.recipe.init();
     app.recipe.form();

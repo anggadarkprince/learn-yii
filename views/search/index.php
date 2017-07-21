@@ -58,7 +58,7 @@ $this->title = 'Search ' . $query . ' - Yummy';
 
 <?php elseif ($filter == 'articles'): ?>
 
-    <div class="row">
+    <div class="row card-article-container">
         <?php foreach ($result as $article): ?>
             <?= $this->render('../article/_card_default', [
                 'article' => $article,

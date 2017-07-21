@@ -20,13 +20,13 @@
         "yiisoft/yii2-swiftmailer": "~2.0.0",
         "bower-asset/font-awesome": "^4.5",
         "bower-asset/axios": "^0.16.2",
-        "npm-asset/qs": "^6.5",
         "bower-asset/select2": "^4.0",
         "npm-asset/bootstrap-tagsinput": "^0.8.0",
         "npm-asset/select2-bootstrap-theme": "0.1.0-beta.10",
         "bower-asset/eonasdan-bootstrap-datetimepicker": "^4.17",
         "bower-asset/moment": "^2.18",
-        "bower-asset/simple-line-icons": "^2.4"
+        "bower-asset/simple-line-icons": "^2.4",
+        "bower-asset/masonry": "^4.2"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",
