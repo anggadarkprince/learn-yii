@@ -1517,3 +1517,44 @@ a.desc:after {
     padding: 0 20px 10px;
     display: block;
 }
+
+.message-list {
+    margin-bottom: 30px;
+}
+
+.message-item {
+    padding: 15px;
+    border-bottom: 1px solid #dddddd;
+    display: block;
+}
+
+.message-item:after {
+    content: "";
+    clear: both;
+}
+
+.message-item:hover{
+    background: #fafafa;
+}
+
+.message-item .message-avatar{
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    float: left;
+}
+
+.message-item .message-content{
+    padding-left: 70px;
+}
+
+.message-item .message-content p{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-bottom: 0;
+}
+.message-item .message-content time{
+    color: #777777;
+    font-size: 80%;
+}
