@@ -1518,6 +1518,7 @@ a.desc:after {
     display: block;
 }
 
+/* MESSAGE */
 .message-list {
     margin-bottom: 30px;
 }
@@ -1526,6 +1527,7 @@ a.desc:after {
     padding: 15px;
     border-bottom: 1px solid #dddddd;
     display: block;
+    cursor: pointer;
 }
 
 .message-item:after {
@@ -1533,28 +1535,115 @@ a.desc:after {
     clear: both;
 }
 
-.message-item:hover{
+.message-item:hover {
     background: #fafafa;
 }
 
-.message-item .message-avatar{
+.message-item .message-wrapper {
+    display: block;
+}
+
+.message-item .message-avatar {
     width: 45px;
     height: 45px;
     border-radius: 50%;
     float: left;
 }
 
-.message-item .message-content{
+.message-item .message-content {
     padding-left: 70px;
+    padding-right: 50px;
 }
 
-.message-item .message-content p{
+.message-item .message-content p {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     margin-bottom: 0;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
-.message-item .message-content time{
+
+.message-item .message-content time {
     color: #777777;
     font-size: 80%;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.message-item .dropdown {
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.message-item .dropdown i {
+    padding: 5px;
+}
+
+.conversation-list {
+    background: #fafafa;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin-bottom: 30px;
+    max-height: 700px;
+    overflow-y: scroll;
+}
+
+.conversation-wrapper:after{
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.conversation-item {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.conversation-item:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.conversation-item .conversation-avatar {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    float: left;
+}
+
+.conversation-item .conversation-content {
+    margin-left: 10px;
+    background: #e6ecf0;
+    border-radius: 0 10px 10px 10px;
+    padding: 8px 12px;
+    max-width: 350px;
+    float: left;
+}
+
+.conversation-item .conversation-content p {
+    margin-bottom: 0;
+}
+
+.conversation-item .conversation-content time {
+    font-size: 80%;
+    color: #777777;
+}
+
+.conversation-item.conversation-me .conversation-content{
+    background: #1da1f2;
+}
+
+.conversation-item.conversation-me .conversation-content p {
+    color: #FFFFFF;
+}
+
+.conversation-item.conversation-me .conversation-content time{
+    color: #FFFFFF;
+    opacity: 0.8;
 }

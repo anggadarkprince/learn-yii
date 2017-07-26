@@ -24,15 +24,26 @@ $this->title = $user->name . ' (' . $user->username . ') - Yummy';
                     <h3 class="lead">Messages</h3>
                     <div class="message-list">
                         <?php foreach ($messages as $message): ?>
-                            <a href="<?= Url::toRoute(['message/conversation/' . $message['username']]) ?>"
-                               class="message-item">
-                                <div style="background: url('<?= Url::to('/img/avatars/'.$message['avatar']) ?>') center center / cover"
-                                     class="message-avatar"></div>
-                                <div class="message-content">
-                                    <p><?= $message['message'] ?></p>
-                                    <time>23 minutes ago</time>
+                            <div class="message-item">
+                                <div class="dropdown pull-right">
+                                    <i class="icon-options-vertical" data-toggle="dropdown"></i>
+                                    <ul class="dropdown-menu dropdown-menu-right">
+                                        <li class="dropdown-header">Action</li>
+                                        <li><a href="javascript:void(0)">Report @<?= $message['username'] ?></a></li>
+                                        <li><a href="javascript:void(0)">Archive Message</a></li>
+                                        <li role="separator" class="divider"></li>
+                                        <li><a href="<?= Url::toRoute('message/delete/' . $message['username']) ?>">Delete Conversation</a></li>
+                                    </ul>
                                 </div>
-                            </a>
+                                <a href="<?= Url::toRoute(['message/conversation/' . $message['username']]) ?>" class="message-wrapper">
+                                    <div style="background: url('<?= Url::to('/img/avatars/'.$message['avatar']) ?>') center center / cover"
+                                         class="message-avatar"></div>
+                                    <div class="message-content">
+                                        <p><?= $message['message'] ?></p>
+                                        <time>23 minutes ago</time>
+                                    </div>
+                                </a>
+                            </div>
                         <?php endforeach; ?>
                     </div>
                 </div>

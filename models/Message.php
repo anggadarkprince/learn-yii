@@ -72,7 +72,7 @@ class Message extends ActiveRecord
      */
     public function getReceiver()
     {
-        return $this->hasOne(Users::className(), ['id' => 'receiver_id']);
+        return $this->hasOne(User::className(), ['id' => 'receiver_id']);
     }
 
     /**
@@ -81,7 +81,7 @@ class Message extends ActiveRecord
      */
     public function getSender()
     {
-        return $this->hasOne(Users::className(), ['id' => 'sender_id']);
+        return $this->hasOne(User::className(), ['id' => 'sender_id']);
     }
 
     /**

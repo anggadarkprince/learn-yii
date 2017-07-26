@@ -24,11 +24,12 @@ class MessageController extends Controller
     public function actionConversation($interactWithUser)
     {
         $user = Yii::$app->user->identity;
-        $interactWith = User::findByUsername($interactWithUser)->getId();
+        $interactWith = User::findByUsername($interactWithUser);
         $message = new Message();
-        $conversations = $message->getConversations($user->getId(), $interactWith)->all();
+        $conversations = $message->getConversations($user->getId(), $interactWith->getId())->all();
         return $this->render('conversation', [
             'conversations' => $conversations,
+            'partner' => $interactWith,
             'user' => $user
         ]);
     }
