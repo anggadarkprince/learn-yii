@@ -30,7 +30,7 @@ $this->title = $user->name . ' (' . $user->username . ') - Yummy';
                                     <ul class="dropdown-menu dropdown-menu-right">
                                         <li class="dropdown-header">Action</li>
                                         <li><a href="javascript:void(0)">Report @<?= $message['username'] ?></a></li>
-                                        <li><a href="javascript:void(0)">Archive Message</a></li>
+                                        <li><a href="<?= Url::toRoute('message/archive/'. $message['username']) ?>">Archive Message</a></li>
                                         <li role="separator" class="divider"></li>
                                         <li><a href="<?= Url::toRoute('message/delete/' . $message['username']) ?>">Delete Conversation</a></li>
                                     </ul>

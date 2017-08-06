@@ -66,9 +66,9 @@ $this->params['banner-class'] = 'banner-featured banner-login';
 
             </div>
             <h4>
-                Get trouble with login, try <a href="<?= Url::to('/auth/forgot') ?>">Forgot Password?</a>
+                Get trouble with login, try <a href="<?= Url::to(['/auth/forgot']) ?>">Forgot Password?</a>
                 <br><br>
-                Or <a href="<?= Url::to('/auth/register') ?>">Register new account?</a>
+                Or <a href="<?= Url::to(['/auth/register']) ?>">Register new account?</a>
             </h4>
         </div>
     </div>

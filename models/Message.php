@@ -6,6 +6,7 @@ use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\db\Query;
+use ZipArchive;
 
 /**
  * This is the model class for table "messages".
@@ -146,7 +147,7 @@ class Message extends ActiveRecord
                   OR receiver_id = :user_id
                 GROUP BY user_id)
             "], 'senders.id = messages.id', [':user_id' => $userId])
-        ->where(['user_id' => $withUserId])->one();
+            ->where(['user_id' => $withUserId])->one();
 
         return self::find()
             ->where(['sender_id' => $userId, 'receiver_id' => $withUserId])
@@ -155,5 +156,41 @@ class Message extends ActiveRecord
                 ':senderId' => $sendersQuery['sender_id'],
                 ':userId' => $userId
             ]);
+    }
+
+    /**
+     * Archive conversation to text.
+     * @param $userId
+     * @param $withUserId
+     * @return bool|resource
+     * @throws \Exception
+     */
+    public function archiveMessage($userId, $withUserId)
+    {
+        $conversations = $this->getConversations($userId, $withUserId);
+        $archiveName = uniqid(Yii::getAlias('@runtime') . '/archives/' . date('Ym') . '/archive');
+        $dirName = dirname($archiveName);
+        if (!is_dir($dirName)) {
+            mkdir($dirName, 0755, true);
+        }
+
+        $file = fopen($archiveName, 'w+');
+        foreach ($conversations->each(100) as $conversation) {
+            $username = $conversation->sender->username;
+            fwrite($file, $username . ':' . $conversation->message . PHP_EOL);
+        }
+        fwrite($file, PHP_EOL . PHP_EOL . '[Archived by ' . Yii::$app->name . '] at ' . date('d F Y'));
+        fclose($file);
+
+        $zip = new ZipArchive();
+        if ($zip->open($archiveName . '.zip', ZipArchive::CREATE) !== TRUE) {
+            throw new \Exception('Cannot create a zip file');
+        }
+        $zip->addFile($archiveName, 'conversation.txt');
+        $zip->close();
+
+        unlink($archiveName);
+        $file = fopen($archiveName . '.zip', 'r+');
+        return $file;
     }
 }

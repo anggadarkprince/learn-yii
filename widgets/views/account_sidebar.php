@@ -26,13 +26,16 @@ use yii\helpers\Url;
             <a href="<?= Url::to(["recipe/create"]) ?>" class="btn btn-block btn-primary btn-round account-button-control">
                 MAKE RECIPE
             </a>
-            <button class="btn btn-block btn-default btn-round account-button-control">
-                Messages
-            </button>
+            <a href="<?= Url::toRoute(['/message']) ?>" class="btn btn-block btn-default btn-round account-button-control">
+                My Messages
+            </a>
         <?php else: ?>
             <?php if(Yii::$app->user->isGuest): ?>
                 <a href="<?= Url::toRoute(['auth/login', 'redirect' => Url::toRoute(['/'.$user->username], true)]) ?>" class="btn btn-default btn-block btn-round account-button-control">
                     Follow Me
+                </a>
+                <a href="<?= Url::toRoute(['auth/login', 'redirect' => Url::toRoute(['message/conversation/'.$user->username], true)]) ?>" class="btn btn-block btn-default btn-round account-button-control">
+                    Messages
                 </a>
             <?php else: ?>
                 <?php
@@ -46,6 +49,9 @@ use yii\helpers\Url;
                         data-toggle="follow">
                     <?= $followLabel ?>
                 </button>
+                <a href="<?= Url::toRoute(['message/conversation/'.$user->username]) ?>" class="btn btn-block btn-default btn-round account-button-control">
+                    Send Messages
+                </a>
             <?php endif; ?>
         <?php endif; ?>
 

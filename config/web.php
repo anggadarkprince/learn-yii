@@ -63,6 +63,7 @@ $config = [
                 'activity' => 'activity/index',
                 'message' => 'message/index',
                 'message/conversation/<interactWithUser:[0-9a-zA-Z\-]+>' => 'message/conversation',
+                'message/archive/<interactWithUser:[0-9a-zA-Z\-]+>' => 'message/archive',
                 'recipe' => 'recipe/index',
                 'recipe/create' => 'recipe/create',
                 'recipe/<slug:[0-9a-zA-Z\-]+>' => 'recipe/view',
