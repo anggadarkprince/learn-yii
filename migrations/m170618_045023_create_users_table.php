@@ -37,7 +37,7 @@ class m170618_045023_create_users_table extends Migration
             "tag_location" => $this->boolean(),
             "discoverability" => $this->boolean(),
             "light_mode" => $this->boolean(),
-            "status" => "ENUM('pending', 'activated', 'suspended') DEFAULT 'pending",
+            "status" => "ENUM('pending', 'activated', 'suspended') DEFAULT 'pending'",
             "created_at" => $this->timestamp()->notNull()->defaultExpression('CURRENT_TIMESTAMP'),
             "updated_at" => $this->timestamp()->notNull()->defaultExpression('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
         ]);
